@@ -1,0 +1,10 @@
+.divider {
+  @apply flex w-full flex-col;
+  &__line:nth-child(1) {
+    @apply h-[1px] w-full bg-shade-divider bg-opacity-10;
+    box-shadow: 0px -1px 0px 0px rgba(139, 138, 158, 0.25) inset;
+  }
+  &__line:nth-child(2) {
+    @apply h-[1px] w-full bg-shade-divider bg-opacity-10;
+  }
+}

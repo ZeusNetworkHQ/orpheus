@@ -1,0 +1,144 @@
+.walletSelector {
+  @apply relative z-10 flex h-full w-full flex-col;
+  &__header {
+    @apply flex items-center justify-between;
+    & span {
+      @apply font-medium;
+    }
+  }
+  &__points {
+    &__item {
+      @apply flex w-full items-center justify-between px-4 py-4;
+      &__asset {
+        @apply flex items-center space-x-2 text-lg font-medium;
+      }
+      &__value {
+        @apply font-medium text-shade-primary;
+      }
+    }
+  }
+  &__balances {
+    @apply mt-2 flex flex-col rounded-2xl border border-shade-mute border-opacity-20 bg-shade-background p-2;
+    &__header {
+      @apply rounded-lg border border-shade-mute border-opacity-15 bg-shade-card px-4 py-2 font-medium;
+    }
+    &__list {
+      @apply flex flex-col space-y-4 px-2.5 py-1.5;
+      &__title {
+        @apply font-medium text-shade-mute;
+      }
+    }
+    &__asset {
+      @apply flex items-center space-x-4;
+      &__balance {
+        @apply ml-auto flex flex-col items-end font-medium;
+      }
+      &__info {
+        @apply flex flex-col space-y-0.5 text-shade-secondary;
+        &__title {
+          @apply flex items-center space-x-2;
+          & img {
+            @apply h-[18px] w-[18px];
+          }
+          &__text {
+            @apply flex items-center space-x-1 text-lg font-semibold;
+            & svg {
+              @apply text-shade-secondary;
+            }
+          }
+        }
+        &__type {
+          @apply flex items-center space-x-2;
+          & span {
+            @apply text-sm text-shade-secondary;
+          }
+        }
+      }
+    }
+  }
+  &__networks {
+    @apply relative mt-2 flex flex-col rounded-2xl border border-shade-mute border-opacity-25 bg-shade-background;
+    &__list {
+      @apply rounded-xl;
+    }
+    &__network {
+      @apply relative transition-opacity;
+      &__header {
+        @apply flex items-center justify-between px-4 py-3 pr-3;
+        &__title {
+          @apply flex h-[40px] items-center space-x-3 text-[18px] font-medium text-shade-primary;
+        }
+        &__status {
+          @apply font-medium text-shade-secondary;
+          &__solana {
+            @apply relative;
+          }
+        }
+      }
+    }
+  }
+
+  &__hoverMenu {
+    @apply absolute bottom-[100%] right-0 z-[100] pb-1 pt-1 md:bottom-auto;
+    &__content {
+      @apply h-max w-max rounded-xl border border-shade-mute
+      border-opacity-20 bg-shade-card px-1 py-1;
+      &__item {
+        @apply flex cursor-pointer items-center space-x-3 rounded-lg px-3 py-2 text-shade-primary transition hover:bg-shade-cardLight;
+        & svg {
+          @apply text-shade-mute;
+        }
+        &:hover svg {
+          @apply text-shade-primary;
+        }
+      }
+    }
+  }
+
+  &__wallets {
+    @apply flex flex-col space-y-3 p-2.5;
+    &__wallet {
+      @apply flex items-center justify-between;
+      &__info {
+        @apply flex h-[40px] items-center space-x-3 font-medium text-shade-primary;
+      }
+    }
+  }
+}
+
+.connected {
+  @apply relative z-10 flex cursor-pointer items-center space-x-2 text-primary-apollo transition hover:text-primary-apolloHovered;
+}
+.disconnected {
+  @apply flex items-center space-x-2 text-shade-secondary;
+  & svg {
+    @apply text-shade-mute;
+  }
+}
+
+.wallet {
+  &__modal {
+    @apply flex flex-col space-y-6;
+    &__header {
+      @apply flex w-full items-center justify-between;
+      &__title {
+        @apply flex items-center space-x-3 font-medium leading-[1] text-shade-secondary;
+      }
+      &__close {
+        @apply relative z-10 h-[18px];
+      }
+    }
+    &__walletList {
+      @apply relative mt-4 flex flex-col rounded-2xl border border-shade-mute border-opacity-15 bg-shade-background p-2;
+      &__item {
+        @apply relative z-10 flex cursor-pointer items-center justify-between rounded-[8px] px-2 py-3 transition hover:bg-shade-card hover:transition;
+        &__icon {
+          @apply flex items-center space-x-3 font-medium text-shade-primary;
+        }
+        &__status {
+          @apply text-sm font-medium text-shade-mute;
+        }
+      }
+    }
+  }
+}

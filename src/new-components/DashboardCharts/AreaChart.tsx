@@ -1,0 +1,369 @@
+import classNames from "classnames";
+import {
+  scaleTime,
+  scaleLinear,
+  max,
+  line as d3_line,
+  area as d3area,
+  curveMonotoneX,
+} from "d3";
+import { CSSProperties } from "react";
+
+import { ChartDataPoint } from "@/types/chart";
+
+import { ClientTooltip, TooltipContent, TooltipTrigger } from "./ChartTooltip";
+
+export function AreaChart({
+  data,
+  theme = "primary",
+  btcPrice,
+  showHourlyTimestamps = false,
+}: {
+  data: ChartDataPoint[];
+  theme?: "primary" | "secondary";
+  btcPrice?: number;
+  showHourlyTimestamps?: boolean;
+}) {
+  const xScale = scaleTime()
+    .domain([data[0].date, data[data.length - 1].date])
+    .range([0, 100]);
+  const yScale = scaleLinear()
+    .domain([0, max(data.map((d) => d.value)) ?? 0])
+    .range([100, 0]);
+
+  const line = d3_line<(typeof data)[number]>()
+    .x((d) => xScale(d.date))
+    .y((d) => yScale(d.value))
+    .curve(curveMonotoneX);
+
+  const d = line(data);
+
+  if (!d) {
+    return null;
+  }
+
+  const area = d3area<(typeof data)[number]>()
+    .x((d) => xScale(d.date))
+    .y0(yScale(0))
+    .y1((d) => yScale(d.value))
+    .curve(curveMonotoneX);
+
+  const areaPath = area(data) ?? undefined;
+
+  const formatNumber = (value: number): string => {
+    if (value >= 1_000_000_000) {
+      return `${(value / 1_000_000_000).toFixed(1)}B`;
+    } else if (value >= 1_000_000) {
+      return `${(value / 1_000_000).toFixed(1)}M`;
+    } else if (value >= 1_000) {
+      return `${(value / 1_000).toFixed(1)}K`;
+    } else {
+      return `${value.toFixed(1)}`;
+    }
+  };
+
+  return (
+    <div
+      className="relative h-72 w-full"
+      style={
+        {
+          "--marginTop": "0px",
+          "--marginRight": "0px",
+          "--marginBottom": "42px",
+          "--marginLeft": "48px",
+        } as CSSProperties
+      }
+    >
+      {/* Y axis */}
+      <div
+        className="absolute left-2
+          translate-y-[var(--marginTop)]
+          overflow-visible
+          sm:-left-4
+          sm:h-[calc(100%-var(--marginTop)-var(--marginBottom))]
+          sm:w-[var(--marginLeft)]
+        "
+      >
+        {yScale
+          .ticks(6)
+          .map(yScale.tickFormat(6, "d"))
+          .map((value, i) => (
+            <div
+              key={i}
+              style={{
+                top: `${yScale(+value)}%`,
+                left: "0%",
+              }}
+              className="caption-caption text-sys-color-text-mute absolute w-full -translate-y-1/2 pr-2 text-right tabular-nums"
+            >
+              {formatNumber(+value)}
+            </div>
+          ))}
+      </div>
+
+      {/* Chart area */}
+      <div
+        className="absolute inset-0
+          h-[calc(100%-var(--marginTop)-var(--marginBottom))]
+          
+          w-[calc(100%-var(--marginLeft)-var(--marginRight))]
+          translate-x-[var(--marginLeft)]
+          translate-y-[var(--marginTop)]
+          overflow-visible
+        "
+      >
+        {/* Pulsating dot */}
+        <div
+          className="absolute size-2"
+          style={{
+            left: `${xScale(data[data.length - 1].date)}%`,
+            top: `${yScale(data[data.length - 1].value)}%`,
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <div
+            className={classNames(
+              "h-full w-full animate-ping rounded-full border-2",
+              theme === "primary"
+                ? "border-apollo-brand-primary-orange bg-apollo-brand-primary-orange/20"
+                : "border-apollo-brand-tertiary-orange bg-apollo-brand-tertiary-orange/20"
+            )}
+          />
+        </div>
+        <svg
+          viewBox="0 0 100 100"
+          className="h-full w-full overflow-visible"
+          preserveAspectRatio="none"
+        >
+          {/* Grid lines */}
+          {yScale
+            .ticks(8)
+            .map(yScale.tickFormat(8, "d"))
+            .map((active, i) => (
+              <g
+                transform={`translate(0,${yScale(+active)})`}
+                className="text-[#6B6B6B]/15"
+                key={i}
+              >
+                <line
+                  x1={0}
+                  x2={100}
+                  stroke="currentColor"
+                  strokeWidth={0.5}
+                  vectorEffect="non-scaling-stroke"
+                />
+              </g>
+            ))}
+
+          <path
+            d={areaPath}
+            className="text-white"
+            fill="url(#outlinedAreaGradient)"
+          />
+          <defs>
+            {/* Gradient definition */}
+            <linearGradient
+              id="outlinedAreaGradient"
+              x1="0"
+              x2="0"
+              y1="0"
+              y2="1"
+            >
+              <stop
+                offset="0%"
+                className={classNames(
+                  theme === "primary"
+                    ? "text-apollo-brand-primary-orange/20"
+                    : "text-apollo-brand-tertiary-orange/20"
+                )}
+                stopColor="currentColor"
+              />
+              <stop
+                offset="100%"
+                className={classNames(
+                  theme === "primary"
+                    ? "text-apollo-brand-primary-orange/0"
+                    : "text-apollo-brand-tertiary-orange/0"
+                )}
+                stopColor="currentColor"
+              />
+            </linearGradient>
+          </defs>
+          {/* Line */}
+          <path
+            d={d}
+            fill="none"
+            className={classNames(
+              theme === "primary"
+                ? "text-apollo-brand-primary-orange"
+                : "text-apollo-brand-tertiary-orange"
+            )}
+            stroke="currentColor"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+
+          {/* Circles and Tooltips */}
+          {data.map((d, index) => (
+            <ClientTooltip key={index}>
+              <TooltipTrigger>
+                <g className="group/tooltip">
+                  {/* Circle indicator */}
+
+                  <path
+                    d={`M ${xScale(d.date)} ${yScale(d.value)} l 0.0001 0`}
+                    className={classNames(
+                      "opacity-0 transition-opacity group-hover/tooltip:opacity-100",
+                      theme === "primary"
+                        ? "text-apollo-brand-primary-orange"
+                        : "text-apollo-brand-tertiary-orange"
+                    )}
+                    vectorEffect="non-scaling-stroke"
+                    strokeWidth="8"
+                    strokeLinecap="round"
+                    stroke="currentColor"
+                  />
+
+                  {/* Invisible area closest to a specific point for the tooltip trigger */}
+                  <rect
+                    x={(() => {
+                      const prevX =
+                        index > 0
+                          ? xScale(data[index - 1].date)
+                          : xScale(d.date);
+                      return (prevX + xScale(d.date)) / 2;
+                    })()}
+                    y={0}
+                    width={(() => {
+                      const prevX =
+                        index > 0
+                          ? xScale(data[index - 1].date)
+                          : xScale(d.date);
+                      const nextX =
+                        index < data.length - 1
+                          ? xScale(data[index + 1].date)
+                          : xScale(d.date);
+                      const leftBound = (prevX + xScale(d.date)) / 2;
+                      const rightBound = (xScale(d.date) + nextX) / 2;
+                      return rightBound - leftBound;
+                    })()}
+                    height={100}
+                    fill="transparent"
+                  />
+                </g>
+              </TooltipTrigger>
+              <TooltipContent theme={theme}>
+                <div className="text-sys-color-text-mute">
+                  {`${d.date.getFullYear()}/${String(d.date.getMonth() + 1).padStart(2, "0")}/${String(d.date.getDate()).padStart(2, "0")}`}
+                  {showHourlyTimestamps &&
+                    ` ${d.date.getHours()}:${String(d.date.getMinutes()).padStart(2, "0")}`}
+                </div>
+                <div className="flex flex-col gap-y-4">
+                  {btcPrice ? (
+                    <>
+                      <div className="flex items-center justify-between gap-x-64">
+                        <span className="text-sys-color-text-secondary">
+                          USD
+                        </span>
+                        <span className="text-sys-color-text-primary">
+                          {formatNumber(d.value)}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between gap-x-64">
+                        <span className="text-sys-color-text-secondary">
+                          BTC
+                        </span>
+                        <span className="text-sys-color-text-primary">
+                          {formatNumber(d.value / btcPrice)}
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="text-sys-color-text-primary">
+                      {d.value.toLocaleString("en-US", {
+                        maximumFractionDigits: 0,
+                      })}
+                    </div>
+                  )}
+                </div>
+              </TooltipContent>
+            </ClientTooltip>
+          ))}
+        </svg>
+
+        <div className="flex w-full translate-y-12 items-center justify-between">
+          {/* X Axis */}
+          {data.map((day, i) => {
+            const numDatesToShow = 7;
+            const interval = Math.max(
+              1,
+              Math.floor((data.length - 1) / (numDatesToShow - 1))
+            );
+
+            const indicesToShow = [0];
+            for (let j = 1; j < numDatesToShow - 1; j++) {
+              indicesToShow.push(
+                Math.min(data.length - 1, Math.round(j * interval))
+              );
+            }
+            indicesToShow.push(data.length - 1);
+
+            const shouldShow = indicesToShow.includes(i);
+
+            if (!shouldShow) return null;
+
+            const currentMonth = day.date.getMonth();
+            const isFirstMonthOccurrence = indicesToShow
+              .filter((idx) => idx < i)
+              .every((idx) => data[idx].date.getMonth() !== currentMonth);
+
+            // For hourly timestamps, check if this is the first occurrence of this day
+            const currentDay = day.date.getDate();
+            const isFirstDayOccurrence = indicesToShow
+              .filter((idx) => idx < i)
+              .every(
+                (idx) =>
+                  data[idx].date.getDate() !== currentDay ||
+                  data[idx].date.getMonth() !== currentMonth
+              );
+
+            return (
+              <div
+                key={i}
+                className={classNames(
+                  "text-sys-color-text-mute overflow-visible text-nowrap",
+                  showHourlyTimestamps && "even:hidden sm:even:block"
+                )}
+              >
+                <div
+                  style={{
+                    top: "100%",
+                  }}
+                  className="caption-caption"
+                >
+                  {showHourlyTimestamps
+                    ? isFirstDayOccurrence
+                      ? `${
+                          isFirstMonthOccurrence
+                            ? day.date.toLocaleDateString("en-US", {
+                                month: "short",
+                              }) + " "
+                            : ""
+                        }${day.date.getDate()}, ${day.date.getHours()}:00`
+                      : `${day.date.getHours()}:00`
+                    : `${
+                        isFirstMonthOccurrence
+                          ? day.date.toLocaleDateString("en-US", {
+                              month: "short",
+                            }) + " "
+                          : ""
+                      }${day.date.getDate()}`}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}

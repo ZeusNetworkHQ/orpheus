@@ -1,0 +1,122 @@
+.mint {
+  @apply mb-24 flex flex-col;
+}
+
+.mint__grid {
+  @apply flex h-max flex-col items-start gap-y-6 lg:flex-row lg:space-x-6 lg:space-y-0;
+}
+.interactionsMobileStat {
+  @apply relative order-1 flex w-full flex-shrink-0 overflow-hidden rounded-[16px] border border-shade-mute border-opacity-15 bg-shade-background lg:hidden;
+  &__background {
+    @apply absolute left-0 top-0 z-0 h-[115px] w-full;
+    background: linear-gradient(
+        180deg,
+        rgba(22, 22, 27, 0),
+        rgba(22, 22, 27, 1)
+      ),
+      url("/graphics/interactions-list-banner.webp");
+    background-repeat: no-repeat;
+    background-position: right !important;
+    background-size: cover;
+  }
+  &__header {
+    @apply relative z-10 flex items-center space-x-2 p-4;
+    & svg {
+      @apply text-primary-apollo;
+    }
+    &__title {
+      @apply font-semibold text-shade-primary;
+    }
+  }
+}
+.interactionsList {
+  @apply relative order-4 w-full overflow-hidden rounded-[25px] border border-shade-mute border-opacity-15 bg-shade-background lg:order-1 lg:w-[400px];
+  &__background {
+    @apply absolute left-0 top-0 z-0 hidden h-[115px] w-full lg:block;
+    background: linear-gradient(
+        180deg,
+        rgba(22, 22, 27, 0),
+        rgba(22, 22, 27, 1)
+      ),
+      url("/graphics/interactions-list-banner.webp");
+    background-repeat: no-repeat;
+    background-position: right !important;
+    background-size: cover;
+  }
+  &__content {
+    @apply relative z-10 flex flex-col px-2 pb-2 pt-2 lg:px-3 lg:pb-3;
+    &__header {
+      @apply hidden items-center space-x-2 pb-4 pt-3 lg:flex;
+      & svg {
+        @apply text-primary-apollo;
+      }
+      &__title {
+        @apply font-semibold text-shade-primary;
+      }
+    }
+    &__list {
+      @apply flex h-[100%] flex-col space-y-2 overflow-y-scroll;
+      &__item {
+        @apply grid cursor-pointer grid-cols-[1fr,1fr,2fr] rounded-2xl border border-shade-mute border-opacity-15 bg-shade-card p-4 text-sm text-shade-secondary transition hover:border-opacity-30 hover:text-shade-primary hover:transition;
+        box-shadow: inset 0px 2px 2px rgba(139, 138, 158, 0.1);
+        &__number {
+          @apply font-medium transition;
+        }
+        &__type {
+          @apply font-medium transition;
+        }
+        &__amount {
+          @apply flex items-center justify-center space-x-1.5;
+          & span {
+            @apply font-medium text-shade-primary;
+          }
+        }
+      }
+    }
+  }
+}
+.mintWidget {
+  @apply relative order-2 flex w-full flex-col space-y-4 md:w-[550px] lg:order-2;
+  &__card {
+    @apply scroll-mt-24;
+    &__content {
+      @apply relative z-10 flex h-full w-full flex-col;
+    }
+    @apply relative z-10 w-full space-y-6 rounded-3xl p-2 pb-2;
+    &::before {
+      background-image: linear-gradient(
+          180deg,
+          transparent,
+          rgba(255, 103, 70, 0.6)
+        ),
+        linear-gradient(90deg, #2c2c36, #2c2c36);
+    }
+    &__title {
+      @apply flex items-center space-x-1.5 px-2 pt-6 font-medium md:px-4;
+    }
+    &__actions {
+      @apply flex flex-col space-y-4 rounded-2xl border border-shade-mute border-opacity-15 bg-shade-card px-3 py-4 md:px-4 md:py-4;
+      &__item {
+        @apply flex flex-col space-y-1.5;
+        &__title {
+          @apply flex items-center justify-between font-medium text-shade-secondary;
+        }
+        &__footer {
+          @apply flex items-center justify-between font-medium text-shade-mute;
+          &__estimateUSD {
+            @apply ml-auto mr-2 flex items-center gap-2 font-medium text-shade-mute;
+          }
+          &__message {
+            @apply flex items-center space-x-1.5;
+            & svg {
+              @apply text-shade-mute;
+            }
+          }
+        }
+      }
+      &__balance {
+        @apply flex items-center space-x-2;
+      }
+    }
+  }
+}
