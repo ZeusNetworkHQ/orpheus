@@ -1,5 +1,4 @@
-import { Tooltip } from "@zeus-network/design-system/components";
-
+import Tooltip from "@/components/Tooltip";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatValue } from "@/utils/format";
 

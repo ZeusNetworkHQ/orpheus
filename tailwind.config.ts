@@ -8,7 +8,6 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/new-components/**/*.{ts,tsx}",
     "./src/stories/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@zeus-network/design-system/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/Widgets/MintWidget/**/*.{ts,tsx}",
   ],
   theme: {

@@ -1,7 +1,8 @@
-import { Icon } from "@zeus-network/design-system/components";
 import classNames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 import { createContext, useContext } from "react";
+
+import Icon from "@/components/Icons";
 
 import wrapImportant from "../wrapImportant";
 

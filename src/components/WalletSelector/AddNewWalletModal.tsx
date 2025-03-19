@@ -11,8 +11,8 @@ import { MODAL_NAMES } from "@/utils/constant";
 import { notifyError } from "@/utils/notifies";
 import { checkWalletAvailability, Wallet } from "@/utils/wallets";
 
-import ButtonLoader from "../Icons/ButtonLoader";
-import Close from "../Icons/Close";
+import ButtonLoader from "../Icons/icons/ButtonLoader";
+import Close from "../Icons/icons/Close";
 import Modal from "../Modal/Modal";
 
 import styles from "./styles.module.scss";

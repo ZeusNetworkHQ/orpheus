@@ -6,7 +6,7 @@ import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
 import useStore from "@/stores/store";
 import { MODAL_NAMES } from "@/utils/constant";
 
-import ButtonLoader from "../Icons/ButtonLoader";
+import ButtonLoader from "../Icons/icons/ButtonLoader";
 
 import styles from "./styles.module.scss";
 

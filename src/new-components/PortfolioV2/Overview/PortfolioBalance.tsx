@@ -1,6 +1,6 @@
-import { Icon } from "@zeus-network/design-system/components";
 import BigNumber from "bignumber.js";
 
+import Icon from "@/components/Icons";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatValue } from "@/utils/format";
 
@@ -28,7 +28,7 @@ const PortfolioBalance = ({
             </span>
             <div className="flex flex-col gap-y-4 md:flex-row md:items-start md:gap-x-12 md:gap-y-0">
               <div className="flex items-center gap-x-8">
-                <Icon name="zbtc" size={24 as 12 | 14 | 18} />
+                <Icon name="Zbtc" size={24 as 12 | 14 | 18} />
                 <div className="headline-headline2 text-sys-color-text-primary">
                   {totalBalance.gt(0)
                     ? formatValue(totalBalance.div(10 ** BTC_DECIMALS), 6)

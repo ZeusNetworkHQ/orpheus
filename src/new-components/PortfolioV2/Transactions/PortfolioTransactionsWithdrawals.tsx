@@ -1,18 +1,17 @@
 import { PublicKey } from "@solana/web3.js";
-import {
-  Chip,
-  Icon,
-  Table,
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableRow,
-} from "@zeus-network/design-system/components";
 import BigNumber from "bignumber.js";
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import Chip from "@/components/Chip";
+import Icon from "@/components/Icons";
+import Table, {
+  TableCell,
+  TableBody,
+  TableHeader,
+  TableRow,
+} from "@/components/Table";
 import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
 import { useFetchers } from "@/hooks/useFetchers";
 import { useNetworkConfig } from "@/hooks/useNetworkConfig";
@@ -203,7 +202,7 @@ const PortfolioTransactionsWithdrawals = ({
                     )}
                   </TableCell>
                   <TableCell
-                    leftIcon="zbtc"
+                    leftIcon="Zbtc"
                     rightIcon={!item?.is_stored ? "Lock" : undefined}
                     rightIconClassName="text-sys-color-text-mute"
                   >

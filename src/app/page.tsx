@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-import Provide from "../components/Icons/Provide";
+import Provide from "../components/Icons/icons/Provide";
 import MintWidget from "../components/Widgets/MintWidget/MintWidget";
 
 export default function Home() {

@@ -1,4 +1,4 @@
-import { IconName } from "@zeus-network/design-system/components";
+import { IconName } from "@/components/Icons/icons";
 
 export type TransactionDetailsTableItems = {
   label: {

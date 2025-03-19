@@ -12,12 +12,12 @@ import { MODAL_NAMES } from "@/utils/constant";
 import { cn } from "@/utils/misc";
 
 import Button from "../Button/Button";
-import ButtonArrow from "../Icons/ButtonArrow";
-import Network from "../Icons/Network";
-import PortfolioIcon from "../Icons/Portfolio";
-import Provide from "../Icons/Provide";
-import TickIcon from "../Icons/TickIcon";
-import Wallet from "../Icons/Wallet";
+import ButtonArrow from "../Icons/icons/ButtonArrow";
+import Network from "../Icons/icons/Network";
+import PortfolioIcon from "../Icons/icons/Portfolio";
+import Provide from "../Icons/icons/Provide";
+import TickIcon from "../Icons/icons/TickIcon";
+import Wallet from "../Icons/icons/Wallet";
 
 import styles from "./styles.module.scss";
 

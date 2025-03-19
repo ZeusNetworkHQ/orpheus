@@ -1,8 +1,8 @@
 import { captureException } from "@sentry/nextjs";
 import { PublicKey } from "@solana/web3.js";
-import { Icon } from "@zeus-network/design-system/components";
 import { useState } from "react";
 
+import Icon from "@/components/Icons";
 import Button from "@/new-components/Button/Button";
 import Modal, { ModalActions } from "@/new-components/Modal/Modal";
 import { ModalHeader } from "@/new-components/Modal/Modal";

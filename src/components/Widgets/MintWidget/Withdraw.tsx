@@ -1,8 +1,9 @@
 import { PublicKey } from "@solana/web3.js";
-import { Icon, IconName } from "@zeus-network/design-system/components";
 import BigNumber from "bignumber.js";
 import { useState } from "react";
 
+import Icon from "@/components/Icons";
+import { IconName } from "@/components/Icons/icons";
 import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
 import useHotReserveBucketsByOwner from "@/hooks/useHotReserveBucketsByOwner";
 import useTwoWayPegConfiguration from "@/hooks/useTwoWayPegConfiguration";
@@ -23,9 +24,9 @@ import { getEstimatedWithdrawalTransactionFee } from "@/utils/transaction";
 
 import Button from "../../Button/Button";
 import CryptoInput from "../../CryptoInput/CryptoInput";
-import AlertIcon from "../../Icons/Alert";
-import Wallet from "../../Icons/Wallet";
-import WalletSmallIcon from "../../Icons/WalletSmall";
+import AlertIcon from "../../Icons/icons/Alert";
+import Wallet from "../../Icons/icons/Wallet";
+import WalletSmallIcon from "../../Icons/icons/WalletSmall";
 
 import styles from "./styles.module.scss";
 

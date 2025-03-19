@@ -1,5 +1,6 @@
-import { Icon } from "@zeus-network/design-system/components";
 import classNames from "classnames";
+
+import Icon from "@/components/Icons";
 
 import { Dropdown, DropdownOption } from "../Dropdown/Dropdown";
 import wrapImportant from "../wrapImportant";

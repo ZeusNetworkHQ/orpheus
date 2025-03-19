@@ -1,7 +1,7 @@
-import { Icon } from "@zeus-network/design-system/components";
 import BigNumber from "bignumber.js";
 import { useRef, useState } from "react";
 
+import Icon from "@/components/Icons";
 import Button from "@/new-components/Button/Button";
 import { Position } from "@/types/zplClient";
 import { BTC_DECIMALS } from "@/utils/constant";
@@ -39,7 +39,7 @@ const PortfolioDetails = ({
         <div className="flex w-full flex-col justify-between gap-y-40 px-20 py-16 md:flex-row md:items-center md:gap-y-0">
           <div className="flex flex-col gap-y-4">
             <div className="flex items-center gap-x-8">
-              <Icon name="zbtc" size={24 as 12 | 14 | 18} />
+              <Icon name="Zbtc" size={24 as 12 | 14 | 18} />
               <span className="headline-headline3 text-sys-color-text-primary">
                 {zbtcBalance.gt(0)
                   ? formatValue(zbtcBalance.div(10 ** BTC_DECIMALS), 6)
@@ -72,7 +72,7 @@ const PortfolioDetails = ({
         <div className="flex flex-col justify-between gap-y-32 px-20 py-16 md:flex-row md:items-center md:gap-y-0">
           <div className="flex flex-col gap-y-8">
             <div className="flex items-center gap-x-8">
-              <Icon name="zbtc" size={24 as 12 | 14 | 18} />
+              <Icon name="Zbtc" size={24 as 12 | 14 | 18} />
               <span className="headline-headline3 text-sys-color-text-primary">
                 {zbtcBalanceInVault.gt(0)
                   ? formatValue(zbtcBalanceInVault.div(10 ** BTC_DECIMALS), 6)

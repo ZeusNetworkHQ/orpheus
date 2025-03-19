@@ -1,15 +1,13 @@
-import { Icon } from "@zeus-network/design-system/components";
 import Image from "next/image";
 import { useState } from "react";
 
+import Icon from "@/components/Icons";
 import { CryptoInputOption } from "@/types/misc";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatValue } from "@/utils/format";
 
 import Button from "../Button/Button";
-import Divider from "../Divider/Divider";
-import ErrorIcon from "../Icons/Error";
-import LockIcon from "../Icons/LockIcon";
+import Divider from "../Divider";
 
 import InputDropdown from "./Dropdown";
 import styles from "./styles.module.scss";
@@ -79,6 +77,7 @@ export default function CryptoInput({
     decimals: number
   ) => {
     let inputValue = e.target.value;
+    console.log("inputValue = ", inputValue);
 
     // Only allow non-negative numbers and decimal points
     if (/^\d*\.?\d*$/.test(inputValue)) {
@@ -99,6 +98,7 @@ export default function CryptoInput({
         handleErrorMessage?.("");
       }
 
+      console.log("inputValue after calc = ", inputValue);
       setAmount?.(inputValue);
     }
   };
@@ -124,7 +124,7 @@ export default function CryptoInput({
           <div className={styles.input__group__crypto__label}>
             <div className={styles.input__group__crypto__label__asset}>
               <div>{currentOption.label}</div>
-              {currentOption?.type === "Custodial" && <LockIcon />}
+              {currentOption?.type === "Custodial" && <Icon name="Lock" />}
             </div>
             {currentOption?.type && (
               <span className={styles.input__group__crypto__label__type}>
@@ -192,7 +192,7 @@ export default function CryptoInput({
         <div
           className={`${errorMessage && "!text-[#FF4646]"} ${styles.input__group__input__fiat}`}
         >
-          {errorMessage && <ErrorIcon />}
+          {errorMessage && <Icon name="Error" />}
           <span>{errorMessage || `~$${fiatValue} USD`}</span>
         </div>
       </div>

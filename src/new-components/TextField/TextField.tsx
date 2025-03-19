@@ -1,6 +1,8 @@
-import { Icon, Divider } from "@zeus-network/design-system/components";
 import classNames from "classnames";
 import { ReactNode } from "react";
+
+import Divider from "@/components/Divider";
+import Icon from "@/components/Icons";
 
 import wrapImportant from "../wrapImportant";
 
@@ -133,7 +135,7 @@ const TextField = ({
           {/* Footer value and invalid message */}
           {type === "amount" && (
             <>
-              <Divider type="dark" />
+              <Divider />
               <div
                 className={classNames(
                   "py-apollo-6 pr-apollo-6 flex items-center pl-16"

@@ -2,11 +2,11 @@ import { captureException } from "@sentry/nextjs";
 import { WalletSignTransactionError } from "@solana/wallet-adapter-base";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey, TransactionInstruction } from "@solana/web3.js";
-import { Icon } from "@zeus-network/design-system/components";
 import BigNumber from "bignumber.js";
 import { BN } from "bn.js";
 import { useState } from "react";
 
+import Icon from "@/components/Icons";
 import { useZplClient } from "@/contexts/ZplClientProvider";
 import useBalance from "@/hooks/useBalance";
 import { useNetworkConfig } from "@/hooks/useNetworkConfig";
@@ -222,7 +222,7 @@ export default function RedeemModal({
           >
             <div className="border-apollo-border-15 rounded-8 bg-sys-color-background-card w-[150px] flex-shrink-0 border px-12 py-16 shadow-[inset_0px_2px_2px_rgba(139,138,158,0.1)]">
               <div className="flex h-full w-full items-center space-x-8">
-                <Icon name={"zbtc"} size={18} />
+                <Icon name={"Zbtc"} size={18} />
                 <div className="flex flex-col">
                   <div className="flex items-center space-x-4">
                     <p className="headline-headline6 text-sys-color-text-primary">

@@ -1,16 +1,12 @@
-import {
-  Icon,
-  IconName,
-  Divider,
-  Table,
-  TableRow,
-  TableCell,
-  Tooltip,
-} from "@zeus-network/design-system/components";
 import classNames from "classnames";
 import Link from "next/link";
 import { Fragment, useState } from "react";
 
+import Divider from "@/components/Divider";
+import Icon from "@/components/Icons";
+import { IconName } from "@/components/Icons/icons";
+import Table, { TableCell, TableRow } from "@/components/Table";
+import Tooltip from "@/components/Tooltip";
 import Button from "@/new-components/Button/Button";
 import { Modal, ModalHeader } from "@/new-components/Modal/Modal";
 import {

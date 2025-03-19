@@ -1,9 +1,10 @@
-import { Icon } from "@zeus-network/design-system/components";
 import classNames from "classnames";
 import { AnimatePresence, motion } from "motion/react";
 import { createContext, useContext, useState, useRef, ReactNode } from "react";
 import React from "react";
 import { useOnClickOutside } from "usehooks-ts";
+
+import Icon from "@/components/Icons";
 
 import Checkbox from "../Checkbox/Checkbox";
 import wrapImportant from "../wrapImportant";

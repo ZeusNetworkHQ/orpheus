@@ -1,5 +1,7 @@
-import { Icon, IconName } from "@zeus-network/design-system/components";
 import classNames from "classnames";
+
+import Icon from "@/components/Icons";
+import { IconName } from "@/components/Icons/icons";
 
 import ButtonLoader from "../Loaders/ButtonLoader";
 import wrapImportant from "../wrapImportant";

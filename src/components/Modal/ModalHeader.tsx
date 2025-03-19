@@ -1,6 +1,6 @@
 import { cn } from "@/utils/misc";
 
-import Close from "../Icons/Close";
+import Close from "../Icons/icons/Close";
 
 interface ModalHeaderProps {
   title: string;

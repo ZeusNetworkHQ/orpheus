@@ -2,6 +2,7 @@ import { PublicKey } from "@solana/web3.js";
 import { Psbt } from "bitcoinjs-lib";
 import { useState } from "react";
 
+import Icon from "@/components/Icons";
 import useBitcoinUTXOs from "@/hooks/useBitcoinUTXOs";
 import useHotReserveBucketActions from "@/hooks/useHotReserveBucketActions";
 import useTwoWayPegConfiguration from "@/hooks/useTwoWayPegConfiguration";
@@ -16,12 +17,10 @@ import { estimateMaxSpendableAmount } from "@/utils/deposit";
 import { formatValue } from "@/utils/format";
 import { btcToSatoshi, satoshiToBtc } from "@/utils/hotReserveBucket";
 import { notifyError } from "@/utils/notifies";
-import { getEstimatedDepositTransactionFee } from "@/utils/transaction";
+import { getEstimatedLockToColdTransactionFee } from "@/utils/transaction";
 
 import Button from "../../Button/Button";
 import CryptoInput from "../../CryptoInput/CryptoInput";
-import Wallet from "../../Icons/Wallet";
-import WalletSmallIcon from "../../Icons/WalletSmall";
 
 import styles from "./styles.module.scss";
 
@@ -33,7 +32,6 @@ type DepositProps = {
   isAllConnected: boolean;
   btcPrice: number;
   cachedUtxos: UTXOs;
-  switchToWithdrawTab: () => void;
 };
 
 export default function Deposit({
@@ -82,25 +80,27 @@ export default function Deposit({
       )
   );
 
-  const estimatedDepositFeeInSatoshis =
-    getEstimatedDepositTransactionFee(feeRate);
+  const estimatedLockToColdFeeInSatoshis =
+    getEstimatedLockToColdTransactionFee(feeRate);
 
-  const estimatedDepositFeeInBtc = satoshiToBtc(estimatedDepositFeeInSatoshis);
+  const estimatedLockToColdFeeInBtc = satoshiToBtc(
+    estimatedLockToColdFeeInSatoshis
+  );
 
   const provideAmount = parseFloat(provideAmountValue) || 0;
 
-  const estimateDepositAmount = provideAmount
-    ? provideAmount - estimatedDepositFeeInBtc
-    : 0;
-
-  const estimateDepositBtcValue =
-    btcPrice && estimateDepositAmount
-      ? formatValue(estimateDepositAmount * btcPrice)
-      : formatValue(0);
-
-  const btcValue =
+  const provideValue =
     btcPrice && provideAmount
       ? formatValue(provideAmount * btcPrice)
+      : formatValue(0);
+
+  const estimateReceivedAmount = provideAmount
+    ? provideAmount - estimatedLockToColdFeeInBtc
+    : 0;
+
+  const estimateReceivedValue =
+    btcPrice && estimateReceivedAmount
+      ? formatValue(estimateReceivedAmount * btcPrice)
       : formatValue(0);
 
   const maxSpendableSatoshis = availableUTXOs
@@ -149,7 +149,7 @@ export default function Deposit({
                   styles.mintWidget__card__actions__item__footer__message
                 }
               >
-                <WalletSmallIcon />
+                <Icon name="WalletSmall" />
                 <span>Connect Bitcoin Wallet</span>
               </div>
             ) : (
@@ -165,7 +165,7 @@ export default function Deposit({
                   unavailableUtxoAmount={unavailableSatoshis}
                   isOpen={isBalanceTooltipOpen}
                 />
-                <WalletSmallIcon />
+                <Icon name="WalletSmall" />
                 <span className="text-shade-primary">
                   {formatValue(availableSatoshis / 10 ** BTC_DECIMALS, 6)}
                   <span className="text-shade-mute">Available tBTC</span>
@@ -177,13 +177,13 @@ export default function Deposit({
           <CryptoInput
             isDisabled={!isAllConnected}
             min={0.0001}
-            max={maxSpendableSatoshis}
+            max={satoshiToBtc(maxSpendableSatoshis)}
             setAmount={setProvideAmountValue}
             errorMessage={errorMessage}
             value={provideAmountValue}
             isInvalid={!!errorMessage}
             handleErrorMessage={handleErrorMessage}
-            fiatValue={btcValue}
+            fiatValue={provideValue}
             hasActions
             currentOption={{
               label: "tBTC",
@@ -198,21 +198,21 @@ export default function Deposit({
           </div>
           <CryptoInput
             isDisabled={true}
-            placeholder={estimateDepositAmount}
+            placeholder={estimateReceivedAmount}
             setAmount={setProvideAmountValue}
-            fiatValue={estimateDepositBtcValue}
+            fiatValue={estimateReceivedValue}
             currentOption={{ label: "zBTC", type: "Custodial" }}
           />
         </div>
 
         <Button
-          icon={!isAllConnected && <Wallet />}
+          icon={!isAllConnected && <Icon name="Wallet" />}
           theme="primary"
           label="Deposit"
           size="lg"
           classes="!mt-8"
           isLoading={isDepositing}
-          disabled={isAllConnected && provideAmount === 0}
+          disabled={isAllConnected && (provideAmount === 0 || !!errorMessage)}
           onClick={async () => {
             setIsDepositing(true);
             try {
@@ -259,14 +259,14 @@ export default function Deposit({
         bitcoinWallet={bitcoinWallet}
         bitcoinUTXOs={availableUTXOs}
         depositAmount={provideAmount}
-        minerFee={estimatedDepositFeeInSatoshis}
+        minerFee={estimatedLockToColdFeeInSatoshis}
         assetFrom={{
           amount: provideAmountValue,
           name: "BTC",
           isLocked: false,
         }}
         assetTo={{
-          amount: formatValue(provideAmount - estimatedDepositFeeInBtc, 6),
+          amount: formatValue(provideAmount - estimatedLockToColdFeeInBtc, 6),
           name: "zBTC",
           isLocked: true,
         }}

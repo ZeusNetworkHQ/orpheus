@@ -1,6 +1,8 @@
-import { Icon, IconName } from "@zeus-network/design-system/components";
 import classNames from "classnames";
 import { motion } from "motion/react";
+
+import Icon from "@/components/Icons";
+import { IconName } from "@/components/Icons/icons";
 
 import wrapImportant from "../wrapImportant";
 

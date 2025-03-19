@@ -1,19 +1,18 @@
 import { PublicKey } from "@solana/web3.js";
-import {
-  Chip,
-  Icon,
-  Table,
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableRow,
-} from "@zeus-network/design-system/components";
 import BigNumber from "bignumber.js";
 import { toXOnly } from "bitcoinjs-lib/src/psbt/bip371";
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import Chip from "@/components/Chip";
+import Icon from "@/components/Icons";
+import Table, {
+  TableCell,
+  TableBody,
+  TableHeader,
+  TableRow,
+} from "@/components/Table";
 import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
 import { useFetchers } from "@/hooks/useFetchers";
 import { useNetworkConfig } from "@/hooks/useNetworkConfig";
@@ -321,7 +320,7 @@ const PortfolioTransactionsHistorical = ({
                     leftIcon={
                       item.interaction_type === InteractionType.Deposit
                         ? "btc"
-                        : "zbtc"
+                        : "Zbtc"
                     }
                     rightIcon={
                       item.interaction_type === InteractionType.Withdrawal &&
@@ -338,13 +337,13 @@ const PortfolioTransactionsHistorical = ({
                     <span className="text-sys-color-text-mute">
                       {item.interaction_type === InteractionType.Deposit
                         ? "BTC"
-                        : "zBTC"}
+                        : "ZBTC"}
                     </span>
                   </TableCell>
                   <TableCell
                     leftIcon={
                       item.interaction_type === InteractionType.Deposit
-                        ? "zbtc"
+                        ? "Zbtc"
                         : "btc"
                     }
                     rightIcon={

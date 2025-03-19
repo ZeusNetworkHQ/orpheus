@@ -1,6 +1,6 @@
-import { Icon } from "@zeus-network/design-system/components";
 import { motion } from "framer-motion";
 
+import Icon from "@/components/Icons";
 import Skeleton from "@/components/Skeleton/Skeleton";
 import { ChartDataPoint } from "@/types/chart";
 import { SECONDS_PER_DAY } from "@/utils/constant";

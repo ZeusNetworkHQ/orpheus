@@ -1,6 +1,5 @@
 import { captureException } from "@sentry/nextjs";
 import { PublicKey } from "@solana/web3.js";
-import { Icon, IconName } from "@zeus-network/design-system/components";
 import { AxiosError } from "axios";
 import BigNumber from "bignumber.js";
 import * as bitcoin from "bitcoinjs-lib";
@@ -10,6 +9,8 @@ import { BN } from "bn.js";
 import classNames from "classnames";
 import { useState } from "react";
 
+import Icon from "@/components/Icons";
+import { IconName } from "@/components/Icons/icons";
 import { useZplClient } from "@/contexts/ZplClientProvider";
 import useColdReserveBuckets from "@/hooks/useColdReserveBuckets";
 import { useNetworkConfig } from "@/hooks/useNetworkConfig";

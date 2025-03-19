@@ -6,7 +6,7 @@ import usePersistentStore from "@/stores/persistentStore";
 import { LINK_TYPE } from "@/utils/constant";
 import { getSolanaExplorerUrl, handleCopy } from "@/utils/misc";
 
-import CopyIcon from "../../Icons/Copy";
+import CopyIcon from "../../Icons/icons/Copy";
 
 const DevInfoRow = ({
   value,

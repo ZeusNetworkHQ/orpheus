@@ -5,43 +5,10 @@
 .mint__grid {
   @apply flex h-max flex-col items-start gap-y-6 lg:flex-row lg:space-x-6 lg:space-y-0;
 }
-.interactionsMobileStat {
-  @apply relative order-1 flex w-full flex-shrink-0 overflow-hidden rounded-[16px] border border-shade-mute border-opacity-15 bg-shade-background lg:hidden;
-  &__background {
-    @apply absolute left-0 top-0 z-0 h-[115px] w-full;
-    background: linear-gradient(
-        180deg,
-        rgba(22, 22, 27, 0),
-        rgba(22, 22, 27, 1)
-      ),
-      url("/graphics/interactions-list-banner.webp");
-    background-repeat: no-repeat;
-    background-position: right !important;
-    background-size: cover;
-  }
-  &__header {
-    @apply relative z-10 flex items-center space-x-2 p-4;
-    & svg {
-      @apply text-primary-apollo;
-    }
-    &__title {
-      @apply font-semibold text-shade-primary;
-    }
-  }
-}
 .interactionsList {
   @apply relative order-4 w-full overflow-hidden rounded-[25px] border border-shade-mute border-opacity-15 bg-shade-background lg:order-1 lg:w-[400px];
   &__background {
     @apply absolute left-0 top-0 z-0 hidden h-[115px] w-full lg:block;
-    background: linear-gradient(
-        180deg,
-        rgba(22, 22, 27, 0),
-        rgba(22, 22, 27, 1)
-      ),
-      url("/graphics/interactions-list-banner.webp");
-    background-repeat: no-repeat;
-    background-position: right !important;
-    background-size: cover;
   }
   &__content {
     @apply relative z-10 flex flex-col px-2 pb-2 pt-2 lg:px-3 lg:pb-3;

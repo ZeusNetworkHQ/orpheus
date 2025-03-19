@@ -1,8 +1,8 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import { Icon } from "@zeus-network/design-system/components";
 import { useEffect, useState } from "react";
 
+import Icon from "@/components/Icons";
 import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
 import useHotReserveBucketActions from "@/hooks/useHotReserveBucketActions";
 import usePersistentStore from "@/stores/persistentStore";
@@ -12,7 +12,7 @@ import { MODAL_NAMES } from "@/utils/constant";
 import { shortenString } from "@/utils/format";
 
 import Button from "../Button/Button";
-import Close from "../Icons/Close";
+import Close from "../Icons/icons/Close";
 import Modal from "../Modal/Modal";
 
 function ReconnectModal() {
@@ -85,7 +85,7 @@ function ReconnectModal() {
           shown below. Please switch to that address to continue:
         </div>
         <div className="mb-6 flex items-center gap-2 text-center font-medium">
-          <Icon name="sol" />
+          <Icon name="Sol" />
           {shortenString(bucketOwner)}
         </div>
         <Button

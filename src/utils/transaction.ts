@@ -17,6 +17,12 @@ import { getSolanaExplorerUrl } from "./misc";
 export const ESTIMATED_DEPOSIT_TRANSACTION_VBYTE = 100;
 export const ESTIMATED_WITHDRAWAL_TRANSACTION_VBYTE = 40;
 
+export const getEstimatedLockToColdTransactionFee = (
+  satPerVbyte: number
+): number => {
+  return ESTIMATED_DEPOSIT_TRANSACTION_VBYTE * satPerVbyte;
+};
+
 export const getEstimatedDepositTransactionFee = (
   satPerVbyte: number
 ): number => {
@@ -393,7 +399,7 @@ export const getWithdrawalDetailsTableItems = (
           ),
           6
         )} zBTC`,
-        leftIcon: "zbtc",
+        leftIcon: "Zbtc",
       },
     },
     {

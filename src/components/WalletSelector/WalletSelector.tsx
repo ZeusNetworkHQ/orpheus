@@ -2,11 +2,6 @@
 
 import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
-import {
-  Divider,
-  Icon,
-  IconName,
-} from "@zeus-network/design-system/components";
 import BigNumber from "bignumber.js";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -27,10 +22,13 @@ import {
 import { notifyError } from "@/utils/notifies";
 
 import Button from "../Button/Button";
-import Close from "../Icons/Close";
-import CopyIcon from "../Icons/Copy";
-import DisconnectedIcon from "../Icons/Disconnected";
-import LockIcon from "../Icons/LockIcon";
+import Divider from "../Divider";
+import Icon from "../Icons";
+import { IconName } from "../Icons/icons";
+import Close from "../Icons/icons/Close";
+import CopyIcon from "../Icons/icons/Copy";
+import DisconnectedIcon from "../Icons/icons/Disconnected";
+import LockIcon from "../Icons/icons/LockIcon";
 import Modal from "../Modal/Modal";
 import Skeleton from "../Skeleton/Skeleton";
 
@@ -185,7 +183,7 @@ export default function WalletSelector() {
         </div>
         <div className={styles.walletSelector__networks}>
           <div className={styles.walletSelector__networks__list}>
-            {networks.map((network, index) => (
+            {networks.map((network) => (
               <div
                 key={network.title}
                 className={`mask-border ${styles.walletSelector__networks__network} ${showSolanaMenu && network.title === "Bitcoin" ? "opacity-60 blur-[2px]" : ""}`}
@@ -360,8 +358,8 @@ export default function WalletSelector() {
 
                 <div className="flex px-3">
                   <Divider
-                    type="dark"
-                    className={`ds ${index === 0 ? "" : "!hidden"}`}
+                  // type="dark"
+                  // className={`ds ${index === 0 ? "" : "!hidden"}`}
                   />
                 </div>
               </div>
@@ -439,7 +437,7 @@ export default function WalletSelector() {
                 {/* Btc Balance */}
                 {bitcoinWalletConnected && (
                   <>
-                    <Divider type="dark" className="ds !py-1" />
+                    <Divider />
                     {bitcoinAssetList.map((asset, index) => (
                       <div
                         key={index}

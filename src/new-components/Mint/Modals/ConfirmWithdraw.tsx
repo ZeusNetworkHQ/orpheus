@@ -3,17 +3,15 @@ import { getAccount, getAssociatedTokenAddressSync } from "@solana/spl-token";
 import { WalletSignTransactionError } from "@solana/wallet-adapter-base";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { PublicKey, TransactionInstruction } from "@solana/web3.js";
-import {
-  Icon,
-  IconName,
-  Tooltip,
-} from "@zeus-network/design-system/components";
 import BigNumber from "bignumber.js";
 import { BN } from "bn.js";
 import classNames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
+import Icon from "@/components/Icons";
+import { IconName } from "@/components/Icons/icons";
+import Tooltip from "@/components/Tooltip";
 import { useZplClient } from "@/contexts/ZplClientProvider";
 import useTwoWayPegGuardianSettings from "@/hooks/useTwoWayPegGuardianSettings";
 import Button from "@/new-components/Button/Button";

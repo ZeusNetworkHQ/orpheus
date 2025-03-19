@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { toast } from "react-toastify";
 
-import ErrorIcon from "@/components/Icons/Error";
-import InfoIcon from "@/components/Icons/Info";
-import SuccessIcon from "@/components/Icons/Success";
+import ErrorIcon from "@/components/Icons/icons/Error";
+import InfoIcon from "@/components/Icons/icons/Info";
+import SuccessIcon from "@/components/Icons/icons/Success";
 import { InteractionType } from "@/types/api";
 import { Chain } from "@/types/network";
 import { SolanaNetwork } from "@/types/store";
