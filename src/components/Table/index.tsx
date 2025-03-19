@@ -20,8 +20,6 @@ export interface TableProps {
   stickFirstItem?: boolean;
   /** Is the last item sticky */
   stickLastItem?: boolean;
-  /** Show Labels on Mobile */
-  showLabelsOnMobile?: boolean;
   /** Table Type */
   tableType?: "default" | "stacked";
   /** Table Headers */
@@ -32,22 +30,6 @@ export interface TableProps {
   width?: "auto" | "stretch";
   /** Table Variant */
   variant?: "nested" | "separated";
-  /** Show Divider on mobile */
-  showDividerOnMobile?: boolean;
-  /** Hide last divider on mobile */
-  hideLastDividerOnMobile?: boolean;
-}
-
-export interface TableHeaderProps {
-  /** Hide on mobile */
-  hideOnMobile?: boolean;
-}
-
-export interface MobileHeaderProps {
-  /** Children of MobileHeader */
-  children: React.ReactNode;
-  /** Custom classNames */
-  className?: string;
 }
 
 export interface TableBodyProps {
@@ -64,8 +46,6 @@ export interface TableRowProps {
   className?: string;
   /** Size of all cells in the row */
   size?: "small" | "medium" | "large" | "medium/16px";
-  /** Show mobile header */
-  mobileHeader?: React.ReactNode;
 }
 
 export interface TableCellProps {
@@ -91,14 +71,8 @@ export interface TableCellProps {
   rightIconOnMouseEnter?: () => void;
   /** Right Icon On Mouse Leave */
   rightIconOnMouseLeave?: () => void;
-  /** Hide on mobile */
-  hideOnMobile?: boolean;
-  /** Hide labels on mobile */
-  hideLabelOnMobile?: boolean;
   /** Children of TableCell */
   children?: React.ReactNode;
-  /** Full Width on Mobile */
-  fullWidthMobile?: boolean;
   /** Show Lock Icon */
   showLockIcon?: boolean;
 }
@@ -129,13 +103,10 @@ export const TableContext = React.createContext<{
   stickFirstItem?: boolean;
   stickLastItem?: boolean;
   tableType?: "default" | "stacked";
-  showLabelsOnMobile?: boolean;
   headers?: string[];
   headerSize?: "small" | "large";
   width?: "auto" | "stretch";
   variant?: "nested" | "separated";
-  showDividerOnMobile?: boolean;
-  hideLastDividerOnMobile?: boolean;
   isOverflowing?: boolean;
 }>({});
 
@@ -147,13 +118,10 @@ const Table = ({
   stickFirstItem,
   stickLastItem,
   tableType = "default",
-  showLabelsOnMobile = true,
   headers,
   headerSize = "small",
   width = "auto",
   variant = "nested",
-  showDividerOnMobile = false,
-  hideLastDividerOnMobile = false,
   allowOverflow = false,
 }: TableProps) => {
   const tableRef = React.useRef<HTMLDivElement>(null);
@@ -193,11 +161,8 @@ const Table = ({
       tableType,
       headers,
       headerSize,
-      showLabelsOnMobile,
       width,
       variant,
-      showDividerOnMobile,
-      hideLastDividerOnMobile,
       isOverflowing,
     }),
     [
@@ -208,10 +173,7 @@ const Table = ({
       tableType,
       headers,
       headerSize,
-      showLabelsOnMobile,
       width,
-      showDividerOnMobile,
-      hideLastDividerOnMobile,
       isOverflowing,
     ]
   );
@@ -394,12 +356,7 @@ const TableBody = ({ children, className }: TableBodyProps) => {
   );
 };
 
-const TableRow = ({
-  children,
-  className,
-  size = "small",
-  mobileHeader,
-}: TableRowProps) => {
+const TableRow = ({ children, className, size = "small" }: TableRowProps) => {
   const rowCellCount = React.Children.count(children);
 
   const {
@@ -409,11 +366,8 @@ const TableRow = ({
     stickLastItem,
     tableType,
     headers,
-    showLabelsOnMobile,
     width,
     variant,
-    showDividerOnMobile,
-    hideLastDividerOnMobile,
     isOverflowing,
   } = React.useContext(TableContext);
 
@@ -428,14 +382,10 @@ const TableRow = ({
       stickFirstItem,
       stickLastItem,
       tableType,
-      mobileHeader,
       rowCellCount,
       headers,
-      showLabelsOnMobile,
       width,
       variant,
-      showDividerOnMobile,
-      hideLastDividerOnMobile,
       isOverflowing,
     }),
     [
@@ -445,14 +395,10 @@ const TableRow = ({
       stickFirstItem,
       stickLastItem,
       tableType,
-      mobileHeader,
       rowCellCount,
       headers,
-      showLabelsOnMobile,
       width,
       variant,
-      showDividerOnMobile,
-      hideLastDividerOnMobile,
       isOverflowing,
     ]
   );
@@ -490,50 +436,13 @@ const TableRow = ({
           gridTemplateColumns: `${getGridTemplateColumns(validatedColumnSizes)}`,
         }}
       >
-        {tableType === "stacked" && mobileHeader && (
-          <header className="w-full md:hidden">{mobileHeader}</header>
-        )}
-
         {React.Children.map(children, (child, index) => {
-          const isHiddenOnMobile = (child as React.ReactElement).props
-            .hideOnMobile;
           return (
-            <>
-              {React.cloneElement(child as React.ReactElement, { index })}
-              {showDividerOnMobile &&
-                tableType === "stacked" &&
-                !isHiddenOnMobile && (
-                  <>
-                    {hideLastDividerOnMobile && index !== rowCellCount - 2 && (
-                      <span className="w-full last-of-type:hidden md:hidden">
-                        <Divider />
-                      </span>
-                    )}
-                    {!hideLastDividerOnMobile && (
-                      <span className="w-full last-of-type:hidden md:hidden">
-                        <Divider />
-                      </span>
-                    )}
-                  </>
-                )}
-            </>
+            <>{React.cloneElement(child as React.ReactElement, { index })}</>
           );
         })}
       </div>
     </TableContext.Provider>
-  );
-};
-
-const MobileHeader = ({ children, className }: MobileHeaderProps) => {
-  return (
-    <div
-      className={classNames(
-        "rounded-12 text-sys-color-text-secondary bg-sys-color-background-card body-body2-medium flex w-full items-center justify-between px-12 py-8 md:hidden md:py-12",
-        className
-      )}
-    >
-      {children}
-    </div>
   );
 };
 
@@ -546,11 +455,8 @@ const TableCell = ({
   rightIcon,
   rightIconSize = 18,
   rightIconClassName,
-  hideOnMobile,
   index,
   children,
-  hideLabelOnMobile,
-  fullWidthMobile,
   showLockIcon,
   rightIconOnClick,
   rightIconOnMouseEnter,
@@ -562,7 +468,6 @@ const TableCell = ({
     stickFirstItem,
     stickLastItem,
     tableType,
-    showLabelsOnMobile,
     headers,
     variant,
     isOverflowing,
@@ -593,15 +498,8 @@ const TableCell = ({
 
           // Stacked Table Styling Separated
           "p-12": variant === "separated" && tableType === "stacked",
-
-          // Stacked Table Alignment for odd rows
-          "[&:nth-child(odd_of_:not(.hidden))]:justify-end md:[&:nth-child(odd_of_:not(.hidden))]:justify-start":
-            tableType === "stacked" && !showLabelsOnMobile,
-          "w-[50%] after:hidden md:w-full md:after:block":
-            tableType === "stacked" && !showLabelsOnMobile,
           "w-full justify-between after:hidden md:after:block":
-            tableType === "stacked" && showLabelsOnMobile,
-          "hidden md:flex": hideOnMobile && tableType === "stacked",
+            tableType === "stacked",
 
           // Sticky First and Last Styling
           "first-of-type:before:bg-sys-color-background-light md:first-of-type:bg-sys-color-background-light after:hidden first-of-type:left-8 first-of-type:z-10 first-of-type:before:absolute first-of-type:before:-left-8 first-of-type:before:top-0 first-of-type:before:hidden first-of-type:before:h-full first-of-type:before:w-8 first-of-type:after:absolute first-of-type:after:-right-20 first-of-type:after:top-0 first-of-type:after:h-full first-of-type:after:w-20 first-of-type:after:bg-gradient-to-r first-of-type:after:from-[#11111160] first-of-type:after:to-transparent md:after:block md:first-of-type:sticky md:first-of-type:before:block md:first-of-type:after:content-['']":
@@ -623,18 +521,15 @@ const TableCell = ({
         className
       )}
     >
-      {showLabelsOnMobile &&
-        !hideLabelOnMobile &&
-        tableType === "stacked" &&
-        headers && (
-          <span className="text-sys-color-text-mute md:hidden">
-            {index !== undefined && headers[index]}
-          </span>
-        )}
+      {tableType === "stacked" && headers && (
+        <span className="text-sys-color-text-mute md:hidden">
+          {index !== undefined && headers[index]}
+        </span>
+      )}
       <div
         className={classNames(
           "gap-x-apollo-6 flex items-center md:w-full",
-          fullWidthMobile && "!w-full"
+          "!w-full"
         )}
       >
         {leftIcon && (
@@ -694,4 +589,4 @@ const TableCell = ({
 };
 
 export default Table;
-export { TableHeader, TableBody, TableRow, TableCell, MobileHeader };
+export { TableHeader, TableBody, TableRow, TableCell };

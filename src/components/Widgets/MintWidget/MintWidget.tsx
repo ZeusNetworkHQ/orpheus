@@ -116,9 +116,6 @@ export default function MintWidget() {
                   }}
                   btcPrice={btcPrice}
                   cachedUtxos={cachedUtxos}
-                  switchToWithdrawTab={() => {
-                    handleTabClick("withdraw");
-                  }}
                 />
               )}
               {activeTab === 1 &&

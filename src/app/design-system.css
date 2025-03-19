@@ -917,10 +917,6 @@ video {
   height: calc(100% - var(--marginTop) - var(--marginBottom));
 }
 
-.ds :is(.h-\[calc\(100\%-var\(--marginTop\)-var\(--marginBottomMobile\)\)\]) {
-  height: calc(100% - var(--marginTop) - var(--marginBottomMobile));
-}
-
 .ds :is(.h-\[calc\(150px-24px\)\]) {
   height: calc(150px - 24px);
 }
@@ -1041,10 +1037,6 @@ video {
 
 .ds :is(.w-\[calc\(100\%-var\(--marginLeft\)-var\(--marginRight\)\)\]) {
   width: calc(100% - var(--marginLeft) - var(--marginRight));
-}
-
-.ds :is(.w-\[var\(--marginLeftMobile\)\]) {
-  width: var(--marginLeftMobile);
 }
 
 .ds :is(.w-auto) {
