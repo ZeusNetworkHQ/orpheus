@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@bitcoinerlab/secp256k1": "^1.1.1",
-    "@cloudflare/next-on-pages": "^1.13.2",
+    "@cloudflare/next-on-pages": "^1.13.10",
     "@coral-xyz/borsh": "^0.30.1",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
