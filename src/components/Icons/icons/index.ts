@@ -4,6 +4,7 @@ import ButtonArrowIcon from "./ButtonArrow";
 import ButtonLoaderIcon from "./ButtonLoader";
 import ChevronDownIcon from "./ChevronDown";
 import ChevronDownSmallIcon from "./ChevronDownSmall";
+import ClockIcon from "./Clock";
 import CloseIcon from "./Close";
 import CloseCircleIcon from "./CloseCircle";
 import CopyIcon from "./Copy";
@@ -24,6 +25,7 @@ import NetworkIcon from "./Network";
 import NewWindowIcon from "./NewWindow";
 import NoteSmallIcon from "./NoteSmall";
 import PortfolioIcon from "./Portfolio";
+import ProcessingIcon from "./Processing";
 import ProvideIcon from "./Provide";
 import RightIcon from "./Right";
 import SolIcon from "./Sol";
@@ -46,6 +48,7 @@ export const IconComponents = {
   btc: BtcIcon,
   ChevronDown: ChevronDownIcon,
   ChevronDownSmall: ChevronDownSmallIcon,
+  Clock: ClockIcon,
   Close: CloseIcon,
   CloseCircle: CloseCircleIcon,
   Copy: CopyIcon,
@@ -66,6 +69,7 @@ export const IconComponents = {
   NewWindow: NewWindowIcon,
   NoteSmall: NoteSmallIcon,
   Portfolio: PortfolioIcon,
+  Processing: ProcessingIcon,
   Provide: ProvideIcon,
   Right: RightIcon,
   Stake: StakeIcon,
