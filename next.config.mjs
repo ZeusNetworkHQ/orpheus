@@ -114,26 +114,6 @@ const nextConfig = async () => {
     devnetConnection
   );
 
-  // Mainnet
-  const mainnetConnection = new Connection(
-    process.env.SOLANA_MAINNET_RPC ?? "https://api.mainnet-beta.solana.com"
-  );
-  const mainnetBootstrapperProgramId =
-    process.env.NEXT_PUBLIC_MAINNET_BOOTSTRAPPER_PROGRAM_ID;
-
-  const {
-    twoWayPegProgramId: mainnetTwoWayPegProgramId,
-    liquidityManagementProgramId: mainnetLiquidityManagementProgramId,
-    delegatorProgramId: mainnetDelegatorProgramId,
-    layerCaProgramId: mainnetLayerCaProgramId,
-    bitcoinSpvProgramId: mainnetBitcoinSpvProgramId,
-  } = await getZplProgramIds(mainnetBootstrapperProgramId, mainnetConnection);
-
-  const mainnetAssetMint = await getAssetMint(
-    process.env.NEXT_PUBLIC_MAINNET_TWO_WAY_PEG_GUARDIAN_SETTING,
-    mainnetConnection
-  );
-
   return {
     ...config,
     env: {
@@ -146,15 +126,6 @@ const nextConfig = async () => {
       NEXT_PUBLIC_DEVNET_BITCOIN_SPV_PROGRAM_ID: devnetBitcoinSpvProgramId,
       NEXT_PUBLIC_REGTEST_ASSET_MINT: regtestAssetMint,
       NEXT_PUBLIC_TESTNET_ASSET_MINT: testnetAssetMint,
-
-      NEXT_PUBLIC_MAINNET_BOOSTRAPPER_PROGRAM_ID: mainnetBootstrapperProgramId,
-      NEXT_PUBLIC_MAINNET_LIQUIDITY_MANAGEMENT_PROGRAM_ID:
-        mainnetLiquidityManagementProgramId,
-      NEXT_PUBLIC_MAINNET_DELEGATOR_PROGRAM_ID: mainnetDelegatorProgramId,
-      NEXT_PUBLIC_MAINNET_TWO_WAY_PEG_PROGRAM_ID: mainnetTwoWayPegProgramId,
-      NEXT_PUBLIC_MAINNET_LAYER_CA_PROGRAM_ID: mainnetLayerCaProgramId,
-      NEXT_PUBLIC_MAINNET_BITCOIN_SPV_PROGRAM_ID: mainnetBitcoinSpvProgramId,
-      NEXT_PUBLIC_MAINNET_ASSET_MINT: mainnetAssetMint,
     },
   };
 };
