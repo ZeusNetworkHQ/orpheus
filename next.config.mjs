@@ -64,22 +64,6 @@ const nextConfig = async () => {
       missingSuspenseWithCSRBailout: false,
     },
     reactStrictMode: false,
-    async redirects() {
-      return [
-        {
-          source: "/:path*",
-          has: [
-            {
-              type: "header",
-              key: "host",
-              value: process.env.OLD_DOMAIN,
-            },
-          ],
-          destination: "https://" + process.env.NEW_DOMAIN + "/:path*",
-          permanent: true,
-        },
-      ];
-    },
     webpack: function (config, options) {
       if (options.nextRuntime === "edge") {
         config.resolve.fallback = {
