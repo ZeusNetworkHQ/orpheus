@@ -11,9 +11,7 @@
     "format": "prettier --check \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json,scss}\"",
     "format:fix": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json,scss}\"",
     "prepare": "husky && husky install",
-    "spell-check": "cspell \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json,scss}\"",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "spell-check": "cspell \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json,scss}\""
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -84,18 +82,10 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^3.2.4",
     "@cloudflare/workers-types": "^4.20240903.0",
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@next/eslint-plugin-next": "^14.2.3",
-    "@storybook/addon-essentials": "^8.5.3",
-    "@storybook/addon-interactions": "^8.5.3",
-    "@storybook/addon-onboarding": "^8.5.3",
-    "@storybook/blocks": "^8.5.3",
-    "@storybook/nextjs": "^8.5.3",
-    "@storybook/react": "^8.5.3",
-    "@storybook/test": "^8.5.3",
     "@tailwindcss/typography": "^0.5.13",
     "@types/bn.js": "^5.1.5",
     "@types/bs58": "^4.0.4",
@@ -111,12 +101,10 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-storybook": "^0.11.2",
     "husky": "^8.0.0",
     "lint-staged": "^15.2.8",
     "postcss": "^8",
     "prettier-plugin-tailwindcss": "^0.5.14",
-    "storybook": "^8.5.3",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
