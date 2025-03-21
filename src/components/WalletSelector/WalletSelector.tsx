@@ -303,7 +303,7 @@ export default function WalletSelector() {
                                 src={
                                   connector
                                     ? connector.metadata.icon
-                                    : solanaWallet?.adapter.icon ?? ""
+                                    : (solanaWallet?.adapter.icon ?? "")
                                 }
                                 alt="wallet icon"
                                 width={16}
