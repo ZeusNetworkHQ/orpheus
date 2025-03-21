@@ -1,12 +1,14 @@
-import { forwardRef } from "react";
-
 /* eslint-disable react/display-name */
-const wrapImportant = <P,>(Component: React.ComponentType<P>) => {
-  const WrappedComponent = forwardRef<unknown, P>((props, ref) => (
+type CommonProps = React.HTMLAttributes<HTMLElement>;
+
+const wrapImportant = <P extends object>(
+  Component: React.ComponentType<P & CommonProps>
+) => {
+  const WrappedComponent = (props: P & CommonProps) => (
     <div className="ds contents">
-      <Component {...props} ref={ref} />
+      <Component {...props} />
     </div>
-  ));
+  );
 
   WrappedComponent.displayName = `${Component.displayName || Component.name || "Component"}`;
 
