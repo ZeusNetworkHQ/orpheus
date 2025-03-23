@@ -214,3 +214,11 @@ export const transactionSchema = z.object({
 export const zbtcMintedDialogSchema = z.object({
   lastReceivedTime: z.number(),
 });
+
+export const claimTBTCSchema = z.object({
+  address: z.string(),
+  balance: z.number(),
+  remainingClaimCounts: z.number(),
+});
+
+export type ClaimTBTC = z.infer<typeof claimTBTCSchema>;

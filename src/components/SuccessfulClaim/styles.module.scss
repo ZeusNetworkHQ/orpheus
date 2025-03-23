@@ -1,0 +1,24 @@
+.successfulClaim {
+  @apply relative flex h-full w-full flex-col items-center justify-center space-y-4 text-center;
+  &__title {
+    @apply text-lg font-medium text-shade-secondary;
+  }
+  &__close {
+    @apply absolute right-5 top-6 z-10 cursor-pointer transition ease-in hover:text-shade-primary;
+  }
+  &__subtitle {
+    @apply flex items-center space-x-2.5;
+    & img {
+      @apply h-[24px] w-[24px];
+    }
+    &__value {
+      @apply text-5xl font-semibold text-shade-primary;
+    }
+    & span {
+      @apply text-xl text-shade-mute;
+    }
+  }
+  &__footer {
+    @apply w-full;
+  }
+}

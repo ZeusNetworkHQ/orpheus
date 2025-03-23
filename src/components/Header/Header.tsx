@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
+import Icon from "@/components/Icons";
 import { PortfolioDropdown } from "@/components/PortfolioV2/PortfolioDropdown";
 import useStore from "@/stores/store";
 import { MODAL_NAMES } from "@/utils/constant";
@@ -71,6 +72,13 @@ export default function Header() {
                 <PortfolioIcon />
                 <span>Portfolio</span>
                 <PortfolioDropdown isOpen={isPortfolioMenuOpen} />
+              </Link>
+              <Link
+                href="/claim"
+                className={`${styles.nav__icon} ${pathname === "/claim" ? styles.activeLink : ""}`}
+              >
+                <Icon name="Claim" />
+                <span>Claim</span>
               </Link>
               <Link
                 href="/dashboard"

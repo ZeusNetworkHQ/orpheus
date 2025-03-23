@@ -4,6 +4,7 @@ import ButtonArrowIcon from "./ButtonArrow";
 import ButtonLoaderIcon from "./ButtonLoader";
 import ChevronDownIcon from "./ChevronDown";
 import ChevronDownSmallIcon from "./ChevronDownSmall";
+import ClaimIcon from "./Claim";
 import ClockIcon from "./Clock";
 import CloseIcon from "./Close";
 import CloseCircleIcon from "./CloseCircle";
@@ -48,6 +49,7 @@ export const IconComponents = {
   btc: BtcIcon,
   ChevronDown: ChevronDownIcon,
   ChevronDownSmall: ChevronDownSmallIcon,
+  Claim: ClaimIcon,
   Clock: ClockIcon,
   Close: CloseIcon,
   CloseCircle: CloseCircleIcon,
