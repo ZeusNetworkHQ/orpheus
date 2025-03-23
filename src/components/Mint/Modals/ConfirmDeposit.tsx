@@ -12,7 +12,11 @@ import { useState } from "react";
 import Button from "@/components/Button/Button";
 import Icon from "@/components/Icons";
 import { IconName } from "@/components/Icons/icons";
-import { Modal, ModalActions, ModalHeader } from "@/components/ModalB/Modal";
+import {
+  Modal,
+  ModalActions,
+  ModalHeader,
+} from "@/components/ShadcnModal/Modal";
 import { useZplClient } from "@/contexts/ZplClientProvider";
 import useColdReserveBuckets from "@/hooks/useColdReserveBuckets";
 import { useNetworkConfig } from "@/hooks/useNetworkConfig";

@@ -1,6 +1,5 @@
 "use client";
 
-import ReceivedZBTCModal from "@/components/Mint/Modals/ReceivedZBTC";
 import useStore from "@/stores/store";
 
 import DevInfoModal from "../DevInfo/DevInfoModal";
@@ -21,7 +20,6 @@ export default function GlobalModals() {
       <BitcoinAddressNotMatchedModal />
       <DevInfoModal />
       <ReconnectModal />
-      <ReceivedZBTCModal />
     </>
   );
 }

@@ -46,13 +46,6 @@ export interface ModalHeaderProps {
   hideCloseButton?: boolean;
 }
 
-export interface ModalBodyProps {
-  /** Children */
-  children: React.ReactNode;
-  /** Custom ClassName */
-  className?: string;
-}
-
 export interface ModalActionsProps {
   /** Children */
   children: React.ReactNode;
@@ -200,26 +193,6 @@ const ModalHeader = ({
   );
 };
 
-const ModalBody = ({ children, className }: ModalBodyProps) => {
-  const { type } = useContext(ModalContext);
-  return (
-    <div
-      className={classNames(
-        "text-sys-color-text-secondary paragraph-paragraph1 relative z-10 flex flex-col items-center justify-center text-center",
-        // Default Styles
-        type === "default" && "pb-24 pt-8 sm:pt-16",
-        // Emphasized Styles
-        type === "emphasized" && "pb-32 pt-8 sm:pt-16",
-        // Binary Styles
-        type === "binary" && "pb-24 pt-8 sm:pt-12",
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
-};
-
 const ModalActions = ({
   children,
   annotation,
@@ -249,13 +222,11 @@ const ModalActions = ({
 
 const WrappedModal = wrapImportant(Modal);
 const WrappedModalHeader = wrapImportant(ModalHeader);
-const WrappedModalBody = wrapImportant(ModalBody);
 const WrappedModalActions = wrapImportant(ModalActions);
 
 export {
   WrappedModal as Modal,
   WrappedModalHeader as ModalHeader,
-  WrappedModalBody as ModalBody,
   WrappedModalActions as ModalActions,
 };
 

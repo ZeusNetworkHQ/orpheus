@@ -24,7 +24,7 @@ import { notifyError } from "@/utils/notifies";
 import Divider from "../Divider";
 import Icon from "../Icons";
 import { IconName } from "../Icons/icons";
-import Modal from "../ModalA/Modal";
+import Modal from "../Modal/Modal";
 import Skeleton from "../Skeleton/Skeleton";
 import Button from "../WalletButton/Button";
 

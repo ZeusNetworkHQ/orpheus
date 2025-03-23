@@ -8,8 +8,8 @@ import { useState } from "react";
 
 import Button from "@/components/Button/Button";
 import Icon from "@/components/Icons";
-import { ModalActions, ModalHeader } from "@/components/ModalB/Modal";
-import Modal from "@/components/ModalB/Modal";
+import { ModalActions, ModalHeader } from "@/components/ShadcnModal/Modal";
+import Modal from "@/components/ShadcnModal/Modal";
 import TextField from "@/components/TextField/TextField";
 import { useZplClient } from "@/contexts/ZplClientProvider";
 import useBalance from "@/hooks/useBalance";

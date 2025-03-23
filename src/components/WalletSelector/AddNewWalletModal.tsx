@@ -13,7 +13,7 @@ import { checkWalletAvailability, Wallet } from "@/utils/wallets";
 
 import Icon from "../Icons";
 import ButtonLoader from "../Icons/icons/ButtonLoader";
-import Modal from "../ModalA/Modal";
+import Modal from "../Modal/Modal";
 
 import styles from "./styles.module.scss";
 

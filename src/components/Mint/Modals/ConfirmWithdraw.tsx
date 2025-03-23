@@ -14,7 +14,11 @@ import Checkbox from "@/components/Checkbox/Checkbox";
 import { Dropdown, DropdownOption } from "@/components/Dropdown/Dropdown";
 import Icon from "@/components/Icons";
 import { IconName } from "@/components/Icons/icons";
-import { Modal, ModalActions, ModalHeader } from "@/components/ModalB/Modal";
+import {
+  Modal,
+  ModalActions,
+  ModalHeader,
+} from "@/components/ShadcnModal/Modal";
 import Tooltip from "@/components/Tooltip";
 import { useZplClient } from "@/contexts/ZplClientProvider";
 import useTwoWayPegGuardianSettings from "@/hooks/useTwoWayPegGuardianSettings";

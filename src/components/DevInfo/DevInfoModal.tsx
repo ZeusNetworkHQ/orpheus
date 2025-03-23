@@ -18,7 +18,7 @@ import {
 import { formatValue } from "@/utils/format";
 
 import Divider from "../Divider";
-import Modal from "../ModalA/Modal";
+import Modal from "../Modal/Modal";
 import Tabs from "../Widgets/Tabs/Tabs";
 
 import DevInfoRow from "./subComponents/DevInfoRow";

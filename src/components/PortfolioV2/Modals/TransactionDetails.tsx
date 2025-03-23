@@ -6,7 +6,7 @@ import Button from "@/components/Button/Button";
 import Divider from "@/components/Divider";
 import Icon from "@/components/Icons";
 import { IconName } from "@/components/Icons/icons";
-import { Modal, ModalHeader } from "@/components/ModalB/Modal";
+import { Modal, ModalHeader } from "@/components/ShadcnModal/Modal";
 import Table, { TableCell, TableRow } from "@/components/Table";
 import Tooltip from "@/components/Tooltip";
 import {

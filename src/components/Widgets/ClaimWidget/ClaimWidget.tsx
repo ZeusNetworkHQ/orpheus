@@ -4,7 +4,6 @@ import BigNumber from "bignumber.js";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
-import SuccessfulClaim from "@/components/SuccessfulClaim/SuccessfulClaim";
 import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
 import { useFetchers } from "@/hooks/useFetchers";
 import usePersistentStore from "@/stores/persistentStore";
@@ -14,6 +13,8 @@ import { createAxiosInstances } from "@/utils/axios";
 import { MODAL_NAMES } from "@/utils/constant";
 import { satoshiToBtc } from "@/utils/hotReserveBucket";
 import { notifyError } from "@/utils/notifies";
+
+import SuccessfulClaim from "../../SuccessfulClaim/SuccessfulClaim";
 
 import styles from "./styles.module.scss";
 import CardActionsFooter from "./SubComponents/CardActionsFooter";

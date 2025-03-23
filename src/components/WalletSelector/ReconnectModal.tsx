@@ -11,7 +11,7 @@ import { CheckBucketResult } from "@/types/misc";
 import { MODAL_NAMES } from "@/utils/constant";
 import { shortenString } from "@/utils/format";
 
-import Modal from "../ModalA/Modal";
+import Modal from "../Modal/Modal";
 import Button from "../WalletButton/Button";
 
 function ReconnectModal() {

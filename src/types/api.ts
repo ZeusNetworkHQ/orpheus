@@ -210,11 +210,6 @@ export const transactionSchema = z.object({
   blocktime: z.number().nullable(),
 });
 
-// aegle API
-export const zbtcMintedDialogSchema = z.object({
-  lastReceivedTime: z.number(),
-});
-
 export const claimTBTCSchema = z.object({
   address: z.string(),
   balance: z.number(),

@@ -4,8 +4,8 @@ import { useState } from "react";
 
 import Button from "@/components/Button/Button";
 import Icon from "@/components/Icons";
-import Modal, { ModalActions } from "@/components/ModalB/Modal";
-import { ModalHeader } from "@/components/ModalB/Modal";
+import Modal, { ModalActions } from "@/components/ShadcnModal/Modal";
+import { ModalHeader } from "@/components/ShadcnModal/Modal";
 import { BitcoinWallet } from "@/types/wallet";
 import { shortenString } from "@/utils/format";
 import { notifyError } from "@/utils/notifies";

@@ -7,7 +7,7 @@ import useStore from "@/stores/store";
 import { MODAL_NAMES } from "@/utils/constant";
 
 import Icon from "../Icons";
-import Modal from "../ModalA/Modal";
+import Modal from "../Modal/Modal";
 import Button from "../WalletButton/Button";
 
 import styles from "./styles.module.scss";
