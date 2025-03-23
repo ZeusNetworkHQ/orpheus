@@ -19,7 +19,7 @@ import { formatValue } from "@/utils/format";
 import Divider from "../Divider";
 import Close from "../Icons/icons/Close";
 import DevInfoIcon from "../Icons/icons/DevInfo";
-import Modal from "../Modal/Modal";
+import Modal from "../ModalA/Modal";
 import Tabs from "../Widgets/Tabs/Tabs";
 
 import DevInfoRow from "./subComponents/DevInfoRow";

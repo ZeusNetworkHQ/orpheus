@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-import Tabs from "@/new-components/Tabs/Tabs";
+import Tabs from "@/components/Tabs/Tabs";
 
 import PortfolioTransactionsDeposits from "./PortfolioTransactionsDeposits";
 import PortfolioTransactionsHistorical from "./PortfolioTransactionsHistorical";

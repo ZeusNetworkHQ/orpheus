@@ -1,194 +1,91 @@
-import { useWallet } from "@solana/wallet-adapter-react";
-import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import { useState } from "react";
+import classNames from "classnames";
 
-import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
-import useStore from "@/stores/store";
-import { MODAL_NAMES } from "@/utils/constant";
+import Icon from "@/components/Icons";
+import { IconName } from "@/components/Icons/icons";
 
-import ButtonLoader from "../Icons/icons/ButtonLoader";
+import ButtonLoader from "../Loaders/ButtonLoader";
+import wrapImportant from "../wrapImportant";
 
-import styles from "./styles.module.scss";
-
-const getDisplayLabel = ({
-  label,
-  solanaWalletRequired,
-  bitcoinWalletRequired,
-  solanaWalletConnected,
-  bitcoinWalletConnected,
-}: {
-  label?: string;
-  solanaWalletRequired?: boolean;
-  bitcoinWalletRequired?: boolean;
-  solanaWalletConnected: boolean;
-  bitcoinWalletConnected: boolean;
-}) => {
-  if (!solanaWalletRequired) return label;
-
-  if (!solanaWalletConnected) {
-    return "Connect Wallet";
-  }
-
-  if (solanaWalletConnected && !bitcoinWalletRequired) {
-    return label;
-  }
-
-  if (
-    solanaWalletConnected &&
-    bitcoinWalletRequired &&
-    !bitcoinWalletConnected
-  ) {
-    return "Connect Bitcoin Wallet";
-  }
-
-  return label;
-};
-
-type ButtonProps = {
-  size?: "xs" | "sm" | "md" | "lg" | "badge" | "none";
-  theme?: "primary" | "secondary" | "label" | "connected";
-  onClick?: () => void;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-  label?: string;
-  icon?: React.ReactNode;
-  iconSize?: 16 | 18;
+export interface ButtonProps {
+  /** Button Label */
+  label: string;
+  /** Button Type */
+  type: "primary" | "secondary";
+  /** Button Size */
+  size?: "small" | "medium" | "large";
+  /** Button Icon */
+  icon?: IconName;
+  /** Button Icon Position */
   iconPosition?: "left" | "right";
-  hoveredIcon?: React.ReactNode;
-  classes?: string;
-  isLoading?: boolean;
+  /** Button On Click */
+  onClick?: () => void;
+  /** Button Disabled */
   disabled?: boolean;
-  solanaWalletRequired?: boolean;
-  bitcoinWalletRequired?: boolean;
-  truncateText?: boolean;
-  style?: React.CSSProperties;
-};
+  /** Hide Label */
+  hideLabel?: boolean;
+  /** Custom ClassNames */
+  className?: string;
+  /** Is Loading */
+  isLoading?: boolean;
+}
 
-export default function Button({
-  size = "md",
-  theme,
-  onClick,
-  onMouseEnter,
-  onMouseLeave,
+const Button = ({
   label,
+  type,
+  size = "medium",
   icon,
   iconPosition = "left",
-  iconSize = 18,
-  hoveredIcon,
-  classes,
-  isLoading,
+  onClick,
   disabled,
-  solanaWalletRequired,
-  bitcoinWalletRequired,
-  truncateText,
-  style,
-}: ButtonProps) {
-  const openModalByName = useStore((state) => state.openModalByName);
-  const { connected: solanaWalletConnected } = useWallet();
-  const { setVisible: setShowSolanaModal } = useWalletModal();
-  const { connected: bitcoinWalletConnected } = useBitcoinWallet();
-  const [prevSolanaWalletConnected, setPrevSolanaWalletConnected] = useState(
-    solanaWalletConnected
-  );
-  const [prevBitcoinWalletConnected, setPrevBitcoinWalletConnected] = useState(
-    bitcoinWalletConnected
-  );
-
-  const [displayLabel, setDisplayLabel] = useState(() =>
-    getDisplayLabel({
-      label,
-      solanaWalletRequired,
-      bitcoinWalletRequired,
-      solanaWalletConnected,
-      bitcoinWalletConnected,
-    })
-  );
-
-  const buttonClasses = `
-    ${classes ?? ""}
-    ${disabled ? styles["btn--disabled"] : ""}
-    ${styles.btn}
-    ${styles[`btn--${size}`]}
-    ${styles[`btn--${theme}`]}
-    ${hoveredIcon ? styles["btn--animated"] : ""}
-    ${isLoading ? styles["btn--loading"] : ""}
-    mask-border
-  `;
-
-  const handleClick = () => {
-    if (solanaWalletRequired && !solanaWalletConnected) {
-      setShowSolanaModal(true);
-    } else if (
-      solanaWalletConnected &&
-      bitcoinWalletRequired &&
-      !bitcoinWalletConnected
-    ) {
-      openModalByName(MODAL_NAMES.ADD_NEW_WALLET);
-    } else if (onClick) {
-      onClick();
-    }
-  };
-
-  if (
-    prevSolanaWalletConnected !== solanaWalletConnected ||
-    prevBitcoinWalletConnected !== bitcoinWalletConnected
-  ) {
-    setPrevSolanaWalletConnected(solanaWalletConnected);
-    setPrevBitcoinWalletConnected(bitcoinWalletConnected);
-    setDisplayLabel(
-      getDisplayLabel({
-        label,
-        solanaWalletRequired,
-        bitcoinWalletRequired,
-        solanaWalletConnected,
-        bitcoinWalletConnected,
-      })
-    );
-  }
-
+  hideLabel,
+  className,
+  isLoading = false,
+}: ButtonProps) => {
   return (
     <button
-      className={buttonClasses}
-      onClick={handleClick}
       disabled={disabled}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      style={style}
+      aria-label={label}
+      onClick={onClick}
+      type="button"
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          onClick?.();
+        }
+      }}
+      className={classNames(
+        "gradient-border body-body1-medium before:gradient-border-b relative flex items-center justify-center gap-x-8 transition duration-200 ease-in-out",
+        {
+          // Primary Styles
+          "bg-apollo-brand-primary-orange text-ref-palette-grey-60a shadow-[0px_6px_12px_rgba(255,118,88,0.2),inset_0px_2px_6px_#FF9A84] before:from-white/40 before:content-[''] enabled:hover:shadow-[0px_8px_12px_rgba(255,118,88,0.2),inset_0px_2px_6px_#FF9A84] disabled:opacity-40":
+            type === "primary",
+
+          // Secondary Styles
+          "bg-sys-color-card-light text-sys-color-text-primary before:from-sys-color-text-mute/40 before:via-apollo-border-15 before:to-apollo-border-15 shadow-[inset_0px_-4px_4px_rgba(139,138,158,0.12)] enabled:hover:shadow-[inset_0px_-4px_8px_rgba(139,138,158,0.2),inset_0px_-4px_4px_rgba(139,138,158,0.12)] disabled:opacity-40":
+            type === "secondary",
+          "!text-sys-color-text-secondary enabled:hover:!text-sys-color-text-primary":
+            type === "secondary" && hideLabel,
+
+          // Sizes
+          "py-apollo-6 rounded-[10px] px-12": size === "small",
+          "rounded-[10px] px-12 py-8": size === "medium",
+          "rounded-12 px-20 py-12": size === "large",
+          "h-[40px] w-[40px] !rounded-[10px] !p-0": hideLabel,
+
+          // Custom ClassName
+        },
+        className
+      )}
     >
-      {!isLoading ? (
-        <div className={styles.btn__content}>
-          {icon && iconPosition === "left" && (
-            <span
-              className={styles.btn__icon}
-              style={{ width: iconSize, height: iconSize }}
-            >
-              {icon}
-            </span>
-          )}
-          {displayLabel && (
-            <span
-              className={`${styles.btn__label} ${truncateText && "max-w-[80%] truncate"}`}
-            >
-              {displayLabel}
-            </span>
-          )}
-          {hoveredIcon && (
-            <span className={styles.btn__animated__icon}>{hoveredIcon}</span>
-          )}
-          {icon && iconPosition === "right" && (
-            <span
-              className={styles.btn__icon}
-              style={{ width: iconSize, height: iconSize }}
-            >
-              {icon}
-            </span>
-          )}
-        </div>
-      ) : (
-        <div className={styles.btn__content}>
-          <ButtonLoader />
-        </div>
+      {isLoading && <ButtonLoader />}
+      {!isLoading && icon && iconPosition === "left" && (
+        <Icon name={icon} size={18} />
+      )}
+      {!isLoading && !hideLabel && <span>{label}</span>}
+      {!isLoading && icon && iconPosition === "right" && (
+        <Icon name={icon} size={18} />
       )}
     </button>
   );
-}
+};
+
+export default wrapImportant(Button);

@@ -1,5 +1,5 @@
 .modal {
-  @apply absolute z-20 flex h-full w-full items-center justify-center;
+  @apply absolute z-30 flex h-full w-full items-center justify-center;
   &:has(&__card__drawer) {
     @apply items-end;
   }

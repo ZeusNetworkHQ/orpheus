@@ -9,14 +9,14 @@ import { BN } from "bn.js";
 import classNames from "classnames";
 import { useState } from "react";
 
+import Button from "@/components/Button/Button";
 import Icon from "@/components/Icons";
 import { IconName } from "@/components/Icons/icons";
+import { Modal, ModalActions, ModalHeader } from "@/components/ModalB/Modal";
 import { useZplClient } from "@/contexts/ZplClientProvider";
 import useColdReserveBuckets from "@/hooks/useColdReserveBuckets";
 import { useNetworkConfig } from "@/hooks/useNetworkConfig";
 import useTwoWayPegConfiguration from "@/hooks/useTwoWayPegConfiguration";
-import Button from "@/new-components/Button/Button";
-import { Modal, ModalActions, ModalHeader } from "@/new-components/Modal/Modal";
 import usePersistentStore from "@/stores/persistentStore";
 import useStore from "@/stores/store";
 import {

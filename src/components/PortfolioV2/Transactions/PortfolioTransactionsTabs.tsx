@@ -1,4 +1,4 @@
-import Tabs from "@/new-components/Tabs/Tabs";
+import Tabs from "@/components/Tabs/Tabs";
 
 const PortfolioTransactionsTabs = ({
   activeTab,

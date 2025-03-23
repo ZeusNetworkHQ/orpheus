@@ -5,8 +5,11 @@ import classNames from "classnames";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import Button from "@/components/Button/Button";
 import Chip from "@/components/Chip";
+import { Dropdown, DropdownOption } from "@/components/Dropdown/Dropdown";
 import Icon from "@/components/Icons";
+import Pagination from "@/components/Pagination/Pagination";
 import Table, {
   TableCell,
   TableBody,
@@ -17,9 +20,6 @@ import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
 import { useFetchers } from "@/hooks/useFetchers";
 import { useNetworkConfig } from "@/hooks/useNetworkConfig";
 import useTransactions from "@/hooks/useTransactions";
-import Button from "@/new-components/Button/Button";
-import { Dropdown, DropdownOption } from "@/new-components/Dropdown/Dropdown";
-import Pagination from "@/new-components/Pagination/Pagination";
 import usePersistentStore from "@/stores/persistentStore";
 import {
   InteractionType,

@@ -21,7 +21,6 @@ import {
 } from "@/utils/format";
 import { notifyError } from "@/utils/notifies";
 
-import Button from "../Button/Button";
 import Divider from "../Divider";
 import Icon from "../Icons";
 import { IconName } from "../Icons/icons";
@@ -29,8 +28,9 @@ import Close from "../Icons/icons/Close";
 import CopyIcon from "../Icons/icons/Copy";
 import DisconnectedIcon from "../Icons/icons/Disconnected";
 import LockIcon from "../Icons/icons/LockIcon";
-import Modal from "../Modal/Modal";
+import Modal from "../ModalA/Modal";
 import Skeleton from "../Skeleton/Skeleton";
+import Button from "../WalletButton/Button";
 
 import styles from "./styles.module.scss";
 

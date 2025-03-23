@@ -3,12 +3,12 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
+import DashboardCharts from "@/components/DashboardCharts";
+import Tabs from "@/components/Tabs/Tabs";
 import useDashboardCharts from "@/hooks/useDashboardCharts";
 import useDashboardStats from "@/hooks/useDashboardStats";
 import usePrice from "@/hooks/usePrice";
 import useTwoWayPegGuardianSettings from "@/hooks/useTwoWayPegGuardianSettings";
-import DashboardCharts from "@/new-components/DashboardCharts";
-import Tabs from "@/new-components/Tabs/Tabs";
 import { ChartDataPoint } from "@/types/chart";
 import { fillChartData } from "@/utils/chart";
 import { BTC_DECIMALS } from "@/utils/constant";

@@ -4,7 +4,7 @@ import Icon from "@/components/Icons";
 import { IconName } from "@/components/Icons/icons";
 import { CryptoInputOption } from "@/types/misc";
 
-import Modal from "../Modal/Modal";
+import Modal from "../ModalA/Modal";
 
 import styles from "./styles.module.scss";
 

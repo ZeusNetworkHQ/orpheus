@@ -4,7 +4,7 @@ import useStore from "@/stores/store";
 import { MODAL_NAMES } from "@/utils/constant";
 
 import packageJson from "../../../package.json";
-import Button from "../Button/Button";
+import Button from "../WalletButton/Button";
 
 import styles from "./styles.module.scss";
 

@@ -6,8 +6,8 @@ import { CryptoInputOption } from "@/types/misc";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatValue } from "@/utils/format";
 
-import Button from "../Button/Button";
 import Divider from "../Divider";
+import Button from "../WalletButton/Button";
 
 import InputDropdown from "./Dropdown";
 import styles from "./styles.module.scss";

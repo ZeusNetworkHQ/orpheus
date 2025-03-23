@@ -3,12 +3,12 @@ import { Psbt } from "bitcoinjs-lib";
 import { useState } from "react";
 
 import Icon from "@/components/Icons";
+import { DepositTooltip } from "@/components/Mint/DepositTooltip/DepositTooltip";
+import AccountProcess from "@/components/Mint/Modals/AccountProcess";
+import ConfirmDepositModal from "@/components/Mint/Modals/ConfirmDeposit";
 import useBitcoinUTXOs from "@/hooks/useBitcoinUTXOs";
 import useHotReserveBucketActions from "@/hooks/useHotReserveBucketActions";
 import useTwoWayPegConfiguration from "@/hooks/useTwoWayPegConfiguration";
-import { DepositTooltip } from "@/new-components/Mint/DepositTooltip/DepositTooltip";
-import AccountProcess from "@/new-components/Mint/Modals/AccountProcess";
-import ConfirmDepositModal from "@/new-components/Mint/Modals/ConfirmDeposit";
 import { UTXOs } from "@/types/api";
 import { CheckBucketResult } from "@/types/misc";
 import { BitcoinWallet } from "@/types/wallet";
@@ -19,8 +19,8 @@ import { btcToSatoshi, satoshiToBtc } from "@/utils/hotReserveBucket";
 import { notifyError } from "@/utils/notifies";
 import { getEstimatedLockToColdTransactionFee } from "@/utils/transaction";
 
-import Button from "../../Button/Button";
 import CryptoInput from "../../CryptoInput/CryptoInput";
+import Button from "../../WalletButton/Button";
 
 import styles from "./styles.module.scss";
 

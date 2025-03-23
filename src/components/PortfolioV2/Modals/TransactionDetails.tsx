@@ -2,13 +2,13 @@ import classNames from "classnames";
 import Link from "next/link";
 import { Fragment, useState } from "react";
 
+import Button from "@/components/Button/Button";
 import Divider from "@/components/Divider";
 import Icon from "@/components/Icons";
 import { IconName } from "@/components/Icons/icons";
+import { Modal, ModalHeader } from "@/components/ModalB/Modal";
 import Table, { TableCell, TableRow } from "@/components/Table";
 import Tooltip from "@/components/Tooltip";
-import Button from "@/new-components/Button/Button";
-import { Modal, ModalHeader } from "@/new-components/Modal/Modal";
 import {
   TransactionDetailsAsset,
   TransactionDetailsStatusItems,

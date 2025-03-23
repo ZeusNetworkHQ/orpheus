@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 
-import PortfolioTransactions from "@/new-components/PortfolioV2/Transactions/PortfolioTransactions";
+import PortfolioTransactions from "@/components/PortfolioV2/Transactions/PortfolioTransactions";
 
 export default function PortfolioTransactionsPage() {
   return (

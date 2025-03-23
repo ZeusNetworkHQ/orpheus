@@ -2,10 +2,10 @@ import { captureException } from "@sentry/nextjs";
 import { PublicKey } from "@solana/web3.js";
 import { useState } from "react";
 
+import Button from "@/components/Button/Button";
 import Icon from "@/components/Icons";
-import Button from "@/new-components/Button/Button";
-import Modal, { ModalActions } from "@/new-components/Modal/Modal";
-import { ModalHeader } from "@/new-components/Modal/Modal";
+import Modal, { ModalActions } from "@/components/ModalB/Modal";
+import { ModalHeader } from "@/components/ModalB/Modal";
 import { BitcoinWallet } from "@/types/wallet";
 import { shortenString } from "@/utils/format";
 import { notifyError } from "@/utils/notifies";

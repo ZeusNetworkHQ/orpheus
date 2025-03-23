@@ -4,10 +4,10 @@ import { useState } from "react";
 
 import Icon from "@/components/Icons";
 import { IconName } from "@/components/Icons/icons";
+import ConfirmWithdraw from "@/components/Mint/Modals/ConfirmWithdraw";
 import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
 import useHotReserveBucketsByOwner from "@/hooks/useHotReserveBucketsByOwner";
 import useTwoWayPegConfiguration from "@/hooks/useTwoWayPegConfiguration";
-import ConfirmWithdraw from "@/new-components/Mint/Modals/ConfirmWithdraw";
 import usePersistentStore from "@/stores/persistentStore";
 import useStore from "@/stores/store";
 import { CryptoInputOption } from "@/types/misc";
@@ -22,11 +22,11 @@ import {
 import { formatValue } from "@/utils/format";
 import { getEstimatedWithdrawalTransactionFee } from "@/utils/transaction";
 
-import Button from "../../Button/Button";
 import CryptoInput from "../../CryptoInput/CryptoInput";
 import AlertIcon from "../../Icons/icons/Alert";
 import Wallet from "../../Icons/icons/Wallet";
 import WalletSmallIcon from "../../Icons/icons/WalletSmall";
+import Button from "../../WalletButton/Button";
 
 import styles from "./styles.module.scss";
 

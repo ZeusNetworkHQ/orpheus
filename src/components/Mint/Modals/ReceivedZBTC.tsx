@@ -1,5 +1,5 @@
+import { Modal, ModalBody, ModalHeader } from "@/components/ModalB/Modal";
 import useZbtcMintedDialog from "@/hooks/useZbtcMintedDialog";
-import { Modal, ModalBody, ModalHeader } from "@/new-components/Modal/Modal";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatValue } from "@/utils/format";
 

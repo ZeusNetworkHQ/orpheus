@@ -4,7 +4,6 @@ const config = {
   darkMode: ["class"],
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   content: [
-    "./src/new-components/**/*.{ts,tsx}",
     "./src/app/portfolio/**/*.{ts,tsx}",
     "./src/stories/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/Widgets/MintWidget/**/*.{ts,tsx}",

@@ -1,6 +1,14 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useDragControls,
+  MotionProps,
+  PanInfo,
+} from "framer-motion";
+import { useState } from "react";
+import { useWindowSize } from "usehooks-ts";
 
 import styles from "./styles.module.scss";
 
@@ -45,6 +53,37 @@ export default function Modal({
   className,
   cardClasses,
 }: ModalProps) {
+  const dragControls = useDragControls();
+  const [initialHeight, setInitialHeight] = useState(0);
+  const { width: windowWidth } = useWindowSize();
+  const isMobile = windowWidth < 768;
+
+  const handleDragStart = (
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ) => {
+    setInitialHeight(info.point.y);
+  };
+  const handleDragEnd = (
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ) => {
+    if (info.point.y - initialHeight > 150) {
+      onClose?.();
+    }
+  };
+
+  const attributes: Partial<MotionProps> =
+    isMobile && isDrawer
+      ? {
+          onDragStart: handleDragStart,
+          dragControls: dragControls,
+          drag: "y",
+          onDragEnd: handleDragEnd,
+          dragConstraints: { top: 0, bottom: 0 },
+        }
+      : {};
+
   return (
     <AnimatePresence>
       {isOpen ? (
@@ -58,7 +97,12 @@ export default function Modal({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           exit={
-            isDrawer ? { opacity: 0, y: animateFrom === "top" ? -5 : 5 } : {}
+            isDrawer
+              ? { opacity: 0, y: animateFrom === "top" ? -5 : 5 }
+              : {
+                  opacity: 0,
+                  transition: { duration: 0.1, ease: "easeOut" },
+                }
           }
         >
           {hideBackdrop || (
@@ -71,6 +115,7 @@ export default function Modal({
             ></motion.div>
           )}
           <motion.div
+            {...attributes}
             style={
               {
                 "--top": topPosition,

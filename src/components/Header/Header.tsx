@@ -6,18 +6,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-import { PortfolioDropdown } from "@/new-components/PortfolioV2/PortfolioDropdown";
+import { PortfolioDropdown } from "@/components/PortfolioV2/PortfolioDropdown";
 import useStore from "@/stores/store";
 import { MODAL_NAMES } from "@/utils/constant";
 import { cn } from "@/utils/misc";
 
-import Button from "../Button/Button";
 import ButtonArrow from "../Icons/icons/ButtonArrow";
 import Network from "../Icons/icons/Network";
 import PortfolioIcon from "../Icons/icons/Portfolio";
 import Provide from "../Icons/icons/Provide";
 import TickIcon from "../Icons/icons/TickIcon";
 import Wallet from "../Icons/icons/Wallet";
+import Button from "../WalletButton/Button";
 
 import styles from "./styles.module.scss";
 

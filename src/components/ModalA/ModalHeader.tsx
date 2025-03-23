@@ -1,6 +1,5 @@
+import Icon from "@/components/Icons";
 import { cn } from "@/utils/misc";
-
-import Close from "../Icons/icons/Close";
 
 interface ModalHeaderProps {
   title: string;
@@ -20,7 +19,7 @@ export default function ModalHeader({
         onClick={onBtnClick}
         className="h-[18px] w-[18px] cursor-pointer text-shade-mute hover:text-shade-primary"
       >
-        <Close />
+        <Icon name="Close" />
       </div>
     </div>
   );

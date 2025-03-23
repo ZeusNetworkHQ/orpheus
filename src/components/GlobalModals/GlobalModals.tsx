@@ -1,6 +1,6 @@
 "use client";
 
-import ReceivedZBTCModal from "@/new-components/Mint/Modals/ReceivedZBTC";
+import ReceivedZBTCModal from "@/components/Mint/Modals/ReceivedZBTC";
 import useStore from "@/stores/store";
 
 import DevInfoModal from "../DevInfo/DevInfoModal";

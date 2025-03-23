@@ -11,9 +11,9 @@ import { CheckBucketResult } from "@/types/misc";
 import { MODAL_NAMES } from "@/utils/constant";
 import { shortenString } from "@/utils/format";
 
-import Button from "../Button/Button";
 import Close from "../Icons/icons/Close";
-import Modal from "../Modal/Modal";
+import Modal from "../ModalA/Modal";
+import Button from "../WalletButton/Button";
 
 function ReconnectModal() {
   const currentModal = useStore((state) => state.currentModal);

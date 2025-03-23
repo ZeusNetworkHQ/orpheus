@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-import PortfolioOverview from "@/new-components/PortfolioV2/Overview/PortfolioOverview";
+import PortfolioOverview from "@/components/PortfolioV2/Overview/PortfolioOverview";
 
 export default function PortfolioPage() {
   return (

@@ -1,9 +1,9 @@
 import useStore from "@/stores/store";
 import { MODAL_NAMES } from "@/utils/constant";
 
-import Button from "../Button/Button";
 import Close from "../Icons/icons/Close";
-import Modal from "../Modal/Modal";
+import Modal from "../ModalA/Modal";
+import Button from "../WalletButton/Button";
 
 import styles from "./styles.module.scss";
 

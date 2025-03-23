@@ -1,8 +1,8 @@
 import BigNumber from "bignumber.js";
 import { useRef, useState } from "react";
 
+import Button from "@/components/Button/Button";
 import Icon from "@/components/Icons";
-import Button from "@/new-components/Button/Button";
 import { Position } from "@/types/zplClient";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatValue } from "@/utils/format";
