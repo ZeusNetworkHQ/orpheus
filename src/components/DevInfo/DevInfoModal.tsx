@@ -17,12 +17,12 @@ import {
 import { formatValue } from "@/utils/format";
 
 import Divider from "../Divider";
-import Close from "../Icons/icons/Close";
-import DevInfoIcon from "../Icons/icons/DevInfo";
 import Modal from "../ModalA/Modal";
 import Tabs from "../Widgets/Tabs/Tabs";
 
 import DevInfoRow from "./subComponents/DevInfoRow";
+
+import Icon from "@/components/Icon";
 
 const getNetworkLabel = (
   networkType: BitcoinNetwork | SolanaNetwork,
@@ -201,7 +201,7 @@ export default function DevInfoModal() {
     >
       <div className="flex items-center justify-between pb-5 pl-2 pr-1">
         <div className="flex items-center space-x-2">
-          <DevInfoIcon />
+          <Icon name="DevInfo" />
           <div className="font-semibold text-shade-secondary">Dev Info</div>
         </div>
         <div>
@@ -209,7 +209,7 @@ export default function DevInfoModal() {
             onClick={closeModal}
             className="relative h-[18px] w-[18px] cursor-pointer hover:text-shade-primary"
           >
-            <Close />
+            <Icon name="Close" />
           </div>
         </div>
       </div>

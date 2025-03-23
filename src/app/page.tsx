@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 
-import Provide from "../components/Icons/icons/Provide";
+import Icon from "@/components/Icons";
+
 import MintWidget from "../components/Widgets/MintWidget/MintWidget";
 
 export default function Home() {
@@ -13,7 +14,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
-        <Provide />
+        <Icon name="Provide" />
         <span>Mint</span>
       </motion.div>
       <div className="page-widget lg:!-mt-6">

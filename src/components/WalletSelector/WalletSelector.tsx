@@ -24,10 +24,6 @@ import { notifyError } from "@/utils/notifies";
 import Divider from "../Divider";
 import Icon from "../Icons";
 import { IconName } from "../Icons/icons";
-import Close from "../Icons/icons/Close";
-import CopyIcon from "../Icons/icons/Copy";
-import DisconnectedIcon from "../Icons/icons/Disconnected";
-import LockIcon from "../Icons/icons/LockIcon";
 import Modal from "../ModalA/Modal";
 import Skeleton from "../Skeleton/Skeleton";
 import Button from "../WalletButton/Button";
@@ -178,7 +174,7 @@ export default function WalletSelector() {
             }}
             className="h-[18px] w-[18px] cursor-pointer hover:text-shade-primary"
           >
-            <Close />
+            <Icon name="Close" />
           </div>
         </div>
         <div className={styles.walletSelector__networks}>
@@ -251,7 +247,7 @@ export default function WalletSelector() {
                                 }
                                 onClick={() => handleCopySolanaAddress()}
                               >
-                                <CopyIcon />
+                                <Icon name="Copy" />
                                 <span className="font-medium">
                                   Copy Address
                                 </span>
@@ -262,7 +258,7 @@ export default function WalletSelector() {
                                 }
                                 onClick={handleDisconnectSolanaWallet}
                               >
-                                <DisconnectedIcon />
+                                <Icon name="Disconnected" />
                                 <span>Disconnect</span>
                               </div>
                             </div>
@@ -331,7 +327,7 @@ export default function WalletSelector() {
                                 }
                                 onClick={() => handleCopyBitcoinAddress()}
                               >
-                                <CopyIcon />
+                                <Icon name="Copy" />
                                 <span className="font-medium">
                                   Copy Address
                                 </span>
@@ -345,7 +341,7 @@ export default function WalletSelector() {
                                   setShowBitcoinMenu(false);
                                 }}
                               >
-                                <DisconnectedIcon />
+                                <Icon name="Disconnected" />
                                 <span>Disconnect</span>
                               </div>
                             </div>
@@ -406,7 +402,7 @@ export default function WalletSelector() {
                                   styles.walletSelector__balances__asset__info__type
                                 }
                               >
-                                <LockIcon />
+                                <Icon name="Lock" />
                               </div>
                             )}
                           </div>
@@ -473,7 +469,7 @@ export default function WalletSelector() {
                                       styles.walletSelector__balances__asset__info__type
                                     }
                                   >
-                                    <LockIcon />
+                                    <Icon name="Lock" />
                                   </div>
                                 )}
                               </div>

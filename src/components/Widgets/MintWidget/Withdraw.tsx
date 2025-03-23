@@ -23,9 +23,6 @@ import { formatValue } from "@/utils/format";
 import { getEstimatedWithdrawalTransactionFee } from "@/utils/transaction";
 
 import CryptoInput from "../../CryptoInput/CryptoInput";
-import AlertIcon from "../../Icons/icons/Alert";
-import Wallet from "../../Icons/icons/Wallet";
-import WalletSmallIcon from "../../Icons/icons/WalletSmall";
 import Button from "../../WalletButton/Button";
 
 import styles from "./styles.module.scss";
@@ -172,7 +169,7 @@ export default function Withdraw({
                   styles.mintWidget__card__actions__item__footer__message
                 }
               >
-                <WalletSmallIcon />
+                <Icon name="WalletSmall" />
                 <span>Connect Wallet</span>
               </div>
             ) : (
@@ -181,7 +178,7 @@ export default function Withdraw({
                   styles.mintWidget__card__actions__item__footer__message
                 }
               >
-                <WalletSmallIcon />
+                <Icon name="WalletSmall" />
                 <span className="text-shade-primary">
                   {currentBalance ? formatValue(currentBalance, 6) : "0"}
                   <span className="text-shade-mute">
@@ -227,7 +224,7 @@ export default function Withdraw({
           />
         </div>
         <Button
-          icon={!solanaWalletConnected && <Wallet />}
+          icon={!solanaWalletConnected && <Icon name="Wallet" />}
           theme="primary"
           label={"Withdraw"}
           size="lg"
@@ -243,7 +240,7 @@ export default function Withdraw({
           solanaWalletRequired={true}
         />
         <div className="flex justify-center space-x-2 py-2 text-center text-primary-apollo sm:items-center">
-          <AlertIcon />
+          <Icon name="Alert" />
           <span className="-mt-1 font-medium text-shade-secondary sm:mt-0">
             The withdrawal process takes about 24 hours
           </span>

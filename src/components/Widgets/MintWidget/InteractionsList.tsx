@@ -2,7 +2,7 @@ import BigNumber from "bignumber.js";
 import Image from "next/image";
 import Link from "next/link";
 
-import InteractionsIcon from "@/components/Icons/icons/InteractionsIcon";
+import Icon from "@/components/Icons";
 import useInteractionsList from "@/hooks/useInteractionsList";
 import usePersistentStore from "@/stores/persistentStore";
 import { InteractionType } from "@/types/api";
@@ -22,7 +22,7 @@ const InteractionsList = () => {
       <div className={styles.interactionsList__background}></div>
       <div className={styles.interactionsList__content}>
         <div className={styles.interactionsList__content__header}>
-          <InteractionsIcon />
+          <Icon name="Interaction" />
           <div className={styles.interactionsList__content__header__title}>
             Total {interactionsData?.totalInteractions} Interactions
           </div>

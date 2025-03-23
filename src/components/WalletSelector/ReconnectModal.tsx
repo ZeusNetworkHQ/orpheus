@@ -11,7 +11,6 @@ import { CheckBucketResult } from "@/types/misc";
 import { MODAL_NAMES } from "@/utils/constant";
 import { shortenString } from "@/utils/format";
 
-import Close from "../Icons/icons/Close";
 import Modal from "../ModalA/Modal";
 import Button from "../WalletButton/Button";
 
@@ -73,7 +72,7 @@ function ReconnectModal() {
           onClick={handleCloseModal}
           className="absolute right-0 top-0 h-[18px] w-[18px] cursor-pointer hover:text-shade-primary"
         >
-          <Close />
+          <Icon name="Close" />
         </div>
       </div>
       <div className="flex flex-col items-center">

@@ -1,7 +1,7 @@
+import Icon from "@/components/Icons";
 import useStore from "@/stores/store";
 import { MODAL_NAMES } from "@/utils/constant";
 
-import Close from "../Icons/icons/Close";
 import Modal from "../ModalA/Modal";
 import Button from "../WalletButton/Button";
 
@@ -29,7 +29,7 @@ export default function BitcoinAddressNotMatchedModal() {
 
         <div className={styles.wallet__modal__header__close}>
           <button onClick={() => openModalByName(MODAL_NAMES.ADD_NEW_WALLET)}>
-            <Close />
+            <Icon name="Close" />
           </button>
         </div>
       </div>

@@ -11,8 +11,8 @@ import { MODAL_NAMES } from "@/utils/constant";
 import { notifyError } from "@/utils/notifies";
 import { checkWalletAvailability, Wallet } from "@/utils/wallets";
 
+import Icon from "../Icons";
 import ButtonLoader from "../Icons/icons/ButtonLoader";
-import Close from "../Icons/icons/Close";
 import Modal from "../ModalA/Modal";
 
 import styles from "./styles.module.scss";
@@ -178,7 +178,7 @@ export default function AddNewWalletModal() {
         </div>
         <div className={styles.wallet__modal__header__close}>
           <button onClick={closeModal}>
-            <Close />
+            <Icon name="Close" />
           </button>
         </div>
       </div>

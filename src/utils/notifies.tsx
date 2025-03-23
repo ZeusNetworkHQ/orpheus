@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { toast } from "react-toastify";
 
-import ErrorIcon from "@/components/Icons/icons/Error";
-import InfoIcon from "@/components/Icons/icons/Info";
-import SuccessIcon from "@/components/Icons/icons/Success";
+import Icon from "@/components/Icons";
 import { InteractionType } from "@/types/api";
 import { Chain } from "@/types/network";
 import { SolanaNetwork } from "@/types/store";
@@ -22,7 +20,7 @@ const TxSuccessMsg = ({
   return (
     <div className="toast">
       <div className="toast-header">
-        <SuccessIcon />
+        <Icon name="Success" />
         <span>Success</span>
       </div>
       {txId && solanaNetwork ? (
@@ -59,7 +57,7 @@ const TxFailMsg = ({ chain }: { chain: Chain }) => {
   return (
     <div className="toast">
       <div className="toast-header">
-        <ErrorIcon />
+        <Icon name="Error" />
         <span>An Error Occurred</span>
       </div>
       <div className="toast-message">
@@ -97,7 +95,7 @@ const notifySuccess = (message: string) => {
   toast.success(
     <div className="toast">
       <div className="toast-header">
-        <SuccessIcon />
+        <Icon name="Success" />
         <span>Success</span>
       </div>
       <div className="toast-message">{message}</div>
@@ -110,7 +108,7 @@ const notifyError = (message: string) => {
   toast.error(
     <div className="toast">
       <div className="toast-header">
-        <ErrorIcon />
+        <Icon name="Error" />
         <span>An Error Occurred</span>
       </div>
       <div className="toast-message">{message}</div>
@@ -123,7 +121,7 @@ const notifyInfo = (message: string) => {
   toast.info(
     <div className="toast">
       <div className="toast-header">
-        <InfoIcon />
+        <Icon name="Info" />
         <span>Info</span>
       </div>
       <div className="toast-message">{message}</div>

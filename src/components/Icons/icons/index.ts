@@ -11,6 +11,7 @@ import CloseCircleIcon from "./CloseCircle";
 import CopyIcon from "./Copy";
 import DevInfoIcon from "./DevInfo";
 import DiscordIcon from "./Disconnected";
+import DisconnectedIcon from "./Disconnected";
 import DoubleRightIcon from "./DoubleRight";
 import DropdownSmallIcon from "./DropdownSmall";
 import ErrorIcon from "./Error";
@@ -56,6 +57,7 @@ export const IconComponents = {
   Copy: CopyIcon,
   DevInfo: DevInfoIcon,
   Discord: DiscordIcon,
+  Disconnected: DisconnectedIcon,
   DoubleRight: DoubleRightIcon,
   DropdownSmall: DropdownSmallIcon,
   Error: ErrorIcon,

@@ -12,12 +12,6 @@ import useStore from "@/stores/store";
 import { MODAL_NAMES } from "@/utils/constant";
 import { cn } from "@/utils/misc";
 
-import ButtonArrow from "../Icons/icons/ButtonArrow";
-import Network from "../Icons/icons/Network";
-import PortfolioIcon from "../Icons/icons/Portfolio";
-import Provide from "../Icons/icons/Provide";
-import TickIcon from "../Icons/icons/TickIcon";
-import Wallet from "../Icons/icons/Wallet";
 import Button from "../WalletButton/Button";
 
 import styles from "./styles.module.scss";
@@ -56,7 +50,7 @@ export default function Header() {
                 href={"/"}
                 className={`${styles.nav__icon} ${pathname === "/" ? styles.activeLink : ""}`}
               >
-                <Provide />
+                <Icon name="Provide" />
                 <span>Mint</span>
               </Link>
               <Link
@@ -69,7 +63,7 @@ export default function Header() {
                   setIsPortfolioMenuOpen(false);
                 }}
               >
-                <PortfolioIcon />
+                <Icon name="Portfolio" />
                 <span>Portfolio</span>
                 <PortfolioDropdown isOpen={isPortfolioMenuOpen} />
               </Link>
@@ -84,7 +78,7 @@ export default function Header() {
                 href="/dashboard"
                 className={`${styles.nav__icon} ${pathname === "/dashboard" ? styles.activeLink : ""} `}
               >
-                <Network />
+                <Icon name="Network" />
                 <span>Dashboard</span>
               </Link>
             </div>
@@ -93,8 +87,14 @@ export default function Header() {
             <Button
               theme={!solanaWalletConnected ? "primary" : "connected"}
               label="Connected"
-              icon={!solanaWalletConnected ? <Wallet /> : <TickIcon />}
-              hoveredIcon={<ButtonArrow />}
+              icon={
+                !solanaWalletConnected ? (
+                  <Icon name="Wallet" />
+                ) : (
+                  <Icon name="Tick" />
+                )
+              }
+              hoveredIcon={<Icon name="ButtonArrow" />}
               iconPosition="left"
               onClick={() => {
                 openModalByName(MODAL_NAMES.WALLET_SELECTOR);
