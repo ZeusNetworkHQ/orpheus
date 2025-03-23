@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import Icon from "@/components/Icons";
 import { useNetworkConfig } from "@/hooks/useNetworkConfig";
 import usePrice from "@/hooks/usePrice";
 import useSolanaData from "@/hooks/useSolanaData";
@@ -21,8 +22,6 @@ import Modal from "../ModalA/Modal";
 import Tabs from "../Widgets/Tabs/Tabs";
 
 import DevInfoRow from "./subComponents/DevInfoRow";
-
-import Icon from "@/components/Icon";
 
 const getNetworkLabel = (
   networkType: BitcoinNetwork | SolanaNetwork,
