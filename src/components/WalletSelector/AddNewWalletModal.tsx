@@ -3,13 +3,13 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import { checkWalletAvailability, Wallet } from "@/bitcoin/wallet";
 import { BaseConnector } from "@/connector";
 import { useBitcoinWallet } from "@/contexts/BitcoinWalletProvider";
 import usePersistentStore from "@/stores/persistentStore";
 import useStore from "@/stores/store";
 import { MODAL_NAMES } from "@/utils/constant";
 import { notifyError } from "@/utils/notification";
-import { checkWalletAvailability, Wallet } from "@/utils/wallets";
 
 import Icon from "../Icons";
 import ButtonLoader from "../Icons/icons/ButtonLoader";
