@@ -41,7 +41,7 @@ export default function Header() {
                   src="/branding/logo-primary.svg"
                   height={22}
                   width={105}
-                  alt="Apollo Logo Primary"
+                  alt="logo"
                 />
               </Link>
             </div>

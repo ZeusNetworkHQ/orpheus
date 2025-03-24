@@ -26,7 +26,7 @@ const usePersistentStore = create<PersistentState & PersistentActions>()(
         set({ solanaRpcProvider: provider }),
     }),
     {
-      name: "apollo-storage",
+      name: "orpheus-storage",
     }
   )
 );
