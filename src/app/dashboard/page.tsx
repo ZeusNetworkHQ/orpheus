@@ -5,10 +5,10 @@ import { useState } from "react";
 
 import DashboardCharts from "@/components/DashboardCharts";
 import Tabs from "@/components/Tabs/Tabs";
-import useDashboardCharts from "@/hooks/useDashboardCharts";
-import useDashboardStats from "@/hooks/useDashboardStats";
-import usePrice from "@/hooks/usePrice";
-import useTwoWayPegGuardianSettings from "@/hooks/useTwoWayPegGuardianSettings";
+import useDashboardCharts from "@/hooks/hermes/useDashboardCharts";
+import useDashboardStats from "@/hooks/hermes/useDashboardStats";
+import useTwoWayPegGuardianSettings from "@/hooks/hermes/useTwoWayPegGuardianSettings";
+import usePrice from "@/hooks/misc/usePrice";
 import { ChartDataPoint } from "@/types/chart";
 import { fillChartData } from "@/utils/chart";
 import { BTC_DECIMALS } from "@/utils/constant";

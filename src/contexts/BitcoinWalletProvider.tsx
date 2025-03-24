@@ -3,13 +3,19 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import * as bitcoin from "bitcoinjs-lib";
-import { useState, useCallback, ReactNode, useEffect, useMemo } from "react";
+import {
+  useState,
+  useCallback,
+  ReactNode,
+  useEffect,
+  useMemo,
+  createContext,
+  SetStateAction,
+  Dispatch,
+  useContext,
+} from "react";
 
 import { MusesConnector } from "@/connector";
-import {
-  BitcoinWalletContext,
-  BitcoinWalletType,
-} from "@/hooks/useBitcoinWallet";
 import usePersistentStore from "@/stores/persistentStore";
 import { BitcoinNetwork } from "@/types/store";
 import { BitcoinWallet, EventName } from "@/types/wallet";
@@ -24,6 +30,49 @@ import { txConfirm } from "@/utils/wallets";
 import { type BaseConnector } from "../connector/base";
 
 const connectors: BaseConnector[] = [new MusesConnector()];
+
+export type BitcoinWalletType = "connector" | "solana" | null;
+
+export interface BitcoinWalletContextState {
+  wallet: BitcoinWallet | null;
+  connecting: boolean;
+  connected: boolean;
+  disconnecting: boolean;
+  connectConnectorWallet: (
+    connector: BaseConnector,
+    isReconnect?: boolean
+  ) => Promise<void>;
+  connectDerivedWallet: () => Promise<void>;
+  disconnect: () => void;
+  signPsbt(psbt: bitcoin.Psbt, tweaked?: boolean): Promise<string>;
+
+  // Connector Wallet States
+  accounts: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  provider: any;
+  disconnectConnector: () => void;
+  getPublicKey: (connector: BaseConnector) => Promise<string>;
+  signMessage: (message: string) => Promise<string>;
+  evmAccount?: string;
+  switchNetwork: (network: "livenet" | "testnet") => Promise<void>;
+  getNetwork: () => Promise<"livenet" | "testnet">;
+  sendBitcoin: (
+    toAddress: string,
+    satoshis: number,
+    options?: { feeRate: number }
+  ) => Promise<string>;
+  bitcoinWalletType: BitcoinWalletType;
+  setBitcoinWalletType: Dispatch<SetStateAction<BitcoinWalletType>>;
+  connectors: BaseConnector[];
+  connector: BaseConnector | undefined;
+  setConnectorId: (connectorId?: string) => void;
+  handleConnectorId: (connectorId: string) => Promise<void>;
+  connectorId: string | undefined;
+}
+
+const BitcoinWalletContext = createContext<BitcoinWalletContextState | null>(
+  null
+);
 
 export function BitcoinWalletProvider({ children }: { children: ReactNode }) {
   const bitcoinNetwork = usePersistentStore((state) => state.bitcoinNetwork);
@@ -393,4 +442,16 @@ export function BitcoinWalletProvider({ children }: { children: ReactNode }) {
       {children}
     </BitcoinWalletContext.Provider>
   );
+}
+
+export function useBitcoinWallet(): BitcoinWalletContextState {
+  const context = useContext(BitcoinWalletContext);
+
+  if (!context) {
+    throw new Error(
+      "useBitcoinWallet must be used within a BitcoinWalletProvider"
+    );
+  }
+
+  return context;
 }

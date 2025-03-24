@@ -6,12 +6,12 @@ import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
 
-import useBalance from "@/hooks/useBalance";
-import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
-import useDepositTransactionsWithCache from "@/hooks/useDepositTransactionsWithCache";
-import usePositions from "@/hooks/usePositions";
-import usePrice from "@/hooks/usePrice";
-import useTransactions from "@/hooks/useTransactions";
+import { useBitcoinWallet } from "@/contexts/BitcoinWalletProvider";
+import useDepositInteractionsWithCache from "@/hooks/hermes/useDepositInteractionsWithCache";
+import useInteractions from "@/hooks/hermes/useInteractions";
+import useBalance from "@/hooks/misc/useBalance";
+import usePrice from "@/hooks/misc/usePrice";
+import usePositions from "@/hooks/zpl/usePositions";
 import { InteractionStatus, InteractionType } from "@/types/api";
 
 import Tabs from "../Tabs/Tabs";
@@ -44,13 +44,13 @@ export default function MintWidget() {
   } = useBitcoinWallet();
   const { connected: solanaWalletConnected } = useWallet();
   const { cachedUtxos, mutate: mutateDepositTransactions } =
-    useDepositTransactionsWithCache({
+    useDepositInteractionsWithCache({
       solanaAddress: solanaPubkey?.toBase58(),
       bitcoinXOnlyPubkey: bitcoinWallet
         ? toXOnly(Buffer.from(bitcoinWallet.pubkey, "hex")).toString("hex")
         : undefined,
     });
-  const { mutate: mutateWithdrawalTransactions } = useTransactions(
+  const { mutate: mutateWithdrawalTransactions } = useInteractions(
     {
       solanaAddress: solanaPubkey?.toBase58(),
       types: [InteractionType.Withdrawal],

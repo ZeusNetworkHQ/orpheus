@@ -1,10 +1,9 @@
 import { AxiosError } from "axios";
 import useSWR from "swr";
 
+import { useFetchers } from "@/hooks/misc/useFetchers";
 import { coldReserveBucketsSchema, ColdReserveBuckets } from "@/types/api";
 import { Fetcher } from "@/utils/axios";
-
-import { useFetchers } from "./useFetchers";
 
 function useColdReserveBuckets() {
   const { hermesFetcher } = useFetchers();

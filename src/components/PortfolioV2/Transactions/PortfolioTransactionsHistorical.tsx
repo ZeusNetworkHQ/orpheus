@@ -16,10 +16,10 @@ import Table, {
   TableHeader,
   TableRow,
 } from "@/components/Table";
-import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
-import { useFetchers } from "@/hooks/useFetchers";
-import { useNetworkConfig } from "@/hooks/useNetworkConfig";
-import useTransactions from "@/hooks/useTransactions";
+import { useBitcoinWallet } from "@/contexts/BitcoinWalletProvider";
+import useInteractions from "@/hooks/hermes/useInteractions";
+import { useFetchers } from "@/hooks/misc/useFetchers";
+import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
 import usePersistentStore from "@/stores/persistentStore";
 import {
   InteractionType,
@@ -75,7 +75,7 @@ const PortfolioTransactionsHistorical = ({
     handlePrevPage,
     handleResetPage,
     handleItemsPerPage,
-  } = useTransactions(
+  } = useInteractions(
     {
       solanaAddress: solanaPubkey?.toBase58(),
       sourceBitcoinAddress: bitcoinWallet

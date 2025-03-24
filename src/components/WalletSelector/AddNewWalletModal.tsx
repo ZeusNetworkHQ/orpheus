@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { BaseConnector } from "@/connector";
-import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
+import { useBitcoinWallet } from "@/contexts/BitcoinWalletProvider";
 import usePersistentStore from "@/stores/persistentStore";
 import useStore from "@/stores/store";
 import { MODAL_NAMES } from "@/utils/constant";

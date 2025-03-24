@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 import Icon from "@/components/Icons";
-import { useNetworkConfig } from "@/hooks/useNetworkConfig";
-import usePrice from "@/hooks/usePrice";
-import useSolanaData from "@/hooks/useSolanaData";
-import useTwoWayPegConfiguration from "@/hooks/useTwoWayPegConfiguration";
+import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
+import usePrice from "@/hooks/misc/usePrice";
+import useSolanaData from "@/hooks/misc/useSolanaData";
+import useTwoWayPegConfiguration from "@/hooks/zpl/useTwoWayPegConfiguration";
 import usePersistentStore from "@/stores/persistentStore";
 import useStore from "@/stores/store";
 import { Chain } from "@/types/network";

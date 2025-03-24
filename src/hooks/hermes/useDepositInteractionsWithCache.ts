@@ -1,5 +1,6 @@
 import useSWR from "swr";
 
+import { useFetchers } from "@/hooks/misc/useFetchers";
 import usePersistentStore from "@/stores/persistentStore";
 import {
   Interaction,
@@ -15,10 +16,9 @@ import { xOnlyPubkeyHexToP2tr } from "@/utils/bitcoin";
 import transactionRepo from "@/utils/indexedDB/transaction";
 import utxoRepo from "@/utils/indexedDB/utxo";
 
-import { useFetchers } from "./useFetchers";
-import useTransactions from "./useTransactions";
+import useInteractions from "./useInteractions";
 
-function useDepositTransactionsWithCache(query: {
+function useDepositInteractionsWithCache(query: {
   solanaAddress?: string;
   bitcoinXOnlyPubkey?: string;
 }) {
@@ -26,15 +26,15 @@ function useDepositTransactionsWithCache(query: {
   const { aresFetcher, hermesFetcher } = useFetchers();
 
   const {
-    data: transactions,
+    data: apiInteractions,
     hasNextPage,
     currentPage,
     itemsPerPage,
     handleItemsPerPage,
     handleNextPage,
     handlePrevPage,
-    mutate: mutateTransactions,
-  } = useTransactions(
+    mutate: mutateInteractions,
+  } = useInteractions(
     {
       solanaAddress: query.solanaAddress,
       sourceBitcoinAddress: query.bitcoinXOnlyPubkey,
@@ -53,17 +53,17 @@ function useDepositTransactionsWithCache(query: {
   );
 
   const {
-    data: combinedTransactions,
-    mutate: mutateCachedTransactions,
+    data: combinedInteractions,
+    mutate: mutateCachedInteractions,
     error,
     isLoading,
-  } = useSWR<{ transactions: Interaction[]; cachedUtxos: UTXOs }>(
+  } = useSWR<{ interactions: Interaction[]; cachedUtxos: UTXOs }>(
     query.solanaAddress
       ? [
           aresFetcher,
           query.solanaAddress,
           query.bitcoinXOnlyPubkey,
-          transactions,
+          apiInteractions,
           currentPage,
           bitcoinNetwork,
         ]
@@ -72,23 +72,23 @@ function useDepositTransactionsWithCache(query: {
       aresFetcher,
       solanaAddress,
       bitcoinXOnlyPubkey,
-      apiTransactions,
+      apiInteractions,
       currentPage,
       bitcoinNetwork,
     ]: [Fetcher, string, string, Interaction[], number, BitcoinNetwork]) => {
-      if (currentPage !== 1 || !apiTransactions) {
-        return { transactions: apiTransactions || [], cachedUtxos: [] };
+      if (currentPage !== 1 || !apiInteractions) {
+        return { interactions: apiInteractions || [], cachedUtxos: [] };
       }
 
-      const cachedTransactions =
+      const cachedInteractions =
         (await transactionRepo.getInteractions(
           bitcoinNetwork,
           solanaAddress
         )) ?? [];
 
-      let filteredCachedTransactions = (
+      let filteredCachedInteractions = (
         await Promise.all(
-          cachedTransactions.toReversed().map(async (cachedTx) => {
+          cachedInteractions.toReversed().map(async (cachedTx) => {
             // NOTE: Prevent filtering out the latest transactions not yet sent to mempool
             if (Date.now() / 1000 - cachedTx.initiated_at < 60) {
               return cachedTx;
@@ -136,26 +136,26 @@ function useDepositTransactionsWithCache(query: {
         )
       )
         .flat()
-        // NOTE: If apiTransactions has the same interaction_id, remove it from cachedTransactions
+        // NOTE: If apiInteractions has the same interaction_id, remove it from cachedInteractions
         .filter(
           (cachedTx) =>
-            !apiTransactions.some(
+            !apiInteractions.some(
               (tx) => tx.interaction_id === cachedTx.interaction_id
             )
         );
 
-      // NOTE: Update filtered cached transactions in indexedDB
-      if (filteredCachedTransactions.length !== cachedTransactions.length) {
+      // NOTE: Update filtered cached interactions in indexedDB
+      if (filteredCachedInteractions.length !== cachedInteractions.length) {
         await transactionRepo.updateInteractions(
           bitcoinNetwork,
           solanaAddress,
-          filteredCachedTransactions
+          filteredCachedInteractions
         );
       }
 
       // NOTE: filter by user bitcoin wallet without updating the cache in indexedDB
       if (bitcoinXOnlyPubkey) {
-        filteredCachedTransactions = filteredCachedTransactions.filter(
+        filteredCachedInteractions = filteredCachedInteractions.filter(
           (cachedTx) => bitcoinXOnlyPubkey === cachedTx.source
         );
       }
@@ -174,7 +174,7 @@ function useDepositTransactionsWithCache(query: {
         : [];
 
       return {
-        transactions: [...filteredCachedTransactions, ...apiTransactions],
+        interactions: [...filteredCachedInteractions, ...apiInteractions],
         cachedUtxos,
       };
     },
@@ -185,12 +185,12 @@ function useDepositTransactionsWithCache(query: {
   );
 
   return {
-    apiTransactions: transactions ?? [],
-    combinedTransactions: combinedTransactions?.transactions ?? [],
-    cachedUtxos: combinedTransactions?.cachedUtxos ?? [],
+    apiInteractions: apiInteractions ?? [],
+    combinedInteractions: combinedInteractions?.interactions ?? [],
+    cachedUtxos: combinedInteractions?.cachedUtxos ?? [],
     mutate: async () => {
-      await mutateTransactions();
-      await mutateCachedTransactions();
+      await mutateInteractions();
+      await mutateCachedInteractions();
     },
     hasNextPage,
     isLoading,
@@ -203,4 +203,4 @@ function useDepositTransactionsWithCache(query: {
   };
 }
 
-export default useDepositTransactionsWithCache;
+export default useDepositInteractionsWithCache;

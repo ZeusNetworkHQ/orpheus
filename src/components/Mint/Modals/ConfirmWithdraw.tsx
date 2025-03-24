@@ -21,7 +21,7 @@ import {
 } from "@/components/ShadcnModal/Modal";
 import Tooltip from "@/components/Tooltip";
 import { useZplClient } from "@/contexts/ZplClientProvider";
-import useTwoWayPegGuardianSettings from "@/hooks/useTwoWayPegGuardianSettings";
+import useTwoWayPegGuardianSettings from "@/hooks/hermes/useTwoWayPegGuardianSettings";
 import { InteractionType } from "@/types/api";
 import { Chain } from "@/types/network";
 import { Position } from "@/types/zplClient";

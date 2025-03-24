@@ -2,8 +2,7 @@ import { PublicKey } from "@solana/web3.js";
 import useSWR from "swr";
 
 import { useZplClient } from "@/contexts/ZplClientProvider";
-
-import { useNetworkConfig } from "./useNetworkConfig";
+import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
 
 function usePositions(solanaPubkey: PublicKey | null) {
   const client = useZplClient();

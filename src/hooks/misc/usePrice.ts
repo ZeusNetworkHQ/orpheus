@@ -1,9 +1,8 @@
 import { AxiosError } from "axios";
 import useSWR from "swr";
 
+import { useFetchers } from "@/hooks/misc/useFetchers";
 import { PriceInfo, priceInfoSchema } from "@/types/api";
-
-import { useFetchers } from "./useFetchers";
 
 const usePrice = (symbol: string) => {
   const { binanceFetcher } = useFetchers();

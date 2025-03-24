@@ -18,9 +18,9 @@ import {
   ModalHeader,
 } from "@/components/ShadcnModal/Modal";
 import { useZplClient } from "@/contexts/ZplClientProvider";
-import useColdReserveBuckets from "@/hooks/useColdReserveBuckets";
-import { useNetworkConfig } from "@/hooks/useNetworkConfig";
-import useTwoWayPegConfiguration from "@/hooks/useTwoWayPegConfiguration";
+import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
+import useColdReserveBuckets from "@/hooks/zpl/useColdReserveBuckets";
+import useTwoWayPegConfiguration from "@/hooks/zpl/useTwoWayPegConfiguration";
 import usePersistentStore from "@/stores/persistentStore";
 import useStore from "@/stores/store";
 import {

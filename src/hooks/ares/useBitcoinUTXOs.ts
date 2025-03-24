@@ -1,9 +1,8 @@
 import { AxiosError } from "axios";
 import useSWR from "swr";
 
+import { useFetchers } from "@/hooks/misc/useFetchers";
 import { UTXOs, utxosSchema } from "@/types/api";
-
-import { useFetchers } from "./useFetchers";
 
 const useBitcoinUTXOs = (bitcoinAddress: string | undefined) => {
   const { aresFetcher } = useFetchers();

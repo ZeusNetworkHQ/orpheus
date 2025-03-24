@@ -4,8 +4,8 @@ import BigNumber from "bignumber.js";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
-import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
-import { useFetchers } from "@/hooks/useFetchers";
+import { useBitcoinWallet } from "@/contexts/BitcoinWalletProvider";
+import { useFetchers } from "@/hooks/misc/useFetchers";
 import usePersistentStore from "@/stores/persistentStore";
 import useStore from "@/stores/store";
 import { claimTBTCSchema } from "@/types/api";

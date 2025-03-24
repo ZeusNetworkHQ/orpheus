@@ -3,6 +3,7 @@ import { PublicKey } from "@solana/web3.js";
 import { useCallback } from "react";
 
 import { useZplClient } from "@/contexts/ZplClientProvider";
+import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
 import usePersistentStore from "@/stores/persistentStore";
 import { CheckBucketResult } from "@/types/misc";
 import { Chain } from "@/types/network";
@@ -16,9 +17,9 @@ import {
 import { hotReserveAddressCalculate } from "@/utils/hotReserveBucket";
 import { notifyTx } from "@/utils/notification";
 
+import useTwoWayPegGuardianSettings from "../hermes/useTwoWayPegGuardianSettings";
+
 import useColdReserveBuckets from "./useColdReserveBuckets";
-import { useNetworkConfig } from "./useNetworkConfig";
-import useTwoWayPegGuardianSettings from "./useTwoWayPegGuardianSettings";
 
 const useHotReserveBucketActions = (bitcoinWallet: BitcoinWallet | null) => {
   const solanaNetwork = usePersistentStore((state) => state.solanaNetwork);

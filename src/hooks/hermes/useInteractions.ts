@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import useSWR from "swr";
 
-import useCursorPagination from "@/hooks/useCursorPagination";
-import { useFetchers } from "@/hooks/useFetchers";
+import useCursorPagination from "@/hooks/misc/useCursorPagination";
+import { useFetchers } from "@/hooks/misc/useFetchers";
 import {
   Interactions,
   interactionsSchema,
@@ -11,7 +11,7 @@ import {
 import { InteractionType } from "@/types/api";
 import { Fetcher } from "@/utils/axios";
 
-function useTransactions(
+function useInteractions(
   query: {
     solanaAddress?: string;
     sourceBitcoinAddress?: string;
@@ -114,4 +114,4 @@ function useTransactions(
   };
 }
 
-export default useTransactions;
+export default useInteractions;

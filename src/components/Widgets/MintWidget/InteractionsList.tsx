@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Icon from "@/components/Icons";
-import useInteractionsList from "@/hooks/useInteractionsList";
+import useInteractionsList from "@/hooks/hermes/useInteractionsList";
 import usePersistentStore from "@/stores/persistentStore";
 import { InteractionType } from "@/types/api";
 import { BTC_DECIMALS, ZEUS_SCAN_URL } from "@/utils/constant";

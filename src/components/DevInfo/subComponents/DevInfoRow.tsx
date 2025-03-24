@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useCallback } from "react";
 
-import { useNetworkConfig } from "@/hooks/useNetworkConfig";
+import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
 import usePersistentStore from "@/stores/persistentStore";
 import { LINK_TYPE } from "@/utils/constant";
 import { getSolanaExplorerUrl, handleCopy } from "@/utils/misc";

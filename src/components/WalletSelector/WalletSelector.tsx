@@ -7,11 +7,11 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 
-import useBalance from "@/hooks/useBalance";
-import useBitcoinUTXOs from "@/hooks/useBitcoinUTXOs";
-import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
-import usePositions from "@/hooks/usePositions";
-import usePrice from "@/hooks/usePrice";
+import { useBitcoinWallet } from "@/contexts/BitcoinWalletProvider";
+import useBitcoinUTXOs from "@/hooks/ares/useBitcoinUTXOs";
+import useBalance from "@/hooks/misc/useBalance";
+import usePrice from "@/hooks/misc/usePrice";
+import usePositions from "@/hooks/zpl/usePositions";
 import useStore from "@/stores/store";
 import { BTC_DECIMALS, MODAL_NAMES } from "@/utils/constant";
 import {

@@ -1,11 +1,10 @@
 import { AxiosError } from "axios";
 import useSWR from "swr";
 
+import { useFetchers } from "@/hooks/misc/useFetchers";
 import { accumulatedStatsSchema, assetVarianceSchema } from "@/types/api";
 import { Fetcher } from "@/utils/axios";
 import { BTC_DECIMALS } from "@/utils/constant";
-
-import { useFetchers } from "./useFetchers";
 
 export interface DashboardStats {
   totalVolume: number;

@@ -2,7 +2,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useState } from "react";
 
-import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
+import { useBitcoinWallet } from "@/contexts/BitcoinWalletProvider";
 import useStore from "@/stores/store";
 import { MODAL_NAMES } from "@/utils/constant";
 

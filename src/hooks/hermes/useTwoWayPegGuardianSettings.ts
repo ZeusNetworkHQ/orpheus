@@ -1,14 +1,13 @@
 import { AxiosError } from "axios";
 import useSWR from "swr";
 
+import { useFetchers } from "@/hooks/misc/useFetchers";
+import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
 import {
   twoWayPegGuardianSettingsScheme,
   TwoWayPegGuardianSettings,
 } from "@/types/api";
 import { Fetcher } from "@/utils/axios";
-
-import { useFetchers } from "./useFetchers";
-import { useNetworkConfig } from "./useNetworkConfig";
 
 function useTwoWayPegGuardianSettings() {
   const config = useNetworkConfig();

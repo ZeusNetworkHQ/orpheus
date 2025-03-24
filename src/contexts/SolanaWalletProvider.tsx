@@ -11,7 +11,7 @@ import {
 } from "@solana/wallet-adapter-wallets";
 import { useMemo } from "react";
 
-import { useNetworkConfig } from "@/hooks/useNetworkConfig";
+import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
 import usePersistentStore from "@/stores/persistentStore";
 import { SolanaRpcProvider } from "@/types/store";
 

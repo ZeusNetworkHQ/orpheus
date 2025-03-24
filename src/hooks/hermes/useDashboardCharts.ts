@@ -1,10 +1,9 @@
 import { AxiosError } from "axios";
 import useSWR from "swr";
 
+import { useFetchers } from "@/hooks/misc/useFetchers";
 import { DashboardChart, dashboardChartSchema } from "@/types/api";
 import { Fetcher } from "@/utils/axios";
-
-import { useFetchers } from "./useFetchers";
 
 interface ChartsData {
   recentDayHourlyVolumeChartData: DashboardChart;

@@ -3,8 +3,8 @@ import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useEffect, useState } from "react";
 
 import Icon from "@/components/Icons";
-import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
-import useHotReserveBucketActions from "@/hooks/useHotReserveBucketActions";
+import { useBitcoinWallet } from "@/contexts/BitcoinWalletProvider";
+import useHotReserveBucketActions from "@/hooks/zpl/useHotReserveBucketActions";
 import usePersistentStore from "@/stores/persistentStore";
 import useStore from "@/stores/store";
 import { CheckBucketResult } from "@/types/misc";

@@ -1,14 +1,13 @@
 import { AxiosError } from "axios";
 import useSWR from "swr";
 
+import { useFetchers } from "@/hooks/misc/useFetchers";
 import {
   interactionsSchema,
   interactionAccumulatedSchema,
   Interactions,
 } from "@/types/api";
 import { Fetcher } from "@/utils/axios";
-
-import { useFetchers } from "./useFetchers";
 
 export interface InteractionsData {
   totalInteractions: number;

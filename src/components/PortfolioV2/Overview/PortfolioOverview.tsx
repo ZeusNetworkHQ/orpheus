@@ -1,9 +1,9 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import BigNumber from "bignumber.js";
 
-import useBalance from "@/hooks/useBalance";
-import usePositions from "@/hooks/usePositions";
-import usePrice from "@/hooks/usePrice";
+import useBalance from "@/hooks/misc/useBalance";
+import usePrice from "@/hooks/misc/usePrice";
+import usePositions from "@/hooks/zpl/usePositions";
 
 import PortfolioBalance from "./PortfolioBalance";
 import PortfolioDetails from "./PortfolioDetails";

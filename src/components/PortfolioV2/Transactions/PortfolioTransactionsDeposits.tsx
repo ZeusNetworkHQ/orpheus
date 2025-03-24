@@ -15,11 +15,11 @@ import Table, {
   TableHeader,
   TableRow,
 } from "@/components/Table";
-import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
-import useDepositTransactionsWithCache from "@/hooks/useDepositTransactionsWithCache";
-import { useFetchers } from "@/hooks/useFetchers";
-import { useNetworkConfig } from "@/hooks/useNetworkConfig";
-import useTwoWayPegConfiguration from "@/hooks/useTwoWayPegConfiguration";
+import { useBitcoinWallet } from "@/contexts/BitcoinWalletProvider";
+import useDepositInteractionsWithCache from "@/hooks/hermes/useDepositInteractionsWithCache";
+import { useFetchers } from "@/hooks/misc/useFetchers";
+import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
+import useTwoWayPegConfiguration from "@/hooks/zpl/useTwoWayPegConfiguration";
 import usePersistentStore from "@/stores/persistentStore";
 import { Interaction, interactionSchema, transactionSchema } from "@/types/api";
 import { Chain } from "@/types/network";
@@ -51,14 +51,14 @@ const PortfolioTransactionsDeposits = ({
   const { wallet: bitcoinWallet } = useBitcoinWallet();
   const { feeRate } = useTwoWayPegConfiguration();
   const {
-    combinedTransactions,
+    combinedInteractions: combinedTransactions,
     hasNextPage,
     currentPage,
     itemsPerPage,
     handleItemsPerPage,
     handleNextPage,
     handlePrevPage,
-  } = useDepositTransactionsWithCache({
+  } = useDepositInteractionsWithCache({
     solanaAddress: solanaPubkey?.toBase58(),
     bitcoinXOnlyPubkey: bitcoinWallet
       ? toXOnly(Buffer.from(bitcoinWallet.pubkey, "hex")).toString("hex")

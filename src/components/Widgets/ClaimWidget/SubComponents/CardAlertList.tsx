@@ -2,7 +2,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
+import { useBitcoinWallet } from "@/contexts/BitcoinWalletProvider";
 import { cn } from "@/utils/misc";
 
 import styles from "../styles.module.scss";
