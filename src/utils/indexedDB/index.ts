@@ -1,4 +1,4 @@
-const DB_NAME = "ApolloDB";
+const DB_NAME = "OrpheusDB";
 const DB_VERSION = 4;
 
 export const REGTEST_BITCOIN_TRANSACTIONS_STORE_NAME =

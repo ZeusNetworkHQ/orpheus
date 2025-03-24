@@ -126,15 +126,15 @@ body {
   }
 }
 
-.apollo-toast.Toastify__toast-container.Toastify__toast-container--top-right {
+.orpheus-toast.Toastify__toast-container.Toastify__toast-container--top-right {
   top: calc(60px);
 }
 
-.apollo-toast .Toastify__toast--stacked:before {
+.orpheus-toast .Toastify__toast--stacked:before {
   transform: scaleY(0);
 }
 
-.apollo-toast .Toastify__progress-bar--bg {
+.orpheus-toast .Toastify__progress-bar--bg {
   opacity: 0;
 }
 

@@ -186,7 +186,7 @@ export default function ConfirmDepositModal({
         amount: amount.toString(),
         initiated_at: createdAt,
         current_step_at: createdAt,
-        app_developer: "Apollo",
+        app_developer: "Orpheus",
         miner_fee: minerFee.toString(),
         service_fee: "0",
         steps: [

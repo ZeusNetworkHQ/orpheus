@@ -16,13 +16,12 @@ import "./globals.scss";
 import "./design-system.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://gaia.apollobyzeus.app"),
-  title: "APOLLO | Bitcoin DeFi Utilization on Solana",
-  description:
-    "A new approach to Bitcoin holders to earn yields, APOLLO offers cross-chain liquidity staking solutions that allow Bitcoin assets to explore the Solana DeFi ecosystem with $zBTC. (Powered by Zeus Network)",
+  metadataBase: new URL("https://orpeheus.zeuslayer.work"),
+  title: "Orpheus",
+  description: "A Next.js template for applications built on ZeusLayer (zApps)",
   openGraph: {
     images: ["/graphics/metadata-img.jpg"],
-    title: "APOLLO | Bitcoin DeFi Utilization on Solana",
+    title: "Orpheus",
   },
   twitter: {
     images: ["/graphics/metadata-img.jpg"],
@@ -78,7 +77,7 @@ export default function RootLayout({
               </div>
               <ToastContainer
                 stacked
-                className="apollo-toast"
+                className="orpheus-toast"
                 position="top-right"
                 autoClose={7500}
                 hideProgressBar={false}
