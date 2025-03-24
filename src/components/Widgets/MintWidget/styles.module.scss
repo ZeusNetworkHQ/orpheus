@@ -51,11 +51,8 @@
     }
     @apply relative z-10 w-full space-y-6 rounded-3xl p-2 pb-2;
     &::before {
-      background-image: linear-gradient(
-          180deg,
-          transparent,
-          rgba(255, 103, 70, 0.6)
-        ),
+      background-image:
+        linear-gradient(180deg, transparent, rgba(255, 103, 70, 0.6)),
         linear-gradient(90deg, #2c2c36, #2c2c36);
     }
     &__title {
