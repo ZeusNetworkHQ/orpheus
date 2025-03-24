@@ -19,13 +19,13 @@ import {
   deriveBitcoinWallet,
   getBitcoinConnectorWallet,
 } from "@/bitcoin/wallet";
+import { txConfirm } from "@/bitcoin/wallet";
 import { MusesConnector } from "@/connector";
 import usePersistentStore from "@/stores/persistentStore";
 import { BitcoinNetwork } from "@/types/store";
 import { BitcoinWallet, EventName } from "@/types/wallet";
 import events from "@/utils/event";
 import { notifyError } from "@/utils/notification";
-import { txConfirm } from "@/utils/wallets";
 
 import { type BaseConnector } from "../connector/base";
 
