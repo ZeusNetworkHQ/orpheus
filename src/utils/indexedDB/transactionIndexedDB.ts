@@ -1,21 +1,15 @@
 import { Interaction } from "@/types/api";
 import { BitcoinNetwork } from "@/types/store";
 
-import {
-  initDB,
-  REGTEST_BITCOIN_TRANSACTIONS_STORE_NAME,
-  TESTNET_BITCOIN_TRANSACTIONS_STORE_NAME,
-} from "./indexedDB";
+import { initDB, REGTEST_BITCOIN_TRANSACTIONS_STORE_NAME } from "./indexedDB";
 
 class TransactionRepo {
   private getKey(bitcoinNetwork: BitcoinNetwork) {
     switch (bitcoinNetwork) {
-      case BitcoinNetwork.Testnet:
-        return TESTNET_BITCOIN_TRANSACTIONS_STORE_NAME;
       case BitcoinNetwork.Regtest:
         return REGTEST_BITCOIN_TRANSACTIONS_STORE_NAME;
       default:
-        return TESTNET_BITCOIN_TRANSACTIONS_STORE_NAME;
+        return REGTEST_BITCOIN_TRANSACTIONS_STORE_NAME;
     }
   }
 

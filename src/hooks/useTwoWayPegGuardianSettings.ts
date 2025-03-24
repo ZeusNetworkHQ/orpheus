@@ -26,7 +26,6 @@ function useTwoWayPegGuardianSettings() {
     }
   );
 
-  // NOTE: Regtest and Testnet use the same ZPL with different guardian settings, so we need to set guardian setting in env
   const twoWayPegGuardianSettings = data?.items?.filter(
     (item) => item.address === config.guardianSetting
   );

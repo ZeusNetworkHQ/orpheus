@@ -14,7 +14,7 @@ export interface AccountProcessProps {
   isOpen: boolean;
   onClose: () => void;
   type: "creation" | "renew" | null;
-  createHotReserveBucket: (depositAmount: number) => Promise<void>;
+  createHotReserveBucket: () => Promise<void>;
   reactivateHotReserveBucket: () => Promise<void>;
   openConfirmDepositModal: () => void;
   updateBitcoinUTXOs: () => Promise<void>;
@@ -33,7 +33,6 @@ export default function AccountProcess({
   updateBitcoinUTXOs,
   solanaPubkey,
   bitcoinWallet,
-  depositAmount,
 }: AccountProcessProps) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -136,7 +135,7 @@ export default function AccountProcess({
               setIsLoading(true);
               try {
                 if (type === "creation") {
-                  await createHotReserveBucket(depositAmount);
+                  await createHotReserveBucket();
                 } else {
                   await reactivateHotReserveBucket();
                 }

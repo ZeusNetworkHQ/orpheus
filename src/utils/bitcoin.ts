@@ -209,8 +209,6 @@ export const getBitcoinConnectorWallet = (
 };
 
 export const convertBitcoinNetwork = (bitcoinNetwork: BitcoinNetwork) => {
-  if (bitcoinNetwork === BitcoinNetwork.Testnet)
-    return bitcoin.networks.testnet;
   if (bitcoinNetwork === BitcoinNetwork.Regtest)
     return bitcoin.networks.regtest;
   throw new Error("Invalid network type");

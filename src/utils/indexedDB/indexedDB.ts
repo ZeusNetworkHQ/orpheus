@@ -3,14 +3,11 @@ const DB_VERSION = 4;
 
 export const REGTEST_BITCOIN_TRANSACTIONS_STORE_NAME =
   "regtestBitcoinTransactions";
-export const TESTNET_BITCOIN_TRANSACTIONS_STORE_NAME =
-  "testnetBitcoinTransactions";
 
 export const UNCONFIRMED_BITCOIN_UTXOS_STORE_NAME = "unconfirmedBitcoinUtxos";
 
 const storeNames = [
   REGTEST_BITCOIN_TRANSACTIONS_STORE_NAME,
-  TESTNET_BITCOIN_TRANSACTIONS_STORE_NAME,
   UNCONFIRMED_BITCOIN_UTXOS_STORE_NAME,
 ];
 

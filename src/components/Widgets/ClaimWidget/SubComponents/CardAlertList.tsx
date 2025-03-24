@@ -3,64 +3,50 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
-import usePersistentStore from "@/stores/persistentStore";
-import { BitcoinNetwork } from "@/types/store";
 import { cn } from "@/utils/misc";
 
 import styles from "../styles.module.scss";
 
 export default function CardAlertList() {
-  const bitcoinNetwork = usePersistentStore((state) => state.bitcoinNetwork);
   const { connected: solanaWalletConnected } = useWallet();
   const { connected: bitcoinWalletConnected } = useBitcoinWallet();
 
   const isAllConnected = bitcoinWalletConnected && solanaWalletConnected;
 
   if (isAllConnected) {
-    if (bitcoinNetwork === BitcoinNetwork.Testnet) {
-      return (
-        <div className="max-w-[381px] pb-9 text-center text-lg">
-          You can obtain testnet BTC from the faucets listed below or any other
-          Bitcoin Testnet3 faucet available.
-        </div>
-      );
-    } else {
-      return (
-        <div className={cn(styles.claimWidget__card__alert__list, "pb-[69px]")}>
-          <>
-            <div className={styles.claimWidget__card__alert__list__ready}>
-              <Image
-                src="/graphics/connected.svg"
-                alt="Connected"
-                width={286}
-                height={63}
-              />
-              <div className="flex flex-col items-center space-y-4">
-                <div className="flex items-center justify-center space-x-3 text-xl text-shade-primary">
-                  <Image
-                    alt="TasksComplete"
-                    src="/icons/tasks-complete.svg"
-                    width={20}
-                    height={20}
-                  />
-                  <span>Connection Complete</span>
-                </div>
-                <div className="text-shade-mute">
-                  You are{" "}
-                  <span className="text-shade-secondary">ready to claim</span>{" "}
-                  your tBTC below
-                </div>
+    return (
+      <div className={cn(styles.claimWidget__card__alert__list, "pb-[69px]")}>
+        <>
+          <div className={styles.claimWidget__card__alert__list__ready}>
+            <Image
+              src="/graphics/connected.svg"
+              alt="Connected"
+              width={286}
+              height={63}
+            />
+            <div className="flex flex-col items-center space-y-4">
+              <div className="flex items-center justify-center space-x-3 text-xl text-shade-primary">
+                <Image
+                  alt="TasksComplete"
+                  src="/icons/tasks-complete.svg"
+                  width={20}
+                  height={20}
+                />
+                <span>Connection Complete</span>
+              </div>
+              <div className="text-shade-mute">
+                You are{" "}
+                <span className="text-shade-secondary">ready to claim</span>{" "}
+                your tBTC below
               </div>
             </div>
-            <div
-              className={
-                styles.claimWidget__card__alert__list__ready__claimLine
-              }
-            ></div>
-          </>
-        </div>
-      );
-    }
+          </div>
+          <div
+            className={styles.claimWidget__card__alert__list__ready__claimLine}
+          ></div>
+        </>
+      </div>
+    );
   } else {
     return (
       <div className={cn(styles.claimWidget__card__alert__list, "pb-12")}>

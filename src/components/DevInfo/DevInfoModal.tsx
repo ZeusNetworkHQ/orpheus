@@ -29,8 +29,6 @@ const getNetworkLabel = (
 ) => {
   if (chain === Chain.Bitcoin) {
     switch (networkType) {
-      case BitcoinNetwork.Testnet:
-        return "Bitcoin Testnet";
       case BitcoinNetwork.Regtest:
         return "Muses Testnet (Regtest)";
     }

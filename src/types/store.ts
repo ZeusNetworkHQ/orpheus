@@ -4,7 +4,6 @@ export enum SolanaNetwork {
 
 export enum BitcoinNetwork {
   Regtest = "regtest",
-  Testnet = "testnet",
 }
 
 export enum SolanaRpcProvider {

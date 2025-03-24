@@ -1,6 +1,6 @@
 {
-  "name": "apollo-dashboard",
-  "version": "0.5.6",
+  "name": "orpheus",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
