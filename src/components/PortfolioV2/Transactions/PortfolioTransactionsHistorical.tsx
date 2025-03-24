@@ -35,7 +35,6 @@ import {
 } from "@/utils/bitcoin";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatDate, formatValue, shortenString } from "@/utils/format";
-import { handleCopy } from "@/utils/misc";
 import {
   getDepositAssetFrom,
   getDepositAssetTo,
@@ -46,7 +45,8 @@ import {
   getWithdrawalAssetTo,
   getWithdrawalDetailsTableItems,
   getWithdrawalStatusItems,
-} from "@/utils/transaction";
+} from "@/utils/interaction";
+import { handleCopy } from "@/utils/misc";
 
 import TransactionDetailsModal from "../Modals/TransactionDetails";
 

@@ -20,7 +20,7 @@ import {
   MODAL_NAMES,
 } from "@/utils/constant";
 import { formatValue } from "@/utils/format";
-import { getEstimatedWithdrawalTransactionFee } from "@/utils/transaction";
+import { getEstimatedWithdrawalTransactionFee } from "@/utils/interaction";
 
 import CryptoInput from "../../CryptoInput/CryptoInput";
 import Button from "../../WalletButton/Button";

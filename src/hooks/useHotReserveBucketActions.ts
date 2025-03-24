@@ -14,7 +14,7 @@ import {
   UNLOCK_BLOCK_HEIGHT,
 } from "@/utils/bitcoin";
 import { hotReserveAddressCalculate } from "@/utils/hotReserveBucket";
-import { notifyTx } from "@/utils/notifies";
+import { notifyTx } from "@/utils/notification";
 
 import useColdReserveBuckets from "./useColdReserveBuckets";
 import { useNetworkConfig } from "./useNetworkConfig";

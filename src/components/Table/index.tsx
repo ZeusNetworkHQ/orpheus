@@ -166,6 +166,7 @@ const Table = ({
       isOverflowing,
     }),
     [
+      variant,
       validatedColumnSizes,
       lastItemAlignEnd,
       stickFirstItem,

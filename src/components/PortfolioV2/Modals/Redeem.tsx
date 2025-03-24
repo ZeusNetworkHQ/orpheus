@@ -20,7 +20,7 @@ import { Chain } from "@/types/network";
 import { Position } from "@/types/zplClient";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatValue } from "@/utils/format";
-import { notifyError, notifyTx } from "@/utils/notifies";
+import { notifyError, notifyTx } from "@/utils/notification";
 
 function calcInputValue(inputValue: string, decimals: number) {
   // Handle multiple decimal points

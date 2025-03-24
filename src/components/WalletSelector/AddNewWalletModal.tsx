@@ -8,7 +8,7 @@ import { useBitcoinWallet } from "@/hooks/useBitcoinWallet";
 import usePersistentStore from "@/stores/persistentStore";
 import useStore from "@/stores/store";
 import { MODAL_NAMES } from "@/utils/constant";
-import { notifyError } from "@/utils/notifies";
+import { notifyError } from "@/utils/notification";
 import { checkWalletAvailability, Wallet } from "@/utils/wallets";
 
 import Icon from "../Icons";

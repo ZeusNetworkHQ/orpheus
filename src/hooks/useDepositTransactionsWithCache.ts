@@ -12,8 +12,8 @@ import {
 import { BitcoinNetwork } from "@/types/store";
 import { Fetcher } from "@/utils/axios";
 import { xOnlyPubkeyHexToP2tr } from "@/utils/bitcoin";
-import transactionRepo from "@/utils/indexedDB/transactionIndexedDB";
-import utxoRepo from "@/utils/indexedDB/utxoIndexedDB";
+import transactionRepo from "@/utils/indexedDB/transaction";
+import utxoRepo from "@/utils/indexedDB/utxo";
 
 import { useFetchers } from "./useFetchers";
 import useTransactions from "./useTransactions";

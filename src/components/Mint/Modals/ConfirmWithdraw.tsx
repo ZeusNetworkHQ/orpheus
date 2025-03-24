@@ -28,7 +28,7 @@ import { Position } from "@/types/zplClient";
 import { convertP2trToTweakedXOnlyPubkey } from "@/utils/bitcoin";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { shortenString } from "@/utils/format";
-import { notifyError, notifyTx } from "@/utils/notifies";
+import { notifyError, notifyTx } from "@/utils/notification";
 
 export interface ConfirmWithdrawProps {
   isOpen: boolean;

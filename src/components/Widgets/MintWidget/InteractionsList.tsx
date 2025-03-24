@@ -8,7 +8,7 @@ import usePersistentStore from "@/stores/persistentStore";
 import { InteractionType } from "@/types/api";
 import { BTC_DECIMALS, ZEUS_SCAN_URL } from "@/utils/constant";
 import { formatValue } from "@/utils/format";
-import { getFullZeusScanUrl } from "@/utils/transaction";
+import { getFullZeusScanUrl } from "@/utils/interaction";
 
 import styles from "./styles.module.scss";
 

@@ -8,7 +8,7 @@ import Modal, { ModalActions } from "@/components/ShadcnModal/Modal";
 import { ModalHeader } from "@/components/ShadcnModal/Modal";
 import { BitcoinWallet } from "@/types/wallet";
 import { shortenString } from "@/utils/format";
-import { notifyError } from "@/utils/notifies";
+import { notifyError } from "@/utils/notification";
 
 export interface AccountProcessProps {
   isOpen: boolean;

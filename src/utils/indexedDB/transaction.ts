@@ -1,7 +1,7 @@
 import { Interaction } from "@/types/api";
 import { BitcoinNetwork } from "@/types/store";
 
-import { initDB, REGTEST_BITCOIN_TRANSACTIONS_STORE_NAME } from "./indexedDB";
+import { initDB, REGTEST_BITCOIN_TRANSACTIONS_STORE_NAME } from ".";
 
 class TransactionRepo {
   private getKey(bitcoinNetwork: BitcoinNetwork) {

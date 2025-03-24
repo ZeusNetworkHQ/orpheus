@@ -12,7 +12,7 @@ import { claimTBTCSchema } from "@/types/api";
 import { createAxiosInstances } from "@/utils/axios";
 import { MODAL_NAMES } from "@/utils/constant";
 import { satoshiToBtc } from "@/utils/hotReserveBucket";
-import { notifyError } from "@/utils/notifies";
+import { notifyError } from "@/utils/notification";
 
 import SuccessfulClaim from "../../SuccessfulClaim/SuccessfulClaim";
 

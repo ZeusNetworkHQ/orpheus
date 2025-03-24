@@ -19,7 +19,7 @@ import {
   formatSolanaAddress,
   formatValue,
 } from "@/utils/format";
-import { notifyError } from "@/utils/notifies";
+import { notifyError } from "@/utils/notification";
 
 import Divider from "../Divider";
 import Icon from "../Icons";
@@ -299,7 +299,7 @@ export default function WalletSelector() {
                                 src={
                                   connector
                                     ? connector.metadata.icon
-                                    : (solanaWallet?.adapter.icon ?? "")
+                                    : solanaWallet?.adapter.icon ?? ""
                                 }
                                 alt="wallet icon"
                                 width={16}

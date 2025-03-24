@@ -16,8 +16,8 @@ import { BTC_DECIMALS } from "@/utils/constant";
 import { estimateMaxSpendableAmount } from "@/utils/deposit";
 import { formatValue } from "@/utils/format";
 import { btcToSatoshi, satoshiToBtc } from "@/utils/hotReserveBucket";
-import { notifyError } from "@/utils/notifies";
-import { getEstimatedLockToColdTransactionFee } from "@/utils/transaction";
+import { getEstimatedLockToColdTransactionFee } from "@/utils/interaction";
+import { notifyError } from "@/utils/notification";
 
 import CryptoInput from "../../CryptoInput/CryptoInput";
 import Button from "../../WalletButton/Button";

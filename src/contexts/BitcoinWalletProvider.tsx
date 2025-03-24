@@ -17,8 +17,8 @@ import {
   deriveBitcoinWallet,
   getBitcoinConnectorWallet,
 } from "@/utils/bitcoin";
-import events from "@/utils/eventUtils";
-import { notifyError } from "@/utils/notifies";
+import events from "@/utils/event";
+import { notifyError } from "@/utils/notification";
 import { txConfirm } from "@/utils/wallets";
 
 import { type BaseConnector } from "../connector/base";

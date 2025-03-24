@@ -1,6 +1,6 @@
 import { UTXOs } from "@/types/api";
 
-import { initDB, UNCONFIRMED_BITCOIN_UTXOS_STORE_NAME } from "./indexedDB";
+import { initDB, UNCONFIRMED_BITCOIN_UTXOS_STORE_NAME } from ".";
 
 export type TransactionUtxoCaches = {
   transactionId: string;

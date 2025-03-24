@@ -26,7 +26,6 @@ import { Chain } from "@/types/network";
 import { xOnlyPubkeyHexToP2tr } from "@/utils/bitcoin";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatValue, formatDate, shortenString } from "@/utils/format";
-import { handleCopy } from "@/utils/misc";
 import {
   getDepositDetailsTableItems,
   getDepositStatusItems,
@@ -34,7 +33,8 @@ import {
   getDepositAssetTo,
   getInteractionStatusDisplay,
   getEstimatedDepositTransactionFee,
-} from "@/utils/transaction";
+} from "@/utils/interaction";
+import { handleCopy } from "@/utils/misc";
 
 import TransactionDetailsModal from "../Modals/TransactionDetails";
 

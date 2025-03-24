@@ -41,9 +41,9 @@ import { BTC_DECIMALS } from "@/utils/constant";
 import { constructDepositToHotReserve } from "@/utils/deposit";
 import { formatValue } from "@/utils/format";
 import { btcToSatoshi } from "@/utils/hotReserveBucket";
-import transactionRepo from "@/utils/indexedDB/transactionIndexedDB";
-import utxoRepo from "@/utils/indexedDB/utxoIndexedDB";
-import { notifyError, notifyTx } from "@/utils/notifies";
+import transactionRepo from "@/utils/indexedDB/transaction";
+import utxoRepo from "@/utils/indexedDB/utxo";
+import { notifyError, notifyTx } from "@/utils/notification";
 
 export interface ConfirmDepositModalProps {
   isOpen: boolean;
