@@ -5,6 +5,10 @@ import classNames from "classnames";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import {
+  convertP2trToTweakedXOnlyPubkey,
+  xOnlyPubkeyHexToP2tr,
+} from "@/bitcoin";
 import Button from "@/components/Button/Button";
 import Chip from "@/components/Chip";
 import { Dropdown, DropdownOption } from "@/components/Dropdown/Dropdown";
@@ -29,10 +33,6 @@ import {
   InteractionStatus,
 } from "@/types/api";
 import { Chain } from "@/types/network";
-import {
-  convertP2trToTweakedXOnlyPubkey,
-  xOnlyPubkeyHexToP2tr,
-} from "@/utils/bitcoin";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatDate, formatValue, shortenString } from "@/utils/format";
 import {

@@ -1,5 +1,6 @@
 import BigNumber from "bignumber.js";
 
+import { getFullBitcoinExplorerUrl, xOnlyPubkeyHexToP2tr } from "@/bitcoin";
 import { Interaction, InteractionStatus } from "@/types/api";
 import { Chain } from "@/types/network";
 import { BitcoinNetwork, SolanaNetwork } from "@/types/store";
@@ -9,7 +10,6 @@ import {
   TransactionDetailsAsset,
 } from "@/types/transaction";
 
-import { getFullBitcoinExplorerUrl, xOnlyPubkeyHexToP2tr } from "./bitcoin";
 import { BTC_DECIMALS, DEFAULT_LAYER_FEE, ZEUS_SCAN_URL } from "./constant";
 import { formatDate, formatValue } from "./format";
 import { getSolanaExplorerUrl } from "./misc";

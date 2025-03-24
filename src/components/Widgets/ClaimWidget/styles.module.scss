@@ -6,8 +6,11 @@
     }
     @apply relative z-10 w-full space-y-6 rounded-3xl p-2.5;
     &::before {
-      background-image:
-        linear-gradient(180deg, transparent, rgba(255, 103, 70, 0.6)),
+      background-image: linear-gradient(
+          180deg,
+          transparent,
+          rgba(255, 103, 70, 0.6)
+        ),
         linear-gradient(90deg, #2c2c36, #2c2c36);
     }
     &__title {
@@ -84,19 +87,16 @@
 }
 
 .rank--1 {
-  background:
-    linear-gradient(90deg, rgba(255, 192, 70, 0.06), transparent 30%),
+  background: linear-gradient(90deg, rgba(255, 192, 70, 0.06), transparent 30%),
     linear-gradient(90deg, rgb(32 32 39), rgb(32 32 39));
 }
 
 .rank--2 {
-  background:
-    linear-gradient(90deg, rgba(251, 251, 255, 0.06), transparent 30%),
+  background: linear-gradient(90deg, rgba(251, 251, 255, 0.06), transparent 30%),
     linear-gradient(90deg, rgb(32 32 39), rgb(32 32 39));
 }
 
 .rank--3 {
-  background:
-    linear-gradient(90deg, rgba(255, 103, 70, 0.06), transparent 30%),
+  background: linear-gradient(90deg, rgba(255, 103, 70, 0.06), transparent 30%),
     linear-gradient(90deg, rgb(32 32 39), rgb(32 32 39));
 }

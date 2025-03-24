@@ -9,6 +9,7 @@ import classNames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
+import { convertP2trToTweakedXOnlyPubkey } from "@/bitcoin";
 import Button from "@/components/Button/Button";
 import Checkbox from "@/components/Checkbox/Checkbox";
 import { Dropdown, DropdownOption } from "@/components/Dropdown/Dropdown";
@@ -25,7 +26,6 @@ import useTwoWayPegGuardianSettings from "@/hooks/hermes/useTwoWayPegGuardianSet
 import { InteractionType } from "@/types/api";
 import { Chain } from "@/types/network";
 import { Position } from "@/types/zplClient";
-import { convertP2trToTweakedXOnlyPubkey } from "@/utils/bitcoin";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { shortenString } from "@/utils/format";
 import { notifyError, notifyTx } from "@/utils/notification";

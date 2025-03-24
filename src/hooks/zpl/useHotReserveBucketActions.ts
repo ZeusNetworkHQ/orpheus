@@ -2,6 +2,9 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { useCallback } from "react";
 
+import { convertBitcoinNetwork, UNLOCK_BLOCK_HEIGHT } from "@/bitcoin";
+import { deriveHotReserveAddress } from "@/bitcoin";
+import { getInternalXOnlyPubkeyFromUserWallet } from "@/bitcoin/wallet";
 import { useZplClient } from "@/contexts/ZplClientProvider";
 import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
 import usePersistentStore from "@/stores/persistentStore";
@@ -9,12 +12,6 @@ import { CheckBucketResult } from "@/types/misc";
 import { Chain } from "@/types/network";
 import { BitcoinWallet } from "@/types/wallet";
 import { HotReserveBucketStatus } from "@/types/zplClient";
-import {
-  convertBitcoinNetwork,
-  getInternalXOnlyPubkeyFromUserWallet,
-  UNLOCK_BLOCK_HEIGHT,
-} from "@/utils/bitcoin";
-import { hotReserveAddressCalculate } from "@/utils/hotReserveBucket";
 import { notifyTx } from "@/utils/notification";
 
 import useTwoWayPegGuardianSettings from "../hermes/useTwoWayPegGuardianSettings";
@@ -54,13 +51,12 @@ const useHotReserveBucketActions = (bitcoinWallet: BitcoinWallet | null) => {
     if (!userBitcoinXOnlyPublicKey)
       throw new Error("Can't get x-only publickey");
 
-    const { pubkey: hotReserveBitcoinXOnlyPublicKey } =
-      hotReserveAddressCalculate(
-        guardianXOnlyPublicKey,
-        userBitcoinXOnlyPublicKey,
-        UNLOCK_BLOCK_HEIGHT,
-        convertBitcoinNetwork(bitcoinNetwork)
-      );
+    const { pubkey: hotReserveBitcoinXOnlyPublicKey } = deriveHotReserveAddress(
+      guardianXOnlyPublicKey,
+      userBitcoinXOnlyPublicKey,
+      UNLOCK_BLOCK_HEIGHT,
+      convertBitcoinNetwork(bitcoinNetwork)
+    );
 
     if (!hotReserveBitcoinXOnlyPublicKey)
       throw new Error("Can't get hot reserve x-only publickey");

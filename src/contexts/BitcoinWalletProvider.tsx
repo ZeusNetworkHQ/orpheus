@@ -15,14 +15,14 @@ import {
   useContext,
 } from "react";
 
+import {
+  deriveBitcoinWallet,
+  getBitcoinConnectorWallet,
+} from "@/bitcoin/wallet";
 import { MusesConnector } from "@/connector";
 import usePersistentStore from "@/stores/persistentStore";
 import { BitcoinNetwork } from "@/types/store";
 import { BitcoinWallet, EventName } from "@/types/wallet";
-import {
-  deriveBitcoinWallet,
-  getBitcoinConnectorWallet,
-} from "@/utils/bitcoin";
 import events from "@/utils/event";
 import { notifyError } from "@/utils/notification";
 import { txConfirm } from "@/utils/wallets";

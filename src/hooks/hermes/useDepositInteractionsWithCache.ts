@@ -1,5 +1,6 @@
 import useSWR from "swr";
 
+import { xOnlyPubkeyHexToP2tr } from "@/bitcoin";
 import { useFetchers } from "@/hooks/misc/useFetchers";
 import usePersistentStore from "@/stores/persistentStore";
 import {
@@ -12,7 +13,6 @@ import {
 } from "@/types/api";
 import { BitcoinNetwork } from "@/types/store";
 import { Fetcher } from "@/utils/axios";
-import { xOnlyPubkeyHexToP2tr } from "@/utils/bitcoin";
 import transactionRepo from "@/utils/indexedDB/transaction";
 import utxoRepo from "@/utils/indexedDB/utxo";
 

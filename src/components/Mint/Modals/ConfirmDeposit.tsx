@@ -9,6 +9,10 @@ import { BN } from "bn.js";
 import classNames from "classnames";
 import { useState } from "react";
 
+import { btcToSatoshi, convertBitcoinNetwork } from "@/bitcoin";
+import { constructDepositToHotReserveTx } from "@/bitcoin";
+import { sendTransaction } from "@/bitcoin/rpcClient";
+import { getInternalXOnlyPubkeyFromUserWallet } from "@/bitcoin/wallet";
 import Button from "@/components/Button/Button";
 import Icon from "@/components/Icons";
 import { IconName } from "@/components/Icons/icons";
@@ -32,15 +36,8 @@ import {
 import { Chain } from "@/types/network";
 import { BitcoinWallet } from "@/types/wallet";
 import { createAxiosInstances } from "@/utils/axios";
-import {
-  convertBitcoinNetwork,
-  getInternalXOnlyPubkeyFromUserWallet,
-  sendBitcoinTx,
-} from "@/utils/bitcoin";
 import { BTC_DECIMALS } from "@/utils/constant";
-import { constructDepositToHotReserve } from "@/utils/deposit";
 import { formatValue } from "@/utils/format";
-import { btcToSatoshi } from "@/utils/hotReserveBucket";
 import transactionRepo from "@/utils/indexedDB/transaction";
 import utxoRepo from "@/utils/indexedDB/utxo";
 import { notifyError, notifyTx } from "@/utils/notification";
@@ -145,7 +142,7 @@ export default function ConfirmDepositModal({
     let depositPsbt;
     let usedBitcoinUTXOs;
     try {
-      const { psbt, usedUTXOs } = constructDepositToHotReserve(
+      const { psbt, usedUTXOs } = constructDepositToHotReserveTx(
         bitcoinUTXOs,
         targetHotReserveAddress,
         btcToSatoshi(depositAmount),
@@ -172,7 +169,7 @@ export default function ConfirmDepositModal({
 
       const { aresApi } = createAxiosInstances(solanaNetwork, bitcoinNetwork);
 
-      const txId = await sendBitcoinTx(aresApi, signTx);
+      const txId = await sendTransaction(aresApi, signTx);
 
       const createdAt = Math.floor(Date.now() / 1000);
 

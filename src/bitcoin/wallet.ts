@@ -1,6 +1,5 @@
 import ecc from "@bitcoinerlab/secp256k1";
 import { PublicKey } from "@solana/web3.js";
-import { AxiosInstance } from "axios";
 import * as bitcoin from "bitcoinjs-lib";
 import { sha256, taggedHash } from "bitcoinjs-lib/src/crypto";
 import { toXOnly } from "bitcoinjs-lib/src/psbt/bip371";
@@ -9,10 +8,11 @@ import ECPairFactory from "ecpair";
 import { BitcoinNetwork } from "@/types/store";
 import { BitcoinWallet, BitcoinXOnlyPublicKey } from "@/types/wallet";
 
+import { convertBitcoinNetwork } from ".";
+
 bitcoin.initEccLib(ecc);
 
 export const ECPair = ECPairFactory(ecc);
-export const UNLOCK_BLOCK_HEIGHT = 1008;
 
 interface TweakSignerOpts {
   network: bitcoin.networks.Network;
@@ -20,64 +20,6 @@ interface TweakSignerOpts {
 }
 
 type TapTweak = Buffer;
-
-export const getFullBitcoinExplorerUrl = (
-  target: string,
-  bitcoinExplorerUrl: string,
-  type?: "tx" | "address"
-): string => {
-  return `${bitcoinExplorerUrl}/${type ?? "tx"}/${target}`;
-};
-
-export function getInternalXOnlyPubkeyFromUserWallet(
-  bitcoinWallet: BitcoinWallet | null
-): BitcoinXOnlyPublicKey | null {
-  if (!bitcoinWallet) {
-    return null;
-  }
-
-  const internalXOnlyPublicKey = toXOnly(
-    Buffer.from(bitcoinWallet.pubkey, "hex")
-  );
-
-  return internalXOnlyPublicKey;
-}
-
-export function convertP2trToTweakedXOnlyPubkey(
-  p2trAddress: string
-): BitcoinXOnlyPublicKey {
-  const { data: tweakedXOnlyPublicKey } =
-    bitcoin.address.fromBech32(p2trAddress);
-
-  return tweakedXOnlyPublicKey;
-}
-
-export function xOnlyPubkeyHexToP2tr(
-  xOnlyPubkey: string,
-  network: BitcoinNetwork,
-  type: "internal" | "tweaked" = "internal"
-) {
-  const convertedNetwork = convertBitcoinNetwork(network);
-
-  try {
-    const pubkeyBytes = Buffer.from(xOnlyPubkey, "hex");
-
-    const keyofXOnlyPubkey = {
-      internal: "internalPubkey",
-      tweaked: "pubkey",
-    };
-
-    const p2trOutput = bitcoin.payments.p2tr({
-      [keyofXOnlyPubkey[type]]: pubkeyBytes,
-      network: convertedNetwork,
-    });
-
-    return p2trOutput.address ?? "";
-  } catch (error) {
-    console.error("Error in internal x-only pubkey to P2TR:", error);
-    return "";
-  }
-}
 
 // Ref: https://github.com/Eunovo/taproot-with-bitcoinjs/blob/main/src/index.ts#L236
 export function tweakSigner(
@@ -109,20 +51,6 @@ export function tweakSigner(
 export function tapTweakHash(pubkey: Buffer, h: Buffer | undefined): Buffer {
   return taggedHash("TapTweak", Buffer.concat(h ? [pubkey, h] : [pubkey]));
 }
-
-export const sendBitcoinTx = async (
-  aresApi: AxiosInstance,
-  rawTx: string
-): Promise<string> => {
-  const res = await aresApi.post("/api/v1/transaction/broadcast", rawTx, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const txId = res.data.data;
-
-  return txId;
-};
 
 export const deriveBitcoinWallet = async (
   publicKey: PublicKey,
@@ -208,10 +136,16 @@ export const getBitcoinConnectorWallet = (
   };
 };
 
-export const convertBitcoinNetwork = (bitcoinNetwork: BitcoinNetwork) => {
-  if (bitcoinNetwork === BitcoinNetwork.Regtest)
-    return bitcoin.networks.regtest;
-  throw new Error("Invalid network type");
-};
+export function getInternalXOnlyPubkeyFromUserWallet(
+  bitcoinWallet: BitcoinWallet | null
+): BitcoinXOnlyPublicKey | null {
+  if (!bitcoinWallet) {
+    return null;
+  }
 
-export default bitcoin;
+  const internalXOnlyPublicKey = toXOnly(
+    Buffer.from(bitcoinWallet.pubkey, "hex")
+  );
+
+  return internalXOnlyPublicKey;
+}

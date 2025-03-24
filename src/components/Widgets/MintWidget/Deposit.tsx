@@ -2,6 +2,8 @@ import { PublicKey } from "@solana/web3.js";
 import { Psbt } from "bitcoinjs-lib";
 import { useState } from "react";
 
+import { btcToSatoshi, satoshiToBtc } from "@/bitcoin";
+import { estimateMaxSpendableAmount } from "@/bitcoin";
 import Icon from "@/components/Icons";
 import { DepositTooltip } from "@/components/Mint/DepositTooltip/DepositTooltip";
 import AccountProcess from "@/components/Mint/Modals/AccountProcess";
@@ -13,9 +15,7 @@ import { UTXOs } from "@/types/api";
 import { CheckBucketResult } from "@/types/misc";
 import { BitcoinWallet } from "@/types/wallet";
 import { BTC_DECIMALS } from "@/utils/constant";
-import { estimateMaxSpendableAmount } from "@/utils/deposit";
 import { formatValue } from "@/utils/format";
-import { btcToSatoshi, satoshiToBtc } from "@/utils/hotReserveBucket";
 import { getEstimatedLockToColdTransactionFee } from "@/utils/interaction";
 import { notifyError } from "@/utils/notification";
 

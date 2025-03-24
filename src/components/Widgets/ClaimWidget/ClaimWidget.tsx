@@ -4,6 +4,7 @@ import BigNumber from "bignumber.js";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
+import { satoshiToBtc } from "@/bitcoin";
 import { useBitcoinWallet } from "@/contexts/BitcoinWalletProvider";
 import { useFetchers } from "@/hooks/misc/useFetchers";
 import usePersistentStore from "@/stores/persistentStore";
@@ -11,7 +12,6 @@ import useStore from "@/stores/store";
 import { claimTBTCSchema } from "@/types/api";
 import { createAxiosInstances } from "@/utils/axios";
 import { MODAL_NAMES } from "@/utils/constant";
-import { satoshiToBtc } from "@/utils/hotReserveBucket";
 import { notifyError } from "@/utils/notification";
 
 import SuccessfulClaim from "../../SuccessfulClaim/SuccessfulClaim";

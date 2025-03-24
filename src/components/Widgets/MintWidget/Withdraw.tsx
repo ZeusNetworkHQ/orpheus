@@ -2,6 +2,7 @@ import { PublicKey } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import { useState } from "react";
 
+import { xOnlyPubkeyHexToP2tr } from "@/bitcoin";
 import Icon from "@/components/Icons";
 import { IconName } from "@/components/Icons/icons";
 import ConfirmWithdraw from "@/components/Mint/Modals/ConfirmWithdraw";
@@ -12,7 +13,6 @@ import usePersistentStore from "@/stores/persistentStore";
 import useStore from "@/stores/store";
 import { CryptoInputOption } from "@/types/misc";
 import { Position } from "@/types/zplClient";
-import { xOnlyPubkeyHexToP2tr } from "@/utils/bitcoin";
 import {
   DEFAULT_SERVICE_FEE_BASIS_POINT_PERCENT,
   BTC_DECIMALS,

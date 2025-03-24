@@ -1,6 +1,6 @@
 import { ECPairInterface } from "ecpair";
 
-import bitcoin from "@/utils/bitcoin";
+import bitcoin from "@/bitcoin";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 declare global {

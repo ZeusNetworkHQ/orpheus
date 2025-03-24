@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { xOnlyPubkeyHexToP2tr } from "@/bitcoin";
 import Button from "@/components/Button/Button";
 import Chip from "@/components/Chip";
 import Icon from "@/components/Icons";
@@ -23,7 +24,6 @@ import useTwoWayPegConfiguration from "@/hooks/zpl/useTwoWayPegConfiguration";
 import usePersistentStore from "@/stores/persistentStore";
 import { Interaction, interactionSchema, transactionSchema } from "@/types/api";
 import { Chain } from "@/types/network";
-import { xOnlyPubkeyHexToP2tr } from "@/utils/bitcoin";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatValue, formatDate, shortenString } from "@/utils/format";
 import {
