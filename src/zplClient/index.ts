@@ -2,7 +2,9 @@ import {
   AddressLookupTableAccount,
   Connection,
   PublicKey,
+  Transaction,
   TransactionInstruction,
+  VersionedTransaction,
 } from "@solana/web3.js";
 import BN from "bn.js";
 
@@ -21,14 +23,10 @@ export class ZplClient {
   private assetMint: PublicKey;
 
   constructor(
-    private connection: Connection,
-    private walletPublicKey: PublicKey | null,
-    private signTransaction:
-      | (<
-          T extends
-            | import("@solana/web3.js").Transaction
-            | import("@solana/web3.js").VersionedTransaction,
-        >(
+    connection: Connection,
+    walletPublicKey: PublicKey | null,
+    signTransaction:
+      | (<T extends Transaction | VersionedTransaction>(
           transaction: T
         ) => Promise<T>)
       | undefined,
@@ -116,6 +114,10 @@ export class ZplClient {
     return this.accountService.getTwoWayPegConfiguration();
   }
 
+  async getColdReserveBuckets() {
+    return this.accountService.getColdReserveBuckets();
+  }
+
   async getHotReserveBucketsByBitcoinXOnlyPubkey(
     bitcoinXOnlyPubkey: BitcoinXOnlyPublicKey
   ) {
@@ -200,8 +202,3 @@ export class ZplClient {
     );
   }
 }
-
-// Re-export types and functions
-export * from "./account";
-export * from "./instruction";
-export * from "./rpcClient";

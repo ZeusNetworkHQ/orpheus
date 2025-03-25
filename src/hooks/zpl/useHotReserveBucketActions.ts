@@ -34,15 +34,14 @@ const useHotReserveBucketActions = (bitcoinWallet: BitcoinWallet | null) => {
     const selectedGuardian = twoWayPegGuardianSettings[0];
 
     const coldReserveBucket = coldReserveBuckets.find(
-      (bucket) => bucket.guardian_setting === selectedGuardian.address
+      (bucket) => bucket.guardianSetting.toBase58() === selectedGuardian.address
     );
 
     if (!coldReserveBucket)
       throw new Error("Cold Reserve Bucket not found for the guardian setting");
 
     const guardianXOnlyPublicKey = Buffer.from(
-      coldReserveBucket.key_path_spend_public_key,
-      "hex"
+      coldReserveBucket.keyPathSpendPublicKey
     );
 
     const userBitcoinXOnlyPublicKey =
@@ -70,7 +69,7 @@ const useHotReserveBucketActions = (bitcoinWallet: BitcoinWallet | null) => {
       UNLOCK_BLOCK_HEIGHT,
       new PublicKey(selectedGuardian.address),
       new PublicKey(selectedGuardian.guardian_certificate),
-      new PublicKey(coldReserveBucket.address),
+      coldReserveBucket.publicKey,
       twoWayPegConfiguration.layerFeeCollector
     );
     const sig = await zplClient.signAndSendTransactionWithInstructions([ix]);
