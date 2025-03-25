@@ -11,12 +11,41 @@ import {
   Position,
   TwoWayPegConfiguration,
   twoWayPegConfigurationSchema,
+  ColdReserveBucket,
+  coldReserveBucketSchema,
 } from "@/types/zplClient";
 
 // Helper functions
 function generateAccountDiscriminator(input: string): Buffer {
   const preImage = Buffer.from(input);
   return Buffer.from(sha256(preImage), "hex").subarray(0, 8);
+}
+
+export function deserializeColdReserveBucket(
+  publicKey: PublicKey,
+  data?: Buffer
+): ColdReserveBucket {
+  if (!data) throw new Error("Data is undefined");
+
+  const {
+    guardianSetting,
+    owner,
+    taprootXOnlyPublicKey,
+    tapTweakHash,
+    createdAt,
+    keyPathSpendPublicKey,
+    recoveryParameters,
+  } = coldReserveBucketSchema.decode(data);
+  return {
+    publicKey,
+    guardianSetting,
+    owner,
+    taprootXOnlyPublicKey,
+    tapTweakHash,
+    createdAt,
+    keyPathSpendPublicKey,
+    recoveryParameters,
+  };
 }
 
 function deserializeHotReserveBucket(
@@ -240,6 +269,45 @@ export class AccountService {
     );
 
     return twoWayPegConfigurationData[0];
+  }
+
+  async getColdReserveBuckets() {
+    const filters = [
+      {
+        memcmp: {
+          offset: 0,
+          bytes: bs58.encode(
+            generateAccountDiscriminator("two-way-peg:cold-reserve-bucket")
+          ),
+        },
+      },
+    ];
+
+    const accounts = await this.connection.getProgramAccounts(
+      this.twoWayPegProgramId,
+      { filters }
+    );
+
+    const accountsData = accounts
+      .map((account) => {
+        const { data } = account.account;
+        return deserializeColdReserveBucket(account.pubkey, data.subarray(8));
+      })
+      .toSorted((a, b) => b.createdAt.cmp(a.createdAt))
+      .reduce((acc, current) => {
+        if (
+          !acc.some(
+            (item) =>
+              item.guardianSetting.toBase58() ===
+              current.guardianSetting.toBase58()
+          )
+        ) {
+          acc.push(current);
+        }
+        return acc;
+      }, [] as ColdReserveBucket[]);
+
+    return accountsData;
   }
 
   async getHotReserveBucketsByBitcoinXOnlyPubkey(

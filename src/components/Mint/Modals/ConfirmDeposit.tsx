@@ -23,7 +23,6 @@ import {
 } from "@/components/ShadcnModal/Modal";
 import { useZplClient } from "@/contexts/ZplClientProvider";
 import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
-import useColdReserveBuckets from "@/hooks/zpl/useColdReserveBuckets";
 import useTwoWayPegConfiguration from "@/hooks/zpl/useTwoWayPegConfiguration";
 import usePersistentStore from "@/stores/persistentStore";
 import useStore from "@/stores/store";
@@ -90,13 +89,11 @@ export default function ConfirmDepositModal({
 
   const zplClient = useZplClient();
   const networkConfig = useNetworkConfig();
-  const { data: coldReserveBuckets } = useColdReserveBuckets();
   const { feeRate } = useTwoWayPegConfiguration();
   const [isDepositing, setIsDepositing] = useState(false);
 
   const handleConfirmDeposit = async () => {
-    if (!zplClient || !solanaPubkey || !bitcoinWallet || !coldReserveBuckets)
-      return;
+    if (!zplClient || !solanaPubkey || !bitcoinWallet) return;
 
     if (!bitcoinUTXOs || bitcoinUTXOs.length === 0) {
       return;
@@ -286,10 +283,7 @@ export default function ConfirmDepositModal({
         </div>
 
         {/* Confirmation */}
-        <div
-          onClick={() => {}}
-          className="rounded-12 bg-sys-color-background-card border-apollo-border-15 flex flex-col gap-y-4 border p-16"
-        >
+        <div className="rounded-12 bg-sys-color-background-card border-apollo-border-15 flex flex-col gap-y-4 border p-16">
           <div className="flex flex-col gap-y-8">
             <div className="flex items-center gap-x-8">
               <Icon

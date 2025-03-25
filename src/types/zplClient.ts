@@ -38,12 +38,47 @@ export const twoWayPegConfigurationSchema: Structure<TwoWayPegConfiguration> =
     borsh.u32("minerFeeRate"),
   ]);
 
+export interface ColdReserveBucket {
+  publicKey: PublicKey;
+  guardianSetting: PublicKey;
+  owner: PublicKey;
+  // Bitcoin Cold Reserve X-Only Public Key
+  taprootXOnlyPublicKey: Uint8Array;
+  tapTweakHash: Uint8Array;
+  createdAt: BN;
+  // Guardian X-Only PublicKey
+  keyPathSpendPublicKey: Uint8Array;
+  recoveryParameters: ColdReserveRecoveryParameter[];
+}
+
+export interface ColdReserveRecoveryParameter {
+  scriptPathSpendPublicKey: Uint8Array;
+  lockTime: BN;
+}
+
+export const coldReserveBucketSchema: Structure<ColdReserveBucket> =
+  borsh.struct([
+    borsh.publicKey("guardianSetting"),
+    borsh.publicKey("owner"),
+    borsh.array(borsh.u8(), 32, "taprootXOnlyPublicKey"),
+    borsh.array(borsh.u8(), 32, "tapTweakHash"),
+    borsh.i64("createdAt"),
+    borsh.array(borsh.u8(), 32, "keyPathSpendPublicKey"),
+    borsh.vec(
+      borsh.struct([
+        borsh.array(borsh.u8(), 32, "scriptPathSpendPublicKey"),
+        borsh.i64("lockTime"),
+      ]),
+      "recoveryParameters"
+    ),
+  ]);
+
 export interface HotReserveBucket {
   publicKey: PublicKey;
   owner: PublicKey;
   guardianSetting: PublicKey;
   status: number;
-  // Hot Reserve Bucket X-Only Public Keys
+  // Bitcoin Hot Reserve X-Only Public Key
   taprootXOnlyPublicKey: Uint8Array;
   tapTweakHash: Uint8Array;
   // Guardian X-Only PublicKey

@@ -112,28 +112,6 @@ export const interactionsSchema = z.object({
 export type Interaction = z.infer<typeof interactionSchema>;
 export type Interactions = z.infer<typeof interactionsSchema>;
 
-export const coldReserveBucketsSchema = z.object({
-  items: z.array(
-    z.object({
-      address: z.string(),
-      guardian_setting: z.string(),
-      owner: z.string(),
-      taproot_x_only_public_key: z.string(),
-      tap_tree_hash: z.string(),
-      account_created_at: z.number(),
-      key_path_spend_public_key: z.string(),
-      recovery_parameters: z.array(
-        z.object({
-          script_path_spend_public_key: z.string(),
-          locktime: z.number(),
-        })
-      ),
-    })
-  ),
-});
-
-export type ColdReserveBuckets = z.infer<typeof coldReserveBucketsSchema>;
-
 export const twoWayPegGuardianSettingsScheme = z.object({
   items: z.array(
     z.object({
