@@ -1,6 +1,9 @@
 {
   "name": "orpheus",
   "version": "0.1.0",
+  "engines": {
+    "node": "20.18.3"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
