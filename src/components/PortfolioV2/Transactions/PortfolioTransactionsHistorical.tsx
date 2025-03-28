@@ -234,7 +234,7 @@ const PortfolioTransactionsHistorical = ({
           <TableBody>
             {/* <div className="fixed h-full w-full [clip-path:inset(0_0_0_0_round_16px)]"></div> */}
             {transactions && transactions.length === 0 ? (
-              <div className="bg-sys-color-background-card rounded-16 gradient-border border-apollo-border-15 mt-8 flex flex-col items-center justify-center gap-y-24 py-64 md:mt-0 md:border-none md:!bg-transparent">
+              <div className="bg-sys-color-background-card rounded-16 gradient-border border-apollo-border-15 mt-8 flex flex-col items-center justify-center gap-y-24 py-64 md:mt-0 md:border-none">
                 <div className="flex flex-col items-center justify-center gap-y-16 text-center">
                   <div className="headline-headline5 text-sys-color-text-primary">
                     {selectedTypes.length > 0

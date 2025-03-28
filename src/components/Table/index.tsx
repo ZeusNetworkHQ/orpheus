@@ -342,7 +342,7 @@ const TableBody = ({ children, className }: TableBodyProps) => {
         (stickFirstItem || stickLastItem) && "!shadow-none",
         variant === "separated" &&
           tableType === "stacked" &&
-          "md:bg-sys-color-background-card rounded-16 md:border-apollo-border-15 bg-transparent md:border md:px-16 md:shadow-[inset_0px_2px_2px_rgba(139,138,158,0.1)]",
+          "rounded-16 md:border-apollo-border-15 bg-transparent md:border md:shadow-[inset_0px_2px_2px_rgba(139,138,158,0.1)]",
 
         className
       )}

@@ -1696,7 +1696,7 @@ video {
 
 .ds :is(.bg-ref-palette-grey-50a) {
   --tw-bg-opacity: 1;
-  background-color: rgb(39 39 45 / var(--tw-bg-opacity));
+  background-color: rgb(239 239 249 / var(--tw-bg-opacity));
 }
 
 .ds :is(.bg-ref-palette-opacity-cold-grey-10) {
@@ -3301,7 +3301,7 @@ video {
 
 .ds :is(.focus\:bg-sys-color-background-card-foreground:focus) {
   --tw-bg-opacity: 1;
-  background-color: rgb(39 39 45 / var(--tw-bg-opacity));
+  background-color: rgb(239 239 249 / var(--tw-bg-opacity));
 }
 
 .ds :is(.focus\:outline-none:focus) {
