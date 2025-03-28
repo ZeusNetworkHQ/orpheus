@@ -31,7 +31,7 @@
       }
     }
     &__actions {
-      @apply relative z-10 flex flex-col space-y-5 rounded-2xl border border-shade-mute border-opacity-15 bg-shade-card p-3;
+      @apply relative z-10 flex flex-col space-y-5 rounded-2xl border border-shade-mute border-opacity-15 p-3;
       &__title {
         @apply mx-auto pt-8 text-2xl font-medium text-shade-primary;
       }
@@ -86,17 +86,17 @@
 .rank--1 {
   background:
     linear-gradient(90deg, rgba(255, 192, 70, 0.06), transparent 30%),
-    linear-gradient(90deg, rgb(32 32 39), rgb(32 32 39));
+    linear-gradient(90deg, rgb(235 235 245), rgb(235 235 245));
 }
 
 .rank--2 {
   background:
     linear-gradient(90deg, rgba(251, 251, 255, 0.06), transparent 30%),
-    linear-gradient(90deg, rgb(32 32 39), rgb(32 32 39));
+    linear-gradient(90deg, rgb(235 235 245), rgb(235 235 245));
 }
 
 .rank--3 {
   background:
     linear-gradient(90deg, rgba(255, 103, 70, 0.06), transparent 30%),
-    linear-gradient(90deg, rgb(32 32 39), rgb(32 32 39));
+    linear-gradient(90deg, rgb(235 235 245), rgb(235 235 245));
 }

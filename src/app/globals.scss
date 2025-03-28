@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --bg-black: #16161b;
+  --bg-gradient: radial-gradient(#fafafa 0%, #d7e1fa 50%, #d7e9fa 100%);
 
   --toastify-color-light: #fff;
   --toastify-color-dark: #121212;
@@ -18,7 +18,7 @@
 
 html,
 body {
-  background: var(--bg-black);
+  background: var(--bg-gradient);
   @apply h-full w-full max-w-[100%] overflow-x-hidden text-shade-secondary;
   font-family: var(--font-rethink-sans, "Rethink Sans"), sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -76,15 +76,15 @@ body {
 
 body {
   /* scrollbar-width: thin;
-  scrollbar-color: rgb(39, 39, 45, 1) var(--bg-black); */
+  scrollbar-color: rgb(39, 39, 45, 1) var(--bg-gradient); */
   &::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
   &::-webkit-scrollbar-thumb {
-    background: rgb(32, 32, 39, 0.6);
+    background: rgba(84, 108, 241, 0.3);
     border-radius: 100px;
-    box-shadow: inset 0 0 0 1px rgba(139, 138, 158, 0.2);
+    box-shadow: inset 0 0 0 1px rgba(84, 108, 241, 0.2);
     /* border: 1px solid rgb(139, 138, 158, 0.2); */
   }
   &::-webkit-scrollbar-track {
@@ -92,7 +92,7 @@ body {
     border-radius: 100px;
   }
   &::-webkit-scrollbar-button {
-    background-color: var(--bg-black);
+    background-color: transparent;
     border-radius: 100px;
   }
 }
@@ -150,7 +150,7 @@ body {
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
+    --muted: 210 40% 96.1%; /* This is the muted color, used for less prominent text. To change the color, replace the values with the desired hue, saturation, and lightness. For example, to make the text darker, increase the lightness value. */
     --muted-foreground: 215.4 16.3% 46.9%;
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;

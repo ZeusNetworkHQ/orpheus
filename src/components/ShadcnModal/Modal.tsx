@@ -210,7 +210,7 @@ const ModalActions = ({
       </div>
       {annotation && (
         <div className="text-sys-color-text-secondary flex items-center gap-x-8">
-          <Icon name="Error" className="text-apollo-brand-primary-orange" />
+          <Icon name="Error" className="text-apollo-brand-primary-blue" />
           <span className="text-sys-color-text-mute body-body1-medium">
             {annotation}
           </span>

@@ -94,7 +94,7 @@ export function AreaChart({
                 top: `${yScale(+value)}%`,
                 left: "0%",
               }}
-              className="caption-caption text-sys-color-text-mute absolute w-full -translate-y-1/2 pr-2 text-right tabular-nums"
+              className="caption-caption absolute w-full -translate-y-1/2 pr-2 text-right tabular-nums text-shade-mute"
             >
               {formatNumber(+value)}
             </div>
@@ -125,8 +125,8 @@ export function AreaChart({
             className={classNames(
               "h-full w-full animate-ping rounded-full border-2",
               theme === "primary"
-                ? "border-apollo-brand-primary-orange bg-apollo-brand-primary-orange/20"
-                : "border-apollo-brand-tertiary-orange bg-apollo-brand-tertiary-orange/20"
+                ? "border-primary-apollo bg-primary-apollo/20"
+                : "border-primary-apolloSecondary bg-primary-apolloSecondary/20"
             )}
           />
         </div>
@@ -142,7 +142,7 @@ export function AreaChart({
             .map((active, i) => (
               <g
                 transform={`translate(0,${yScale(+active)})`}
-                className="text-[#6B6B6B]/15"
+                className="text-shade-mute/15"
                 key={i}
               >
                 <line
@@ -173,8 +173,8 @@ export function AreaChart({
                 offset="0%"
                 className={classNames(
                   theme === "primary"
-                    ? "text-apollo-brand-primary-orange/20"
-                    : "text-apollo-brand-tertiary-orange/20"
+                    ? "text-primary-apollo/20"
+                    : "text-primary-apolloSecondary/20"
                 )}
                 stopColor="currentColor"
               />
@@ -182,8 +182,8 @@ export function AreaChart({
                 offset="100%"
                 className={classNames(
                   theme === "primary"
-                    ? "text-apollo-brand-primary-orange/0"
-                    : "text-apollo-brand-tertiary-orange/0"
+                    ? "text-primary-apollo/0"
+                    : "text-primary-apolloSecondary/0"
                 )}
                 stopColor="currentColor"
               />
@@ -195,8 +195,8 @@ export function AreaChart({
             fill="none"
             className={classNames(
               theme === "primary"
-                ? "text-apollo-brand-primary-orange"
-                : "text-apollo-brand-tertiary-orange"
+                ? "text-primary-apollo"
+                : "text-primary-apolloSecondary"
             )}
             stroke="currentColor"
             strokeWidth="2"
@@ -215,8 +215,8 @@ export function AreaChart({
                     className={classNames(
                       "opacity-0 transition-opacity group-hover/tooltip:opacity-100",
                       theme === "primary"
-                        ? "text-apollo-brand-primary-orange"
-                        : "text-apollo-brand-tertiary-orange"
+                        ? "text-primary-apollo"
+                        : "text-primary-apolloSecondary"
                     )}
                     vectorEffect="non-scaling-stroke"
                     strokeWidth="8"
@@ -253,7 +253,7 @@ export function AreaChart({
                 </g>
               </TooltipTrigger>
               <TooltipContent theme={theme}>
-                <div className="text-sys-color-text-mute">
+                <div className="text-shade-mute">
                   {`${d.date.getFullYear()}/${String(d.date.getMonth() + 1).padStart(2, "0")}/${String(d.date.getDate()).padStart(2, "0")}`}
                   {showHourlyTimestamps &&
                     ` ${d.date.getHours()}:${String(d.date.getMinutes()).padStart(2, "0")}`}
@@ -262,24 +262,20 @@ export function AreaChart({
                   {btcPrice ? (
                     <>
                       <div className="flex items-center justify-between gap-x-64">
-                        <span className="text-sys-color-text-secondary">
-                          USD
-                        </span>
-                        <span className="text-sys-color-text-primary">
+                        <span className="text-shade-secondary">USD</span>
+                        <span className="text-shade-primary">
                           {formatNumber(d.value)}
                         </span>
                       </div>
                       <div className="flex items-center justify-between gap-x-64">
-                        <span className="text-sys-color-text-secondary">
-                          BTC
-                        </span>
-                        <span className="text-sys-color-text-primary">
+                        <span className="text-shade-secondary">BTC</span>
+                        <span className="text-shade-primary">
                           {formatNumber(d.value / btcPrice)}
                         </span>
                       </div>
                     </>
                   ) : (
-                    <div className="text-sys-color-text-primary">
+                    <div className="text-shade-primary">
                       {d.value.toLocaleString("en-US", {
                         maximumFractionDigits: 0,
                       })}
@@ -331,7 +327,7 @@ export function AreaChart({
               <div
                 key={i}
                 className={classNames(
-                  "text-sys-color-text-mute overflow-visible text-nowrap",
+                  "overflow-visible text-nowrap text-shade-mute",
                   showHourlyTimestamps && "even:hidden sm:even:block"
                 )}
               >

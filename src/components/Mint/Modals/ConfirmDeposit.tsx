@@ -252,9 +252,9 @@ export default function ConfirmDepositModal({
             <Icon
               name="Stake"
               size={18}
-              className="text-apollo-brand-primary-orange"
+              className="text-apollo-brand-primary-blue"
             />
-            <span className="body-body1-medium text-sys-color-text-secondary">
+            <span className="body-body1-medium text-sys-color-text-primary">
               Confirm Deposit
             </span>
           </div>
@@ -263,12 +263,12 @@ export default function ConfirmDepositModal({
         {/* Asset */}
         <DepositAssetBanner assetFrom={assetFrom} assetTo={assetTo} />
 
-        {/* Withdrawal Fee */}
+        {/* Deposit Fee */}
         <div className="flex flex-col gap-y-12">
           <span className="body-body1-semibold text-sys-color-text-primary">
             Transaction Fee
           </span>
-          <div className="body-body1-medium text-sys-color-text-secondary flex flex-col gap-y-8">
+          <div className="body-body1-medium text-sys-color-text-primary flex flex-col gap-y-8">
             <div className="flex items-center justify-between">
               <span>Miner Fee</span>
               <span>
@@ -287,7 +287,7 @@ export default function ConfirmDepositModal({
           <div className="flex flex-col gap-y-8">
             <div className="flex items-center gap-x-8">
               <Icon
-                name="Warning"
+                name="Alert"
                 size={18}
                 className="text-sys-color-state-warning"
               />
@@ -295,7 +295,7 @@ export default function ConfirmDepositModal({
                 Notice
               </span>
             </div>
-            <span className="body-body1-medium text-sys-color-text-secondary">
+            <span className="body-body1-medium text-sys-color-text-primary">
               Deposits may take up to 24 hours to complete based on Bitcoin
               network conditions.
             </span>
@@ -345,7 +345,7 @@ const DepositAssetBanner = ({
   return (
     <div
       className={classNames(
-        "gradient-border rounded-12 flex w-full flex-col gap-x-24 gap-y-16 bg-[linear-gradient(-90.83deg,rgba(253,131,255,0.08)_0%,rgba(178,131,255,0.08)_10%,rgba(123,92,175,0.0711953)_16.78%,rgba(15,15,18,0.0540223)_30%,rgba(15,15,18,0)_70%,rgba(255,103,70,0.0500765)_85%,rgba(255,103,70,0.08)_100%),linear-gradient(-90deg,#16161B,#16161B)] px-12 py-16 before:[background:linear-gradient(-90deg,rgba(253,131,255,0.25)_0%,rgba(178,131,255,0.25)_10%,rgba(123,92,175,0.25)_16.78%,rgba(15,15,18,0.25)_30%,rgba(15,15,18,0.25)_70%,rgba(255,103,70,0.25)_85%,rgba(255,103,70,0.25)_100%)] sm:flex-row sm:items-center sm:justify-between sm:gap-y-0 sm:px-20 sm:py-16"
+        "gradient-border rounded-12 flex w-full flex-col gap-x-24 gap-y-16 bg-[linear-gradient(91deg,rgba(255,103,70,0.08)_0%,rgba(255,103,70,0.05)_30%,rgba(225,234,253,0.00)_45%,rgba(225,234,253,0.05)_60%,rgba(178,131,255,0.08)_70%,rgba(253,131,255,0.08)_100%)] sm:flex-row sm:items-center sm:justify-between sm:gap-y-0 sm:px-20 sm:py-16"
       )}
     >
       <div className="flex w-full flex-row justify-between gap-y-8 sm:w-auto sm:flex-col sm:justify-start">

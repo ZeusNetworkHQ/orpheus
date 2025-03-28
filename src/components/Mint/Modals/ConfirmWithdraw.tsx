@@ -268,9 +268,9 @@ export default function ConfirmWithdraw({
             <Icon
               name="Stake"
               size={18}
-              className="text-apollo-brand-primary-orange"
+              className="text-apollo-brand-primary-blue"
             />
-            <span className="body-body1-medium text-sys-color-text-secondary">
+            <span className="body-body1-medium text-sys-color-text-primary">
               Confirm Withdraw
             </span>
           </div>
@@ -313,7 +313,7 @@ export default function ConfirmWithdraw({
           <span className="body-body1-semibold text-sys-color-text-primary">
             Transaction Fee
           </span>
-          <div className="body-body1-medium text-sys-color-text-secondary flex flex-col gap-y-8">
+          <div className="body-body1-medium text-sys-color-text-primary flex flex-col gap-y-8">
             <div className="flex items-center justify-between">
               <div
                 className="group relative z-10 flex items-center gap-x-8"
@@ -365,7 +365,7 @@ export default function ConfirmWithdraw({
                   checked={hasUserConfirmed}
                   handleChange={(checked) => setHasUserConfirmed(checked)}
                 ></Checkbox>
-                <span className="body-body1-medium text-sys-color-text-secondary">
+                <span className="body-body1-medium text-sys-color-text-primary">
                   I have confirmed this is the correct BTC address:
                 </span>
               </div>
@@ -422,23 +422,23 @@ const WithdrawAssetBanner = ({
   return (
     <div
       className={classNames(
-        "gradient-border rounded-12 flex w-full flex-col gap-x-24 gap-y-16 bg-[linear-gradient(90.83deg,rgba(253,131,255,0.08)_0%,rgba(178,131,255,0.08)_10%,rgba(123,92,175,0.0711953)_16.78%,rgba(15,15,18,0.0540223)_30%,rgba(15,15,18,0)_70%,rgba(255,103,70,0.0500765)_85%,rgba(255,103,70,0.08)_100%),linear-gradient(90deg,#16161B,#16161B)] px-12 py-16 before:[background:linear-gradient(90deg,rgba(253,131,255,0.25)_0%,rgba(178,131,255,0.25)_10%,rgba(123,92,175,0.25)_16.78%,rgba(15,15,18,0.25)_30%,rgba(15,15,18,0.25)_70%,rgba(255,103,70,0.25)_85%,rgba(255,103,70,0.25)_100%)] sm:flex-row sm:items-center sm:justify-between sm:gap-y-0 sm:px-40 sm:py-16"
+        "gradient-border rounded-12 flex w-full flex-col gap-x-24 gap-y-16 bg-[linear-gradient(91deg,rgba(253,131,255,0.08)_0%,rgba(178,131,255,0.08)_30%,rgba(225,234,253,0.05)_40%,rgba(225,234,253,0.00)_55%,rgba(255,103,70,0.05)_70%,rgba(255,103,70,0.08)_100%)] sm:flex-row sm:items-center sm:justify-between sm:gap-y-0 sm:px-40 sm:py-16"
       )}
     >
       <div className="flex w-full flex-row justify-between gap-y-8 sm:w-auto sm:flex-col sm:justify-start">
-        <span className="body-body2-medium text-sys-color-text-secondary">
+        <span className="body-body2-medium text-sys-color-text-primary">
           Burn
         </span>
         <div className="flex items-center gap-x-8">
           <Icon name={assetFrom.name.toLowerCase() as IconName} size={18} />
           <span className="body-body1-medium sm:headline-headline5 text-sys-color-text-primary">
             {assetFrom.amount}
-            <span className="text-sys-color-text-secondary body-body1-medium sm:headline-headline6">
+            <span className="text-sys-color-text-primary body-body1-medium sm:headline-headline6">
               {""} {assetFrom.name}
             </span>
           </span>
           {assetFrom.isLocked && (
-            <Icon name="Lock" className="text-sys-color-text-secondary" />
+            <Icon name="Lock" className="text-sys-color-text-primary" />
           )}
         </div>
       </div>
@@ -450,19 +450,19 @@ const WithdrawAssetBanner = ({
       />
 
       <div className="flex w-full flex-row items-center justify-between gap-y-8 sm:w-auto sm:flex-col sm:items-start sm:justify-start">
-        <span className="body-body2-medium text-sys-color-text-secondary">
+        <span className="body-body2-medium text-sys-color-text-primary">
           Unlock
         </span>
         <div className="flex items-center gap-x-8">
           <Icon name={assetTo.name.toLowerCase() as IconName} size={18} />
           <span className="body-body1-medium sm:headline-headline5 text-sys-color-text-primary">
             {assetTo.amount}
-            <span className="text-sys-color-text-secondary body-body1-medium sm:headline-headline6">
+            <span className="text-sys-color-text-primary body-body1-medium sm:headline-headline6">
               {""} {assetTo.name}
             </span>
           </span>
           {assetTo.isLocked && (
-            <Icon name="Lock" className="text-sys-color-text-secondary" />
+            <Icon name="Lock" className="text-sys-color-text-primary" />
           )}
         </div>
       </div>

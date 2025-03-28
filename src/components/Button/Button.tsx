@@ -56,11 +56,11 @@ const Button = ({
         "gradient-border body-body1-medium before:gradient-border-b relative flex items-center justify-center gap-x-8 transition duration-200 ease-in-out",
         {
           // Primary Styles
-          "bg-apollo-brand-primary-orange text-ref-palette-grey-60a shadow-[0px_6px_12px_rgba(255,118,88,0.2),inset_0px_2px_6px_#FF9A84] before:from-white/40 before:content-[''] enabled:hover:shadow-[0px_8px_12px_rgba(255,118,88,0.2),inset_0px_2px_6px_#FF9A84] disabled:opacity-40":
+          "bg-primary-apollo text-white shadow-[0px_6px_12px_rgba(84,108,241,0.2),inset_0px_2px_6px_rgba(84,108,241,0.6)] before:from-white/40 before:content-[''] enabled:hover:shadow-[0px_8px_12px_rgba(84,108,241,0.3),inset_0px_2px_6px_rgba(84,108,241,0.8)] disabled:opacity-40":
             type === "primary",
 
           // Secondary Styles
-          "bg-sys-color-card-light text-sys-color-text-primary before:from-sys-color-text-mute/40 before:via-apollo-border-15 before:to-apollo-border-15 shadow-[inset_0px_-4px_4px_rgba(139,138,158,0.12)] enabled:hover:shadow-[inset_0px_-4px_8px_rgba(139,138,158,0.2),inset_0px_-4px_4px_rgba(139,138,158,0.12)] disabled:opacity-40":
+          "bg-white text-shade-primary shadow-[inset_0px_-4px_4px_rgba(84,108,241,0.05)] before:from-primary-apollo/10 before:via-primary-apollo/5 before:to-primary-apollo/5 enabled:hover:shadow-[inset_0px_-4px_8px_rgba(84,108,241,0.1),inset_0px_-4px_4px_rgba(84,108,241,0.05)] disabled:opacity-40":
             type === "secondary",
           "!text-sys-color-text-secondary enabled:hover:!text-sys-color-text-primary":
             type === "secondary" && hideLabel,

@@ -351,13 +351,6 @@ export default function WalletSelector() {
                     )}
                   </div>
                 </div>
-
-                <div className="flex px-3">
-                  <Divider
-                  // type="dark"
-                  // className={`ds ${index === 0 ? "" : "!hidden"}`}
-                  />
-                </div>
               </div>
             ))}
           </div>

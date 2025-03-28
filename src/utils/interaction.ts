@@ -399,7 +399,7 @@ export const getWithdrawalDetailsTableItems = (
           ),
           6
         )} zBTC`,
-        leftIcon: "Zbtc",
+        leftIcon: "zbtc",
       },
     },
     {

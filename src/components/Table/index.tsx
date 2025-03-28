@@ -540,7 +540,7 @@ const TableCell = ({
             className={classNames("flex-shrink-0", leftIconClassName)}
           />
         )}
-        {value && <span className="max-w-[150px] truncate">{value}</span>}
+        {value && <span className="break-words">{value}</span>}
         {children}
         {rightIcon &&
           !rightIconOnClick &&

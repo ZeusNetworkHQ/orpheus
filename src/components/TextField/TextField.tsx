@@ -159,7 +159,7 @@ const TextField = ({
           // Move to separate Component later
           <button
             disabled={disabled}
-            className="body-body2-medium gradient-border before:to:transparent rounded-8 bg-apollo-brand-primary-orange text-sys-color-background-normal absolute right-16 top-16 flex h-20 items-center justify-center px-12 shadow-[0px_6px_12px_rgba(255,118,88,0.2),inset_0px_2px_6px_#FF9A84] before:from-white/40 disabled:opacity-40"
+            className="body-body2-medium gradient-border before:to:transparent rounded-8 bg-apollo-brand-primary-blue text-sys-color-background-normal absolute right-16 top-16 flex h-20 items-center justify-center px-12 shadow-[0px_6px_12px_rgba(255,118,88,0.2),inset_0px_2px_6px_#FF9A84] before:from-white/40 disabled:opacity-40"
             onClick={onActionClick}
           >
             {actionLabel}

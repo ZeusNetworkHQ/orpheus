@@ -109,7 +109,7 @@ export default function CryptoInput({
     >
       <div className="group relative flex w-[150px] flex-shrink-0 transition sm:w-auto">
         <div
-          className={`${dropdownOptions ? "cursor-pointer hover:!border-shade-mute/50 hover:!shadow-[0px_4px_4px_rgba(22,22,27,0.5),inset_0px_2px_15px_rgba(139,138,158,0.5)]" : ""} ${styles.input__group__crypto} ${dropdownOptions && showDropdown ? "relative !z-50" : ""}`}
+          className={`${dropdownOptions ? "hover:!shadow-[0px_4px_4px_rgba(199, 217, 254,0.5),inset_0px_2px_15px_rgba(139,138,158,0.5)] cursor-pointer hover:!border-shade-mute/50" : ""} ${styles.input__group__crypto} ${dropdownOptions && showDropdown ? "relative !z-50" : ""}`}
           onClick={() => {
             if (!dropdownOptions) return;
             setShowDropdown(true);

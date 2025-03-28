@@ -17,7 +17,7 @@ export default function StatusBar({ statusItems }: StatusBarProps) {
           <div className="bg-ref-palette-grey-50a flex items-center rounded-full p-[2px]">
             {item.status === "pending" ? (
               <motion.div
-                className="h-apollo-6 bg-apollo-brand-primary-orange rounded-full shadow-[inset_0px_2px_4px_#FFA794]"
+                className="h-apollo-6 bg-apollo-brand-primary-blue rounded-full shadow-[inset_0px_2px_4px_#FFA794]"
                 animate={{
                   width: ["0%", "50%"],
                 }}
@@ -28,7 +28,7 @@ export default function StatusBar({ statusItems }: StatusBarProps) {
             ) : (
               <div
                 className={classNames("h-apollo-6 rounded-full", {
-                  "bg-apollo-brand-primary-orange w-full shadow-[inset_0px_2px_4px_#FFA794]":
+                  "bg-apollo-brand-primary-blue w-full shadow-[inset_0px_2px_4px_#FFA794]":
                     item.status === "complete",
                 })}
               />

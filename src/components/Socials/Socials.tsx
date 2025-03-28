@@ -12,35 +12,35 @@ export default function Socials() {
       <Link
         href="https://go.zeusnetwork.xyz/galxe-muses-atelier-01"
         target="_blank"
-        className="transition hover:text-shade-secondary"
+        className="transition hover:text-primary-apollo"
       >
         <GalxeIcon />
       </Link>
       <Link
         href="https://x.com/ApolloByZeus"
         target="_blank"
-        className="transition hover:text-shade-secondary"
+        className="transition hover:text-primary-apollo"
       >
         <XIcon />
       </Link>
       <Link
         href="https://docs.apollobyzeus.app/"
         target="_blank"
-        className="transition hover:text-shade-secondary"
+        className="transition hover:text-primary-apollo"
       >
         <GitBookIcon />
       </Link>
       <Link
         href="https://discord.com/invite/zeusnetwork"
         target="_blank"
-        className="transition hover:text-shade-secondary"
+        className="transition hover:text-primary-apollo"
       >
         <DiscordIcon />
       </Link>
       <Link
         href="https://medium.com/@apollo-by-zeusnetwork"
         target="_blank"
-        className="transition hover:text-shade-secondary"
+        className="transition hover:text-primary-apollo"
       >
         <MediumIcon />
       </Link>

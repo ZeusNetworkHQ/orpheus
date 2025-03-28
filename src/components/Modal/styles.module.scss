@@ -4,7 +4,7 @@
     @apply items-end;
   }
   &__backdrop {
-    @apply absolute left-0 h-[100dvh] w-[100dvw] bg-[#0F0F12] bg-opacity-50 backdrop-blur-sm;
+    @apply absolute left-0 h-[100dvh] w-[100dvw] bg-[#] bg-opacity-50 backdrop-blur-sm;
   }
   &__card {
     @apply relative items-center justify-center rounded-2xl bg-shade-card px-4 py-5;

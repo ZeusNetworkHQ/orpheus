@@ -66,7 +66,7 @@ export default function TransactionDetailsModal({
               <Icon
                 name="Transaction"
                 size={18}
-                className="text-apollo-brand-primary-orange"
+                className="text-apollo-brand-primary-blue"
               />
               <span className="body-body1-medium text-sys-color-text-secondary">
                 Transaction Details

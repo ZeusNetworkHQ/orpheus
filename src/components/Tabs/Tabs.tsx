@@ -69,7 +69,8 @@ const Tabs = ({
               "text-sys-color-text-mute cursor-default": tab.disabled,
 
               // Static Styles
-              "text-sys-color-text-secondary": activeTab !== index,
+              "text-sys-color-text-secondary":
+                activeTab !== index && type === "tabs",
 
               // Timeline Styles
               "body-body2-semibold w-full items-center justify-center rounded-full px-12 py-[2px] sm:w-max":
@@ -91,11 +92,11 @@ const Tabs = ({
                 type === "segmented",
               "hover:!text-sys-color-text-primary hover:transition":
                 !tab.disabled && type === "segmented" && activeTab !== index,
-              "text-apollo-brand-primary-orange hover:text-apollo-brand-secondary-orange":
+              "text-apollo-brand-primary-blue hover:text-apollo-brand-secondary-blue":
                 !tab.disabled && type === "segmented" && activeTab === index,
 
               // Underline Styles
-              "headline-headline6 text-sys-color-text-secondary px-8 pb-8 pt-4 disabled:opacity-40":
+              "headline-headline6 text-sys-color-text-primary px-8 pb-8 pt-4 disabled:opacity-40":
                 type === "underline",
               "hover:text-sys-color-text-primary":
                 !tab.disabled && type === "underline",
@@ -112,7 +113,7 @@ const Tabs = ({
             <motion.div
               layoutId={layoutName}
               transition={{ duration: 0.2 }}
-              className="rounded-12 bg-apollo-brand-primary-orange/5 absolute left-0 top-0 h-full w-full"
+              className="rounded-12 bg-apollo-brand-primary-blue/5 absolute left-0 top-0 h-full w-full"
             ></motion.div>
           )}
 
@@ -120,7 +121,7 @@ const Tabs = ({
             <motion.div
               layoutId={layoutName}
               transition={{ duration: 0.2 }}
-              className="rounded-t-4 bg-apollo-brand-primary-orange absolute bottom-0 left-0 h-[3px] w-full"
+              className="rounded-t-4 bg-apollo-brand-primary-blue absolute bottom-0 left-0 h-[3px] w-full"
             ></motion.div>
           )}
 

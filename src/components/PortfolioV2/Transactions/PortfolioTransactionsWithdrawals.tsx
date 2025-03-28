@@ -202,7 +202,7 @@ const PortfolioTransactionsWithdrawals = ({
                     )}
                   </TableCell>
                   <TableCell
-                    leftIcon="Zbtc"
+                    leftIcon="zbtc"
                     rightIcon={!item?.is_stored ? "Lock" : undefined}
                     rightIconClassName="text-sys-color-text-mute"
                   >

@@ -192,7 +192,7 @@ export default function RedeemModal({
             <Icon
               name="Withdraw01"
               size={18}
-              className="text-apollo-brand-primary-orange"
+              className="text-apollo-brand-primary-blue"
             />
             <span className="body-body1-medium text-sys-color-text-secondary">
               Redeem zBTC
@@ -222,7 +222,7 @@ export default function RedeemModal({
           >
             <div className="border-apollo-border-15 rounded-8 bg-sys-color-background-card w-[150px] flex-shrink-0 border px-12 py-16 shadow-[inset_0px_2px_2px_rgba(139,138,158,0.1)]">
               <div className="flex h-full w-full items-center space-x-8">
-                <Icon name={"Zbtc"} size={18} />
+                <Icon name={"zbtc"} size={18} />
                 <div className="flex flex-col">
                   <div className="flex items-center space-x-4">
                     <p className="headline-headline6 text-sys-color-text-primary">

@@ -208,7 +208,7 @@ const Dropdown = ({
                       selectedIndex.length === 0)),
 
                 // Selected options
-                "body-body1-medium border-apollo-brand-secondary-orange/50 text-apollo-brand-secondary-orange hover:bg-apollo-brand-primary-orange/5 hover:text-apollo-brand-primary-orange space-x-8 border px-16 py-8":
+                "body-body1-medium border-apollo-brand-secondary-orange/50 text-apollo-brand-secondary-blue hover:bg-apollo-brand-primary-blue/5 hover:text-apollo-brand-primary-blue space-x-8 border px-16 py-8":
                   type === "filter" &&
                   selectedIndex !== null &&
                   (!Array.isArray(selectedIndex) || selectedIndex.length > 0),
@@ -222,7 +222,7 @@ const Dropdown = ({
                   "flex-shrink-0 duration-200 ease-in-out",
                   {
                     // Selected options
-                    "!text-apollo-brand-secondary-orange group-hover:!text-apollo-brand-primary-orange":
+                    "!text-apollo-brand-secondary-blue group-hover:!text-apollo-brand-primary-blue":
                       selectedIndex !== null &&
                       (!Array.isArray(selectedIndex) ||
                         selectedIndex.length > 0),

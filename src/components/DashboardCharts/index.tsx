@@ -90,9 +90,9 @@ export default function DashboardCharts({
       animate={{ opacity: 1 }}
       className="flex flex-col gap-y-20"
     >
-      <div className="bg-sys-color-background-card flex flex-col gap-y-32 rounded-[25px] border border-[#2C2C36] px-12 py-24 pb-24 sm:px-20 sm:pb-32">
+      <div className="bg-sys-color-background-light flex flex-col gap-y-32 rounded-[25px] border border-shade-divider px-12 py-24 pb-24 shadow-[0px_4px_12px_rgba(84,108,241,0.08)] sm:px-20 sm:pb-32">
         <div className="flex flex-col gap-y-8 px-8">
-          <span className="text-apollo-brand-secondary-orange headline-headline6">
+          <span className="headline-headline6 text-primary-apollo">
             Total Value Locked
           </span>
           {isLoading ? (
@@ -102,10 +102,10 @@ export default function DashboardCharts({
             />
           ) : (
             <div className="flex flex-wrap items-end gap-x-12">
-              <span className="headline-headline3 sm:headline-headline2 text-white">
+              <span className="headline-headline3 sm:headline-headline2 text-shade-primary">
                 ${formatValue(tvl, 0)}
               </span>
-              <div className="gap-x-apollo-6 mb-4 flex items-center">
+              <div className="gap-x-apollo-6 flex items-center">
                 <Icon name="btc" size={18} />
                 <span className="headline-headline6 text-sys-color-text-secondary">
                   {formatValue(tvl / btcPrice, 2)} BTC
@@ -125,9 +125,9 @@ export default function DashboardCharts({
       </div>
 
       <div className="flex w-full flex-col items-center gap-20 lg:flex-row">
-        <div className="w-full rounded-[25px] border border-[#2C2C36] px-8 pt-8">
-          <div className="border-apollo-border-15 bg-sys-color-background-card py-apollo-10 w-full rounded-[15px] border px-12 shadow-[inset_0px_2px_2px_rgba(139,138,158,0.1)] sm:px-20">
-            <span className="body-body1-semibold md:headline-headline6 text-sys-color-text-secondary">
+        <div className="bg-sys-color-background-light w-full rounded-[25px] border border-shade-divider px-8 pt-8 shadow-[0px_4px_12px_rgba(84,108,241,0.05)]">
+          <div className="py-apollo-10 w-full rounded-[15px] border border-shade-divider bg-shade-foreground px-12 shadow-[inset_0px_2px_2px_rgba(84,108,241,0.05)] sm:px-20">
+            <span className="body-body1-semibold md:headline-headline6 text-shade-secondary">
               Total Volume
             </span>
           </div>
@@ -136,16 +136,16 @@ export default function DashboardCharts({
             {isLoading ? (
               <Skeleton
                 height="40px"
-                classes="bg-sys-color-background-card-foreground rounded-8 !w-2/3 lg:!w-1/3"
+                classes="bg-sys-color-background-light-foreground rounded-8 !w-2/3 lg:!w-1/3"
               />
             ) : (
               <div className="flex flex-wrap items-end gap-x-12 px-8">
-                <span className="headline-headline3 sm:headline-headline2 text-white">
+                <h1 className="text-shade-primary">
                   ${formatValue(totalVolume, 0)}
-                </span>
-                <div className="gap-x-apollo-6 mb-4 flex items-center">
+                </h1>
+                <div className="gap-x-apollo-6 flex items-center">
                   <Icon name="btc" size={18} />
-                  <span className="headline-headline6 text-sys-color-text-secondary">
+                  <span className="text-shade-secondary">
                     {formatValue(totalVolume / btcPrice, 2)} BTC
                   </span>
                 </div>
@@ -162,9 +162,9 @@ export default function DashboardCharts({
           </div>
         </div>
 
-        <div className="w-full rounded-[25px] border border-[#2C2C36] px-8 pt-8">
-          <div className="border-apollo-border-15 bg-sys-color-background-card py-apollo-10 w-full rounded-[15px] border px-12 shadow-[inset_0px_2px_2px_rgba(139,138,158,0.1)] sm:px-20">
-            <span className="body-body1-semibold sm:headline-headline6 text-sys-color-text-secondary">
+        <div className="bg-sys-color-background-light w-full rounded-[25px] border border-shade-divider px-8 pt-8 shadow-[0px_4px_12px_rgba(84,108,241,0.05)]">
+          <div className="py-apollo-10 w-full rounded-[15px] border border-shade-divider bg-shade-foreground px-12 shadow-[inset_0px_2px_2px_rgba(84,108,241,0.05)] sm:px-20">
+            <span className="body-body1-semibold sm:headline-headline6 text-shade-secondary">
               Unique Wallets
             </span>
           </div>
@@ -173,11 +173,11 @@ export default function DashboardCharts({
             {isLoading ? (
               <Skeleton
                 height="40px"
-                classes="bg-sys-color-background-card-foreground rounded-8 !w-2/3 lg:!w-1/3"
+                classes="bg-sys-color-background-light-foreground rounded-8 !w-2/3 lg:!w-1/3"
               />
             ) : (
               <div className="flex items-end gap-x-12 px-8">
-                <span className="headline-headline3 sm:headline-headline2 text-white">
+                <span className="headline-headline3 sm:headline-headline2 text-shade-primary">
                   {uniqueWallets}
                 </span>
               </div>

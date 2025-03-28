@@ -16,7 +16,7 @@
     @apply cursor-not-allowed text-shade-mute;
   }
   &__selected {
-    @apply text-shade-primary;
+    @apply bg-shade-selected text-primary-apollo;
   }
 }
 

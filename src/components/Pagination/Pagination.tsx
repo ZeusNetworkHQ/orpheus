@@ -47,7 +47,7 @@ const Pagination = ({
             // Default styles
             "gradient-border rounded-12 bg-sys-color-background-card text-sys-color-text-mute before:from-apollo-border-20 before:to-sys-color-text-mute/5 relative flex h-36 w-36 items-center justify-center",
             // Hover styles
-            "hover:bg-apollo-brand-primary-orange hover:text-ref-palette-grey-black hover:shadow-[0px_8px_12px_rgba(255,118,88,0.2),inset_0px_2px_6px_#FF9A84] hover:before:from-white/40 hover:before:to-transparent before:hover:transition",
+            "hover:bg-apollo-brand-primary-blue hover:text-ref-palette-grey-black hover:shadow-[0px_8px_12px_rgba(255,118,88,0.2),inset_0px_2px_6px_#FF9A84] hover:before:from-white/40 hover:before:to-transparent before:hover:transition",
             // Disabled styles
             "disabled:before:from-apollo-border-20 disabled:before:to-sys-color-text-mute/5 disabled:hover:bg-sys-color-background-card disabled:hover:text-sys-color-text-mute disabled:opacity-40 disabled:hover:shadow-none"
           )}
@@ -67,10 +67,10 @@ const Pagination = ({
                 // Default styles
                 "gradient-border rounded-12 bg-sys-color-background-card text-sys-color-text-mute before:from-apollo-border-20 before:to-sys-color-text-mute/5 relative flex h-36 w-36 items-center justify-center",
                 // Hover styles
-                "hover:bg-apollo-brand-primary-orange hover:text-ref-palette-grey-black hover:shadow-[0px_8px_12px_rgba(255,118,88,0.2),inset_0px_2px_6px_#FF9A84] hover:before:from-white/40 hover:before:to-transparent before:hover:transition",
+                "hover:bg-apollo-brand-primary-blue hover:text-ref-palette-grey-black hover:shadow-[0px_8px_12px_rgba(255,118,88,0.2),inset_0px_2px_6px_#FF9A84] hover:before:from-white/40 hover:before:to-transparent before:hover:transition",
                 {
                   // Selected page
-                  "!bg-apollo-brand-primary-orange !text-ref-palette-grey-black shadow-[0px_8px_12px_rgba(255,118,88,0.2),inset_0px_2px_6px_#FF9A84] before:from-white/40 before:to-transparent":
+                  "!bg-apollo-brand-primary-blue !text-ref-palette-grey-black shadow-[0px_8px_12px_rgba(255,118,88,0.2),inset_0px_2px_6px_#FF9A84] before:from-white/40 before:to-transparent":
                     page === currentPage,
                 }
               )}
@@ -88,7 +88,7 @@ const Pagination = ({
             // Default styles
             "gradient-border rounded-12 bg-sys-color-background-card text-sys-color-text-mute before:from-apollo-border-20 before:to-sys-color-text-mute/5 relative flex h-36 w-36 items-center justify-center",
             // Hover styles
-            "hover:bg-apollo-brand-primary-orange hover:text-ref-palette-grey-black hover:shadow-[0px_8px_12px_rgba(255,118,88,0.2),inset_0px_2px_6px_#FF9A84] hover:before:from-white/40 hover:before:to-transparent before:hover:transition",
+            "hover:bg-apollo-brand-primary-blue hover:text-ref-palette-grey-black hover:shadow-[0px_8px_12px_rgba(255,118,88,0.2),inset_0px_2px_6px_#FF9A84] hover:before:from-white/40 hover:before:to-transparent before:hover:transition",
             // Disabled styles
             "disabled:before:from-apollo-border-20 disabled:before:to-sys-color-text-mute/5 disabled:hover:bg-sys-color-background-card disabled:hover:text-sys-color-text-mute disabled:opacity-40 disabled:hover:shadow-none"
           )}

@@ -95,7 +95,7 @@ export default function AccountProcess({
                 />
               ) : (
                 <Icon
-                  name="Warning"
+                  name="Alert"
                   size={18}
                   className="text-sys-color-state-warning"
                 />

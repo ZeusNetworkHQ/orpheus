@@ -29,17 +29,17 @@ const PortfolioDetails = ({
     <div className="flex w-full flex-col space-y-16">
       <div
         ref={defiRef}
-        className="border-sys-color-card-light relative flex w-full scroll-mt-[100px] flex-col items-center justify-center rounded-[25px] border p-8"
+        className="border-sys-color-card-light bg-sys-color-background-light relative flex w-full scroll-mt-[100px] flex-col items-center justify-center rounded-[25px] p-8"
       >
-        <div className="border-apollo-border-15 bg-sys-color-background-card relative flex h-full w-full flex-col rounded-[17px] border px-16 py-12 shadow-[inset_0px_2px_2px_rgba(139,138,158,0.1)]">
-          <span className="body-body1-semibold text-sys-color-text-secondary">
+        <div className="border-apollo-border-15 relative flex h-full w-full flex-col rounded-[17px] border bg-white px-16 py-12 shadow-[inset_0px_2px_2px_rgba(139,138,158,0.1)]">
+          <span className="body-body1-semibold text-sys-color-text-primary">
             Available
           </span>
         </div>
         <div className="flex w-full flex-col justify-between gap-y-40 px-20 py-16 md:flex-row md:items-center md:gap-y-0">
           <div className="flex flex-col gap-y-4">
             <div className="flex items-center gap-x-8">
-              <Icon name="Zbtc" size={24 as 12 | 14 | 18} />
+              <Icon name="zbtc" size={24 as 12 | 14 | 18} />
               <span className="headline-headline3 text-sys-color-text-primary">
                 {zbtcBalance.gt(0)
                   ? formatValue(zbtcBalance.div(10 ** BTC_DECIMALS), 6)
@@ -47,7 +47,7 @@ const PortfolioDetails = ({
                 <span className="headline-headline4">zBTC</span>
               </span>
             </div>
-            <span className="body-body1-medium text-sys-color-text-secondary">
+            <span className="body-body1-medium text-sys-color-text-primary">
               ~$
               {zbtcBalance.gt(0)
                 ? formatValue(
@@ -62,17 +62,17 @@ const PortfolioDetails = ({
       </div>
       <div
         ref={redeemRef}
-        className="border-sys-color-card-light relative flex w-full scroll-mt-[250px] flex-col justify-center rounded-[25px] border p-8"
+        className="border-sys-color-card-light bg-sys-color-background-light relative flex w-full scroll-mt-[250px] flex-col justify-center rounded-[25px] p-8"
       >
-        <div className="border-apollo-border-15 bg-sys-color-background-card relative flex h-full w-full flex-col rounded-[17px] border px-16 py-12 shadow-[inset_0px_2px_2px_rgba(139,138,158,0.1)]">
-          <span className="body-body1-semibold text-sys-color-text-secondary">
+        <div className="border-apollo-border-15 relative flex h-full w-full flex-col rounded-[17px] border bg-white px-16 py-12 shadow-[inset_0px_2px_2px_rgba(139,138,158,0.1)]">
+          <span className="body-body1-semibold text-sys-color-text-primary">
             Custodial
           </span>
         </div>
         <div className="flex flex-col justify-between gap-y-32 px-20 py-16 md:flex-row md:items-center md:gap-y-0">
           <div className="flex flex-col gap-y-8">
             <div className="flex items-center gap-x-8">
-              <Icon name="Zbtc" size={24 as 12 | 14 | 18} />
+              <Icon name="zbtc" size={24 as 12 | 14 | 18} />
               <span className="headline-headline3 text-sys-color-text-primary">
                 {zbtcBalanceInVault.gt(0)
                   ? formatValue(zbtcBalanceInVault.div(10 ** BTC_DECIMALS), 6)
@@ -81,7 +81,7 @@ const PortfolioDetails = ({
               </span>
               <Icon name="Lock" size={18} />
             </div>
-            <span className="body-body1-medium text-sys-color-text-secondary">
+            <span className="body-body1-medium text-sys-color-text-primary">
               ~$
               {zbtcBalanceInVault.gt(0)
                 ? formatValue(

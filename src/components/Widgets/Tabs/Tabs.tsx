@@ -44,8 +44,8 @@ export default function Tabs({
 
   const subTabVariants = {
     [ACTIVE]: {
-      color: "#FF6746",
-      backgroundColor: "rgba(255, 103, 70, 0.1)",
+      color: "#546CF1",
+      backgroundColor: "rgba(84, 108, 241, 0.1)",
       transition: { duration: 0.3 },
     },
   };

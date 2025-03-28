@@ -18,7 +18,7 @@
     &__dropdown {
       @apply relative z-[100] min-h-[60px] flex-shrink-0 font-medium;
       &__item {
-        @apply flex min-h-[60px] cursor-pointer items-center justify-between rounded-[8px] p-3 transition hover:bg-[#2C2C36];
+        @apply flex min-h-[60px] cursor-pointer items-center justify-between rounded-[8px] p-3 transition hover:bg-[#C7D9FE];
         &__asset {
           @apply flex items-center space-x-2;
           & img {

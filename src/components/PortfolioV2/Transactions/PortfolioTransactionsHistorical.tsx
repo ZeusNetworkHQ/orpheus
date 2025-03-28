@@ -320,7 +320,7 @@ const PortfolioTransactionsHistorical = ({
                     leftIcon={
                       item.interaction_type === InteractionType.Deposit
                         ? "btc"
-                        : "Zbtc"
+                        : "zbtc"
                     }
                     rightIcon={
                       item.interaction_type === InteractionType.Withdrawal &&
@@ -343,7 +343,7 @@ const PortfolioTransactionsHistorical = ({
                   <TableCell
                     leftIcon={
                       item.interaction_type === InteractionType.Deposit
-                        ? "Zbtc"
+                        ? "zbtc"
                         : "btc"
                     }
                     rightIcon={

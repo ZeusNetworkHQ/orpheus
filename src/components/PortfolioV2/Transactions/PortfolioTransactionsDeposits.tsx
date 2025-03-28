@@ -145,7 +145,7 @@ const PortfolioTransactionsDeposits = ({
           <TableHeader />
           <TableBody>
             {combinedTransactions.length === 0 ? (
-              <div className="bg-sys-color-background-card rounded-16 gradient-border border-apollo-border-15 mt-8 flex flex-col items-center justify-center gap-y-24 py-64 md:mt-0 md:border-none md:!bg-transparent">
+              <div className="bg-sys-color-background-card rounded-16 gradient-border border-apollo-border-15 mt-8 flex flex-col items-center justify-center gap-y-24 py-64 md:mt-0 md:border-none">
                 <div className="flex flex-col items-center justify-center gap-y-16 text-center">
                   <div className="headline-headline5 text-sys-color-text-primary">
                     No In-Progress Request Yet
@@ -174,7 +174,7 @@ const PortfolioTransactionsDeposits = ({
                       className={classNames(
                         "text-sys-color-text-mute flex md:hidden",
                         getInteractionStatusDisplay(item.status) ===
-                          "Pending" && "!text-apollo-brand-primary-orange"
+                          "Pending" && "!text-apollo-brand-primary-blue"
                       )}
                     >
                       {item.deposit_block
@@ -192,7 +192,7 @@ const PortfolioTransactionsDeposits = ({
                         "hidden md:flex",
                         getInteractionStatusDisplay(item.status) ===
                           "Pending" &&
-                          "!bg-apollo-brand-primary-orange/5 !text-apollo-brand-primary-orange"
+                          "!bg-apollo-brand-primary-blue/5 !text-apollo-brand-primary-blue"
                       )}
                     />
                   </TableCell>
@@ -226,7 +226,7 @@ const PortfolioTransactionsDeposits = ({
                     <span className="text-sys-color-text-mute">BTC</span>
                   </TableCell>
                   <TableCell
-                    leftIcon={"Zbtc"}
+                    leftIcon={"zbtc"}
                     rightIcon="Lock"
                     rightIconClassName="text-sys-color-text-mute"
                   >
