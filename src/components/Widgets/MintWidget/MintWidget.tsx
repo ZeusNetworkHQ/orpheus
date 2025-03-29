@@ -93,10 +93,10 @@ export default function MintWidget() {
           ref={widgetRef}
         >
           <Tabs
-            layoutId="provide"
             tabs={tabs}
             activeTab={activeTab}
             onClick={handleTabClick}
+            className="border-radius-10px"
           />
           <div className={`${styles.mintWidget__card} mask-border`}>
             <motion.div

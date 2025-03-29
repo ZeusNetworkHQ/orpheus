@@ -16,7 +16,6 @@ type tabProps = {
     icon?: React.ReactNode;
   }>;
   activeTab: number;
-  layoutId: string;
   loginRequired?: boolean;
   onClick: (tab: string) => void;
   isSubTab?: boolean;
@@ -31,7 +30,6 @@ export default function Tabs({
   activeTab = 0,
   onClick,
   loginRequired = true,
-  // layoutId,
   isSubTab,
   subTabLayoutStyle,
   subTabStyle,

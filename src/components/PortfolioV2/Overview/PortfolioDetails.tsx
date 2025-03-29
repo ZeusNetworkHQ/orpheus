@@ -33,19 +33,21 @@ const PortfolioDetails = ({
       >
         <div className="border-apollo-border-15 relative flex h-full w-full flex-col rounded-[17px] border bg-white px-16 py-12 shadow-[inset_0px_2px_2px_rgba(139,138,158,0.1)]">
           <span className="body-body1-semibold text-sys-color-text-primary">
-            Available
+            <b>Available</b>
           </span>
         </div>
         <div className="flex w-full flex-col justify-between gap-y-40 px-20 py-16 md:flex-row md:items-center md:gap-y-0">
           <div className="flex flex-col gap-y-4">
             <div className="flex items-center gap-x-8">
               <Icon name="zbtc" size={24 as 12 | 14 | 18} />
-              <span className="headline-headline3 text-sys-color-text-primary">
-                {zbtcBalance.gt(0)
-                  ? formatValue(zbtcBalance.div(10 ** BTC_DECIMALS), 6)
-                  : 0}{" "}
-                <span className="headline-headline4">zBTC</span>
-              </span>
+              <b className="text-2xl">
+                <span className="headline-headline3 text-sys-color-text-primary">
+                  {zbtcBalance.gt(0)
+                    ? formatValue(zbtcBalance.div(10 ** BTC_DECIMALS), 6)
+                    : 0}{" "}
+                  <span className="headline-headline4">zBTC</span>
+                </span>
+              </b>
             </div>
             <span className="body-body1-medium text-sys-color-text-primary">
               ~$
@@ -66,19 +68,21 @@ const PortfolioDetails = ({
       >
         <div className="border-apollo-border-15 relative flex h-full w-full flex-col rounded-[17px] border bg-white px-16 py-12 shadow-[inset_0px_2px_2px_rgba(139,138,158,0.1)]">
           <span className="body-body1-semibold text-sys-color-text-primary">
-            Custodial
+            <b>Custodial</b>
           </span>
         </div>
         <div className="flex flex-col justify-between gap-y-32 px-20 py-16 md:flex-row md:items-center md:gap-y-0">
           <div className="flex flex-col gap-y-8">
             <div className="flex items-center gap-x-8">
               <Icon name="zbtc" size={24 as 12 | 14 | 18} />
-              <span className="headline-headline3 text-sys-color-text-primary">
-                {zbtcBalanceInVault.gt(0)
-                  ? formatValue(zbtcBalanceInVault.div(10 ** BTC_DECIMALS), 6)
-                  : 0}{" "}
-                <span className="headline-headline4">zBTC</span>
-              </span>
+              <b className="text-2xl">
+                <span className="headline-headline3 text-sys-color-text-primary">
+                  {zbtcBalanceInVault.gt(0)
+                    ? formatValue(zbtcBalanceInVault.div(10 ** BTC_DECIMALS), 6)
+                    : 0}{" "}
+                  <span className="headline-headline4">zBTC</span>
+                </span>
+              </b>
               <Icon name="Lock" size={18} />
             </div>
             <span className="body-body1-medium text-sys-color-text-primary">

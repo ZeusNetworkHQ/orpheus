@@ -24,17 +24,20 @@ const PortfolioBalance = ({
         <div className="z-10 flex flex-col space-y-48">
           <div className="space-y-apollo-6 z-10 flex flex-col">
             <span className="headline-headline5 text-sys-color-text-primary">
-              Total Balance
+              <b>Total Balance</b>
             </span>
             <div className="flex flex-col gap-y-4 md:flex-row md:items-start md:gap-x-12 md:gap-y-0">
               <div className="flex items-center gap-x-8">
                 <Icon name="zbtc" size={24 as 12 | 14 | 18} />
                 <div className="headline-headline2 text-sys-color-text-primary">
-                  {totalBalance.gt(0)
-                    ? formatValue(totalBalance.div(10 ** BTC_DECIMALS), 6)
-                    : 0}{" "}
-                  {""}
-                  <span className="headline-headline4">zBTC</span>
+                  <b>
+                    <span className="text-2xl">
+                      {totalBalance.gt(0)
+                        ? formatValue(totalBalance.div(10 ** BTC_DECIMALS), 6)
+                        : 0}{" "}
+                      {""} zBTC
+                    </span>
+                  </b>
                 </div>
               </div>
               <span className="body-body1-medium text-sys-color-text-primary mt-0">
@@ -64,40 +67,42 @@ const PortfolioBalance = ({
 
             {/* Key */}
             <div className="flex w-full flex-col space-y-4">
-              <div className="flex w-[175px] items-center justify-between gap-x-32 md:w-full lg:gap-x-0">
-                <div className="gap-x-apollo-10 flex items-center md:w-full">
-                  <div className="bg-apollo-brand-primary-blue h-12 w-12 flex-shrink-0 rounded-full"></div>
-                  <span className="body-body1-medium text-sys-color-text-primary">
-                    Available
+              <b>
+                <div className="flex w-[175px] items-center justify-between gap-x-32 md:w-full lg:gap-x-0">
+                  <div className="gap-x-apollo-10 flex items-center md:w-full">
+                    <div className="bg-apollo-brand-primary-blue h-12 w-12 flex-shrink-0 rounded-full"></div>
+                    <span className="body-body1-medium text-sys-color-text-primary">
+                      Available
+                    </span>
+                  </div>
+                  <span className="body-body1-medium text-sys-color-text-primary flex-shrink-0">
+                    {" "}
+                    {totalBalance.gt(0)
+                      ? formatValue(
+                          zbtcBalance.div(totalBalance).multipliedBy(100),
+                          0
+                        )
+                      : "0"}
+                    %
                   </span>
                 </div>
-                <span className="body-body1-medium text-sys-color-text-primary flex-shrink-0">
-                  {" "}
-                  {totalBalance.gt(0)
-                    ? formatValue(
-                        zbtcBalance.div(totalBalance).multipliedBy(100),
-                        0
-                      )
-                    : "0"}
-                  %
-                </span>
-              </div>
-              <div className="flex w-[175px] items-center justify-between gap-x-32 md:w-full md:justify-end lg:gap-x-0">
-                <div className="gap-x-apollo-10 flex items-center md:w-full">
-                  <div className="bg-sys-color-background-card h-12 w-12 flex-shrink-0 rounded-full shadow-[inset_0px_0px_5px_#C7D9FE] backdrop-blur-xl"></div>
-                  <span className="body-body1-medium text-sys-color-text-primary">
-                    Custodial
+                <div className="flex w-[175px] items-center justify-between gap-x-32 md:w-full md:justify-end lg:gap-x-0">
+                  <div className="gap-x-apollo-10 flex items-center md:w-full">
+                    <div className="bg-sys-color-background-card h-12 w-12 flex-shrink-0 rounded-full shadow-[inset_0px_0px_5px_#C7D9FE] backdrop-blur-xl"></div>
+                    <span className="body-body1-medium text-sys-color-text-primary">
+                      Custodial
+                    </span>
+                  </div>
+                  <span className="body-body1-medium text-sys-color-text-primary flex-shrink-0">
+                    {totalBalance.gt(0)
+                      ? formatValue(
+                          zbtcBalanceInVault.div(totalBalance).multipliedBy(100)
+                        )
+                      : "0"}
+                    %
                   </span>
                 </div>
-                <span className="body-body1-medium text-sys-color-text-primary flex-shrink-0">
-                  {totalBalance.gt(0)
-                    ? formatValue(
-                        zbtcBalanceInVault.div(totalBalance).multipliedBy(100)
-                      )
-                    : "0"}
-                  %
-                </span>
-              </div>
+              </b>
             </div>
           </div>
         </div>

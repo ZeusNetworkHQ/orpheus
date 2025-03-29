@@ -65,6 +65,7 @@ export default function CryptoInput({
   decimals = BTC_DECIMALS,
 }: CryptoInputProps) {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const displayOptions = dropdownOptions?.filter(
     (option) =>
@@ -105,7 +106,7 @@ export default function CryptoInput({
 
   return (
     <div
-      className={`${styles.input__group} ${isInvalid ? styles.input__group__invalid : ""}  ${classes}`}
+      className={`${styles.input__group} ${isInvalid ? styles.input__group__invalid : ""} ${isFocused ? "focused" : ""}  ${classes}`}
     >
       <div className="group relative flex w-[150px] flex-shrink-0 transition sm:w-auto">
         <div
@@ -162,6 +163,8 @@ export default function CryptoInput({
             onChange={(e) => {
               handleChange(e, decimals);
             }}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
             value={value || ""}
           />
           {hasActions && (

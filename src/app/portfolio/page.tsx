@@ -8,11 +8,13 @@ export default function PortfolioPage() {
   return (
     <main className="page-content ds">
       <motion.div
-        className="headline-headline3 text-sys-color-text-primary px-apollo-10 mt-32 md:mt-48"
+        className="text-sys-color-text-primary px-apollo-40 mt-32 text-4xl md:mt-48"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
-        <span>Overview</span>
+        <h2>
+          <b>Overview</b>
+        </h2>
       </motion.div>
       <PortfolioOverview />
     </main>

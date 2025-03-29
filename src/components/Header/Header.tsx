@@ -27,7 +27,7 @@ export default function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-30 bg-transparent lg:pt-2.5",
+        "sticky top-0 z-30 lg:pt-2.5",
         currentModal === MODAL_NAMES.ENDPOINT_SELECTOR && "!z-0",
         currentModal !== null && "!z-0"
       )}

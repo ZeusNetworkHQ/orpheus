@@ -26,7 +26,7 @@
       @apply flex h-[100%] flex-col space-y-2 overflow-y-scroll;
       &__item {
         @apply grid cursor-pointer grid-cols-[1fr,1fr,2fr] rounded-2xl border border-shade-divider p-4 text-sm text-shade-secondary transition hover:border-primary-apollo hover:text-shade-primary hover:transition;
-        box-shadow: 0px 2px 4px rgba(84, 108, 241, 0.05);
+        box-shadow: 0px 2px 4px rgba(199, 217, 254, 0.05);
         &__number {
           @apply font-medium text-primary-apollo transition;
         }

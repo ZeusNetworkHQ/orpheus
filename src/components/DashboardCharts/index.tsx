@@ -93,7 +93,7 @@ export default function DashboardCharts({
       <div className="bg-sys-color-background-light flex flex-col gap-y-32 rounded-[25px] border border-shade-divider px-12 py-24 pb-24 shadow-[0px_4px_12px_rgba(84,108,241,0.08)] sm:px-20 sm:pb-32">
         <div className="flex flex-col gap-y-8 px-8">
           <span className="headline-headline6 text-primary-apollo">
-            Total Value Locked
+            <b>Total Value Locked</b>
           </span>
           {isLoading ? (
             <Skeleton
@@ -102,13 +102,15 @@ export default function DashboardCharts({
             />
           ) : (
             <div className="flex flex-wrap items-end gap-x-12">
-              <span className="headline-headline3 sm:headline-headline2 text-shade-primary">
-                ${formatValue(tvl, 0)}
-              </span>
-              <div className="gap-x-apollo-6 flex items-center">
+              <b className="text-3xl">
+                <span className="headline-headline3 sm:headline-headline2 text-shade-primary">
+                  ${formatValue(tvl, 0)}
+                </span>
+              </b>
+              <div className="gap-x-apollo-6 mb-4 flex items-center">
                 <Icon name="btc" size={18} />
-                <span className="headline-headline6 text-sys-color-text-secondary">
-                  {formatValue(tvl / btcPrice, 2)} BTC
+                <span className="text-shade-secondary">
+                  <b>{formatValue(tvl / btcPrice, 2)} BTC</b>
                 </span>
               </div>
             </div>
@@ -128,7 +130,7 @@ export default function DashboardCharts({
         <div className="bg-sys-color-background-light w-full rounded-[25px] border border-shade-divider px-8 pt-8 shadow-[0px_4px_12px_rgba(84,108,241,0.05)]">
           <div className="py-apollo-10 w-full rounded-[15px] border border-shade-divider bg-shade-foreground px-12 shadow-[inset_0px_2px_2px_rgba(84,108,241,0.05)] sm:px-20">
             <span className="body-body1-semibold md:headline-headline6 text-shade-secondary">
-              Total Volume
+              <b>Total Volume</b>
             </span>
           </div>
 
@@ -141,12 +143,12 @@ export default function DashboardCharts({
             ) : (
               <div className="flex flex-wrap items-end gap-x-12 px-8">
                 <h1 className="text-shade-primary">
-                  ${formatValue(totalVolume, 0)}
+                  <b className="text-3xl">${formatValue(totalVolume, 0)}</b>
                 </h1>
-                <div className="gap-x-apollo-6 flex items-center">
+                <div className="gap-x-apollo-6 mb-4 flex items-center">
                   <Icon name="btc" size={18} />
                   <span className="text-shade-secondary">
-                    {formatValue(totalVolume / btcPrice, 2)} BTC
+                    <b>{formatValue(totalVolume / btcPrice, 2)} BTC</b>
                   </span>
                 </div>
               </div>
@@ -165,7 +167,7 @@ export default function DashboardCharts({
         <div className="bg-sys-color-background-light w-full rounded-[25px] border border-shade-divider px-8 pt-8 shadow-[0px_4px_12px_rgba(84,108,241,0.05)]">
           <div className="py-apollo-10 w-full rounded-[15px] border border-shade-divider bg-shade-foreground px-12 shadow-[inset_0px_2px_2px_rgba(84,108,241,0.05)] sm:px-20">
             <span className="body-body1-semibold sm:headline-headline6 text-shade-secondary">
-              Unique Wallets
+              <b>Unique Wallets</b>
             </span>
           </div>
 
@@ -177,9 +179,11 @@ export default function DashboardCharts({
               />
             ) : (
               <div className="flex items-end gap-x-12 px-8">
-                <span className="headline-headline3 sm:headline-headline2 text-shade-primary">
-                  {uniqueWallets}
-                </span>
+                <b className="text-3xl">
+                  <span className="headline-headline3 sm:headline-headline2 text-shade-primary">
+                    {uniqueWallets}
+                  </span>
+                </b>
               </div>
             )}
             <div className="h-[275px] w-full">

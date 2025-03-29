@@ -135,8 +135,8 @@ export default function DashboardPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
-        <span className="headline-headline3 text-sys-color-text-primary ">
-          Dashboard
+        <span className="text-sys-color-text-primary text-2xl ">
+          <b>Dashboard</b>
         </span>
         <Tabs
           className="!hidden sm:!flex"

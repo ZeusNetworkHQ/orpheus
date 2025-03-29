@@ -1,5 +1,5 @@
 .input__group {
-  @apply flex h-max w-full items-stretch gap-x-4 rounded-xl border border-shade-mute/20 bg-shade-background px-1 py-[4px] pr-4 focus-within:border-[#8B8A9E99] focus-within:border-opacity-100;
+  @apply flex h-max w-full items-stretch gap-x-4 rounded-xl border border-shade-mute/15 bg-shade-background px-1 py-[4px] pr-4 focus-within:border-primary-apollo/60;
   &__crypto {
     @apply flex w-[150px] flex-shrink-0 select-none items-center space-x-2 rounded-lg border border-shade-mute/15 bg-shade-card px-3 text-lg font-semibold text-shade-primary transition ease-in md:w-[150px];
     box-shadow: inset 0px 2px 2px rgba(139, 138, 158, 0.1);

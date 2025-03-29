@@ -1,6 +1,6 @@
 .header {
   @apply h-[60px] min-h-[60px] w-full rounded-2xl;
-  @apply bg-transparent;
+  @apply bg-[#FFFFFF];
   &__container {
     @apply flex h-full items-center justify-between md:px-4;
     &__start {
