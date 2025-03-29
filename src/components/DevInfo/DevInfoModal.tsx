@@ -215,7 +215,6 @@ export default function DevInfoModal() {
           tabs={tabs}
           activeTab={activeTab}
           onClick={handleTabClick}
-          layoutId="dev-info"
           loginRequired={false}
           isSubTab
           subTabLayoutStyle="w-full"
