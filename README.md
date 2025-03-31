@@ -2,6 +2,14 @@
 
 This documentation provides a comprehensive guide for developers participating in the Zeus Network hackathon on how to use this frontend template to interact with Zeus Program Library (ZPL) to establish cross-chain functionality between Bitcoin and Solana. The ZPL enables seamless interoperability between Bitcoin's security and Solana's programmability, allowing developers to build applications that leverage the strengths of both blockchains.
 
+## Getting Started
+
+To run this example template, run the development server:
+
+```bash
+npm ci && npm run dev
+```
+
 ## Table of Contents
 
 1. [Architecture Overview](#architecture-overview)
