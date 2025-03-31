@@ -233,7 +233,7 @@ Manages the issuance and redemption of zBTC tokens:
 
 #### Withdrawal Flow
 
-![Withdrawal Flow](./public/graphics/withdrawal_flow.png)
+![Withdrawal Flow](./public/graphics/withdraw_flow.png)
 
 ## Key Operations
 
