@@ -211,14 +211,11 @@ const TransactionDetailsAssetBanner = ({
         "gradient-border rounded-12 flex w-full flex-col gap-x-24 gap-y-16 px-12 py-20 sm:flex-row sm:items-center sm:gap-y-0 sm:px-40 sm:py-16",
         {
           // Deposit
-          "bg-[linear-gradient(90.83deg,rgba(255,103,70,0.08)_0%,rgba(255,103,70,0.0500765)_15%,rgba(15,15,18,0)_30%,rgba(15,15,18,0.0540223)_70%,rgba(123,92,175,0.0711953)_83.22%,rgba(178,131,255,0.08)_90%,rgba(253,131,255,0.08)_100%),linear-gradient(90deg,#16161B,#16161B)] before:[background:linear-gradient(90deg,rgba(255,103,70,0.25)_0%,rgba(15,15,18,0.25)_48.72%,rgba(255,191,131,0.25)_78.22%,rgba(253,131,255,0.25)_88.22%,rgba(178,131,255,0.25)_99.72%),rgba(139,138,158,0.2)] sm:justify-between":
+          "gradient-border rounded-12 flex w-full flex-col gap-x-24 gap-y-16 bg-[linear-gradient(91deg,rgba(255,103,70,0.08)_0%,rgba(255,103,70,0.05)_30%,rgba(225,234,253,0.00)_45%,rgba(225,234,253,0.05)_60%,rgba(178,131,255,0.08)_70%,rgba(253,131,255,0.08)_100%)] sm:justify-between":
             type === "deposit",
           // Withdrawal
-          "bg-[linear-gradient(90.83deg,rgba(253,131,255,0.08)_0%,rgba(178,131,255,0.08)_10%,rgba(123,92,175,0.0711953)_16.78%,rgba(15,15,18,0.0540223)_30%,rgba(15,15,18,0)_70%,rgba(255,103,70,0.0500765)_85%,rgba(255,103,70,0.08)_100%),linear-gradient(90deg,#16161B,#16161B)] before:[background:linear-gradient(90deg,rgba(253,131,255,0.25)_0%,rgba(178,131,255,0.25)_10%,rgba(123,92,175,0.25)_16.78%,rgba(15,15,18,0.25)_30%,rgba(15,15,18,0.25)_70%,rgba(255,103,70,0.25)_85%,rgba(255,103,70,0.25)_100%)] sm:justify-between":
+          "gradient-border rounded-12 flex w-full flex-col gap-x-24 gap-y-16 bg-[linear-gradient(91deg,rgba(253,131,255,0.08)_0%,rgba(178,131,255,0.08)_30%,rgba(225,234,253,0.05)_40%,rgba(225,234,253,0.00)_55%,rgba(255,103,70,0.05)_70%,rgba(255,103,70,0.08)_100%)] sm:justify-between":
             type === "withdraw",
-          // Redeem
-          "bg-[linear-gradient(90.83deg,rgba(253,131,255,0.08)_0%,rgba(178,131,255,0.08)_10%,rgba(123,92,175,0.0711953)_16.78%,rgba(15,15,18,0.0540223)_30%,rgba(15,15,18,0)_70%,rgba(123,92,175,0.07)_85%,rgba(215,131,255,0.08)_90%,rgba(253,131,255,0.08)_100%),linear-gradient(90deg,#16161B,#16161B)] before:[background:linear-gradient(90deg,rgba(253,131,255,0.25)_0%,rgba(178,131,255,0.25)_10%,rgba(123,92,175,0.25)_16.78%,rgba(15,15,18,0.25)_30%,rgba(15,15,18,0.25)_70%,rgba(123,92,175,0.25)_85%,rgba(215,131,255,0.25)_90%,rgba(253,131,255,0.25)_100%)] sm:justify-center":
-            type === "redeem",
         }
       )}
     >
@@ -232,11 +229,6 @@ const TransactionDetailsAssetBanner = ({
           {type === "withdraw" && (
             <span className="body-body2-medium text-sys-color-text-secondary">
               Burned
-            </span>
-          )}
-          {type === "redeem" && (
-            <span className="body-body2-medium text-sys-color-text-secondary text-center">
-              Redeem
             </span>
           )}
 

@@ -79,6 +79,7 @@ const PortfolioTransactionsDeposits = ({
         `/api/v1/raw/layer/interactions/${transaction.interaction_id}/steps`,
         interactionSchema
       );
+      console.log("interactionDetail", interactionDetail);
       setSelectedTransaction(interactionDetail);
 
       let depositToHotReserveTxConfirmations = 0;

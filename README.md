@@ -37,12 +37,11 @@ ZeusLayer is a cross-chain layer that enables interoperability between Bitcoin a
   - **LiquidityManagement**: Handles asset storage, retrieval, and liquidity pools
 
 - **ZeusNode**: Off-chain components that handle:
-  - **Transaction Signing**: Multi-signature security for cross-chain transactions
+  - **Transaction Signing**: Securely sign cross-chain transactions
   - **Relaying**: Propagating transactions between Bitcoin and Solana
-  - **P2P Networking**: Communication between nodes in the Zeus Network
   - **Monitoring**: Tracking transaction status and system health
 
-### Storage Components
+### Reserves
 
 - **HotReserve**:
   - Short-term storage for user deposits
@@ -74,10 +73,10 @@ The ZPL Client is the main entry point for interacting with the Zeus Program Lib
 
 ### Client Architecture
 
-The ZPL Client is composed of three main services:
+The ZPL Client is composed of three main modules:
 
-1. **AccountService**: Handles account derivation and data fetching
-2. **InstructionService**: Creates instructions for various operations
+1. **Account**: Handles account derivation and data fetching
+2. **Instruction**: Creates instructions for various operations
 3. **RpcClient**: Manages transaction signing and submission
 
 ### Initialization
@@ -147,13 +146,6 @@ The ZPL Client provides the following capabilities:
 
 ## Key Concepts
 
-### ZeusLayer Overview
-
-ZeusLayer is a comprehensive system that bridges Bitcoin with programmable blockchains like Solana. It consists of:
-
-- **ZeusScan**: Bitcoin-Solana interaction explorer that allows users to track cross-chain transactions
-- **ZeusNode**: A distributed network of nodes that facilitate cross-chain operations
-
 ### Bitcoin Integration
 
 ZeusLayer integrates with Bitcoin using several key technologies:
@@ -187,7 +179,7 @@ The system uses two types of reserves to manage Bitcoin assets:
 
 #### HotReserve
 
-Temporary storage for user deposits before they are moved to cold storage:
+Temporary storage for user deposits before they are moved to cold reserve:
 
 - **Key-path**: Guardian Internal X-only PublicKey for normal operations
 - **Script-path**: CHECKSEQUENCEVERIFY (CSV) script with User's X-only PublicKey and 7-day locktime
@@ -664,7 +656,6 @@ The ZPL provides functionality for users to store zBTC in a custodial vault and 
 
 - Provides a secure way to store zBTC in a custodial vault
 - Allows users to retrieve their zBTC when needed
-- Enables temporary storage without initiating a full withdrawal to Bitcoin
 
 #### When to Use
 
@@ -774,7 +765,73 @@ The ZPL provides a comprehensive system for tracking cross-chain transactions th
 #### Implementation
 
 ```typescript
+import { useZplClient } from "@/zplClient";
+import { Interaction, interactionSchema, transactionSchema } from "@/types/api";
+import { useFetchers } from "@/hooks/misc/useFetchers";
+import { useTwoWayPegConfiguration } from "@/hooks/zpl/useTwoWayPegConfiguration";
+import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
+import useDepositInteractionsWithCache from "@/hooks/ares/useDepositInteractionsWithCache";
+import { PublicKey } from "@solana/web3.js";
 
+export default function getTransactions({ solanaPubkey, bitcoinWallet }) {
+  const zplClient = useZplClient();
+  const { aresFetcher, hermesFetcher } = useFetchers();
+  const { feeRate } = useTwoWayPegConfiguration();
+  const config = useNetworkConfig();
+
+  // Fetch cached transactions
+  const {
+    combinedInteractions: combinedTransactions, // your deposits and withdrawals
+  } = useDepositInteractionsWithCache({
+    solanaAddress: solanaPubkey?.toBase58(),
+    bitcoinXOnlyPubkey: bitcoinWallet
+      ? toXOnly(Buffer.from(bitcoinWallet.pubkey, "hex")).toString("hex")
+      : undefined,
+  });
+
+  // This is the schema of the combinedInteractions
+  // amount: "TXN_SATS_AMOUNT"
+  // app_developer: "" // from which app (Orpheus)
+  // current_step_at: TIMESTAMP_OF_LATEST_STEP
+  // deposit_block: BLOCK_NUMBER_OF_DEPOSIT_TO_HOTRESERVE
+  // destination: "YOUR_SOLANA_ADDRESS"
+  // guardian_certificate: "GUARDIAN_CERTIFICATE_ADDRESS"
+  // guardian_setting: "GUARDIAN_SETTING_ADDRESS"
+  // initiated_at: TIMESTAMP_OF_TRANSACTION_BE_SENT_ON_SOLANA
+  // interaction_id: "INTERACTION_ACCOUNT_ADDRESS"
+  // interaction_type: 0 (Deposit), 1 (Withdraw)
+  // miner_fee: "MINER_FEE_ON_ZEUS_NODE"
+  // service_fee: "SERVICE_FEE" (Only on Withdrawal)
+  // source: "XONLY_PUBKEY_OF_HOTRESERVE"
+  // status: "YOUR_TX_STATUS" (more details below)
+  // steps: [{
+  //     transaction: "TXN_ID",
+  //     chain: "Bitcoin" or "Solana",
+  //     action: "YOUR_STEP_STATUS",
+  //     timestamp: TIMESTAMP_OF_STEP_STATUS
+  // }]
+  // withdrawal_request_pda: "YOUR_WITHDRAWAL_REQUEST_PDA"
+
+  // Or you can specify the interaction id and fetch the interaction detail from our API
+  const targetTx = combinedTransactions[0]; // choose the first transaction as example
+  const interactionSteps = await hermesFetcher(
+    `/api/v1/raw/layer/interactions/${targetTx.interaction_id}/steps`,
+    interactionSchema
+  );
+  // The returned data is in the same format as the combinedInteractions above
+
+  // Below api returns the Bitcoin transaction detail
+  const interactionDetail = await hermesFetcher(
+    `/api/v1/transaction/${targetTx.interaction_id}/detail`,
+    interactionSchema
+  );
+  // This is the schema of the interaction detail
+  // blockhash: "TXN_BLOCK_HASH"
+  // blocktime: TIMESTAMP_OF_TXN
+  // confirmations: CONFIRMATIONS_OF_TXN
+  // time: TIMESTAMP_OF_TXN
+  // transaction: "TXN_ID"
+}
 ```
 
 #### Understanding Interaction Types and Statuses
@@ -789,23 +846,23 @@ The ZPL defines several interaction types and statuses to track the progress of 
 **Deposit Statuses (in order):**
 
 1. `BitcoinDepositToHotReserve`: Initial deposit detected on Bitcoin network from user address to our hot reserve address
-2. `VerifyDepositToHotReserveTransaction`: Verifying the deposit transaction
-3. `SolanaDepositToHotReserve`: Deposit confirmed on Solana
-4. `AddLockToColdReserveProposal`: Preparing to move funds to cold storage
-5. `BitcoinLockToColdReserve`: Moving funds to cold storage
-6. `VerifyLockToColdReserveTransaction`: Verifying cold storage transaction
-7. `SolanaLockToColdReserve`: Funds secured in cold storage
-8. `Peg`: zBTC tokens minted and available in wallet
+2. `VerifyDepositToHotReserveTransaction`: BitcoinSPV program verifying the deposit transaction
+3. `SolanaDepositToHotReserve`: Deposit confirmed on Solana by TwoWayPeg program
+4. `AddLockToColdReserveProposal`: Zeus node send transaction to move BTC from hot reserve to cold reserve
+5. `BitcoinLockToColdReserve`: Move BTC from hot reserve to cold reserve transaction is observed on Bitcoin network
+6. `VerifyLockToColdReserveTransaction`: BitcoinSPV program verifying cold reserve transaction
+7. `SolanaLockToColdReserve`: Funds secured in cold reserve
+8. `Peg`: zBTC tokens minted in custody
 
 **Withdrawal Statuses (in order):**
 
-1. `AddWithdrawalRequest`: Withdrawal request submitted
-2. `AddUnlockToUserProposal`: Preparing to unlock Bitcoin from cold storage
-3. `BitcoinUnlockToUser`: Unlocking Bitcoin from cold storage
-4. `VerifyUnlockToUserTransaction`: Verifying Bitcoin transaction
+1. `AddWithdrawalRequest`: Withdrawal request submitted on Solana, waiting for Zeus node to process
+2. `AddUnlockToUserProposal`: Zeus node send transaction to move zBTC from cold reserve to user wallet
+3. `BitcoinUnlockToUser`: Unlocking Bitcoin from cold reserve
+4. `VerifyUnlockToUserTransaction`: BitcoinSPV program verifying Bitcoin transaction
 5. `SolanaUnlockToUser`: Confirming withdrawal on Solana
 6. `Unpeg`: Burning zBTC tokens
-7. `DeprecateWithdrawalRequest`: Withdrawal request completed
+7. `DeprecateWithdrawalRequest`: Withdrawal request has been canceled (between AddWithdrawalRequest and AddUnlockToUserProposal)
 
 ## Conclusion
 

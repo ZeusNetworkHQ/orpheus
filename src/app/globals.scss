@@ -110,7 +110,7 @@ body {
     @apply flex items-center space-x-2 font-medium text-shade-secondary;
   }
   &-message {
-    @apply inline-block font-medium text-shade-primary;
+    @apply inline-block font-medium text-shade-secondary;
   }
   &-link {
     @apply relative z-[100];
