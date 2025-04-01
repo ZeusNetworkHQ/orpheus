@@ -12,6 +12,7 @@ import { CheckBucketResult } from "@/types/misc";
 import { Chain } from "@/types/network";
 import { BitcoinWallet } from "@/types/wallet";
 import { HotReserveBucketStatus } from "@/types/zplClient";
+import { createAxiosInstances } from "@/utils/axios";
 import { notifyTx } from "@/utils/notification";
 
 import useTwoWayPegGuardianSettings from "../hermes/useTwoWayPegGuardianSettings";
@@ -79,6 +80,26 @@ const useHotReserveBucketActions = (bitcoinWallet: BitcoinWallet | null) => {
       txId: sig,
       solanaNetwork: solanaNetwork,
     });
+
+    // NOTE: create hot reserve address in cobo so that zeus node can unlock the hot reserve utxo faster (not necessary so catch the error)
+    const { aegleApi } = createAxiosInstances(solanaNetwork, bitcoinNetwork);
+    aegleApi
+      .post(
+        `/api/v1/cobo-address`,
+        {
+          type: "hotReserveBucket",
+          hotReserveBucketPda: zplClient
+            .deriveHotReserveBucketAddress(hotReserveBitcoinXOnlyPublicKey)
+            .toBase58(),
+          coldReserveBucketPda: coldReserveBucket.publicKey.toBase58(),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .catch((e) => console.error(e));
   }, [
     zplClient,
     solanaPubkey,
