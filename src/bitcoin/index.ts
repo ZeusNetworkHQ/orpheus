@@ -7,7 +7,7 @@ import { UTXO, UTXOs } from "@/types/api";
 import { BitcoinNetwork } from "@/types/store";
 import { BitcoinXOnlyPublicKey } from "@/types/wallet";
 
-export const UNLOCK_BLOCK_HEIGHT = 1008;
+export const UNLOCK_BLOCK_HEIGHT = 4320; // 144 blocks (1 day) * 30
 
 const SATOSHIS_PER_BTC = new BN(1e8);
 
