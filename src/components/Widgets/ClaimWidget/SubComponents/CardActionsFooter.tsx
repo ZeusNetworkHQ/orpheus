@@ -25,7 +25,6 @@ export default function CardActionsFooter({
       className={`${styles.claimWidget__card__actions} ${styles.claimWidget__card__actions__glow}`}
     >
       <Button
-        key={isFullyClaimed ? "fullyClaimed" : "claim"}
         icon={!isAllConnected && <Icon name="Wallet" />}
         theme="primary"
         size="lg"

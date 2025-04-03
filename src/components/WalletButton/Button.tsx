@@ -94,15 +94,13 @@ export default function Button({
     bitcoinWalletConnected
   );
 
-  const [displayLabel, setDisplayLabel] = useState(() =>
-    getDisplayLabel({
-      label,
-      solanaWalletRequired,
-      bitcoinWalletRequired,
-      solanaWalletConnected,
-      bitcoinWalletConnected,
-    })
-  );
+  const displayLabel = getDisplayLabel({
+    label,
+    solanaWalletRequired,
+    bitcoinWalletRequired,
+    solanaWalletConnected,
+    bitcoinWalletConnected,
+  });
 
   const buttonClasses = `
     ${classes ?? ""}
@@ -135,15 +133,6 @@ export default function Button({
   ) {
     setPrevSolanaWalletConnected(solanaWalletConnected);
     setPrevBitcoinWalletConnected(bitcoinWalletConnected);
-    setDisplayLabel(
-      getDisplayLabel({
-        label,
-        solanaWalletRequired,
-        bitcoinWalletRequired,
-        solanaWalletConnected,
-        bitcoinWalletConnected,
-      })
-    );
   }
 
   return (
