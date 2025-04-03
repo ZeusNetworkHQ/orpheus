@@ -1,5 +1,7 @@
 # Orpheus
 
+![cover](./public/graphics/metadata-img.jpg)
+
 Orpheus is a Next.js-based template engineered for Bitcoin-centric applications, architected atop the ZeusLayer infrastructure. This documentation delivers a meticulous and comprehensive manual for developers, elucidating the methodologies for leveraging this frontend template to interface with the Zeus Program Library (ZPL) and implement cross-chain operability between Bitcoin and Solana. The ZPL underpins this integration by providing a robust framework for seamless interoperability, synergizing Bitcoin’s liquidity with Solana’s high-performance programmability. This empowers developers to construct sophisticated applications that optimally exploit the complementary technical attributes of both blockchain.
 
 ## Table of Contents
