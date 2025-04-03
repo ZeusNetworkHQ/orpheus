@@ -1,0 +1,31 @@
+.bell {
+  @apply relative flex h-[40px] w-[40px] cursor-pointer items-center justify-center rounded-[10px] border border-shade-mute border-opacity-15 text-shade-secondary hover:text-shade-primary;
+  box-shadow:
+    0px 2px 12px rgba(139, 138, 158, 0.04),
+    inset 0px 1.73558px 1.73558px rgba(139, 138, 158, 0.1);
+  &__indicator {
+    @apply absolute right-0 top-0 h-[6px] w-[6px] rounded-[50%] bg-primary-apollo;
+    box-shadow: 0px 0px 12px rgba(255, 134, 108, 0.6);
+  }
+}
+
+.mobileMenu {
+  @apply relative z-[1000] flex w-full flex-col space-y-2;
+  &__link {
+    @apply flex cursor-pointer items-center space-x-2 rounded-[10px] px-2 py-2 font-medium text-shade-mute transition-all ease-in hover:bg-shade-background hover:bg-opacity-50 focus:bg-shade-background focus:bg-opacity-50;
+    &:hover {
+      &__text {
+        @apply text-shade-primary transition-all ease-in;
+      }
+    }
+    &__text {
+      @apply text-shade-secondary transition-all ease-in-out;
+    }
+  }
+  .activeLink {
+    @apply rounded-[10px] bg-shade-background bg-opacity-50;
+    & span {
+      @apply text-shade-primary;
+    }
+  }
+}

@@ -1,0 +1,43 @@
+.tabs {
+  @apply relative flex items-center text-xl;
+  &__tab {
+    @apply relative z-10 flex cursor-pointer items-center justify-center space-x-2 rounded-lg px-4 py-2 font-medium text-gray-500 transition ease-in-out;
+    &:hover {
+      @apply text-shade-primary;
+    }
+    &__label {
+      @apply relative z-10;
+    }
+    &__selected {
+      @apply absolute h-full w-full rounded-full bg-opacity-5 font-bold text-primary-apollo;
+    }
+  }
+  &__disabled {
+    @apply cursor-not-allowed text-shade-mute;
+  }
+  &__selected {
+    @apply bg-shade-selected text-primary-apollo;
+  }
+}
+
+.subTabs {
+  @apply relative inline-flex items-center space-x-2;
+  &__tab {
+    @apply relative z-10 flex cursor-pointer items-center justify-center space-x-2 rounded-full py-2 font-medium text-shade-secondary transition ease-in-out;
+    &:hover {
+      @apply text-shade-primary;
+    }
+    &__label {
+      @apply relative z-10;
+    }
+    &__selected {
+      @apply absolute h-full w-full rounded-xl font-bold;
+    }
+  }
+  &__disabled {
+    @apply cursor-not-allowed text-shade-mute;
+  }
+  &__selected {
+    @apply text-primary-apollo  hover:text-primary-apolloHovered;
+  }
+}

@@ -1,0 +1,16 @@
+.badge {
+  @apply flex h-[18px] w-max items-center justify-center space-x-0.5 rounded-full px-2 text-sm;
+  &--secondary {
+    @apply bg-primary-apollo font-bold text-shade-background;
+  }
+  &--primary {
+    @apply bg-primary-apollo font-semibold text-shade-background;
+    box-shadow: inset 0px 1.5px 3px #ffa794;
+  }
+  &--outline {
+    @apply border border-primary-apollo bg-shade-cardLight font-semibold text-shade-primary;
+  }
+  &--fade {
+    @apply bg-primary-apollo bg-opacity-5 font-semibold text-primary-apollo;
+  }
+}

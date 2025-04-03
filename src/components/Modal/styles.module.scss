@@ -1,0 +1,37 @@
+.modal {
+  @apply absolute z-30 flex h-full w-full items-center justify-center;
+  &:has(&__card__drawer) {
+    @apply items-end;
+  }
+  &__backdrop {
+    @apply absolute left-0 h-[100dvh] w-[100dvw] bg-[#] bg-opacity-50 backdrop-blur-sm;
+  }
+  &__card {
+    @apply relative items-center justify-center rounded-2xl bg-shade-card px-4 py-5;
+    &::before {
+      background-image: linear-gradient(
+        180deg,
+        rgba(139, 138, 158, 0.3),
+        rgba(139, 138, 158, 0.1)
+      );
+    }
+  }
+  &__card__positioned {
+    @apply absolute left-[var(--left)] top-[var(--top)] w-[calc(100dvw-1rem)] p-2 lg:w-[calc(var(--cardWidth)-1rem)];
+  }
+  &__card__swipe {
+    @apply relative z-10 mx-auto mb-4 block h-1.5 w-16 cursor-grabbing rounded-full bg-shade-mute bg-opacity-20 md:hidden;
+  }
+  @media (max-width: 768px) {
+    &__card__centered {
+      @apply relative bottom-2 left-0 right-0 top-auto mx-0 h-max w-[calc(100%-1rem)] px-4 py-5;
+    }
+  }
+  &__card__centered {
+    @apply fixed left-1/2 top-1/2 w-[calc(100%-1rem)] -translate-y-1/2 translate-x-[-50%] md:w-[var(--cardWidth)];
+    @apply md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 #{!important};
+  }
+  &__card__drawer {
+    @apply relative bottom-2 left-0 right-0 top-auto mx-2 h-max w-[calc(100%-1rem)] transform-none px-4 py-5 md:absolute md:bottom-[var(--bottom)] md:left-[var(--left)] md:right-[var(--right)] md:top-[var(--top)] md:w-[var(--cardWidth)];
+  }
+}

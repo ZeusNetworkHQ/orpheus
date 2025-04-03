@@ -1,0 +1,26 @@
+.devInfo {
+  @apply fixed bottom-4 right-4 z-[10] flex items-center space-x-2 rounded-full border border-shade-mute border-opacity-15 bg-shade-background bg-opacity-80 p-1 backdrop-blur;
+  &__version {
+    @apply pl-2 text-[14px] font-medium text-shade-secondary;
+  }
+  &__modal {
+    &__network {
+      @apply flex items-center space-x-2 font-medium;
+    }
+    &__list {
+      @apply relative z-10 flex flex-col space-y-3 font-medium;
+      &__copy {
+        @apply relative z-10 cursor-pointer text-shade-secondary transition hover:text-shade-primary;
+      }
+      &__item {
+        @apply flex flex-col space-y-1.5;
+        &__title {
+          @apply text-shade-primary;
+        }
+        &__value {
+          @apply w-[75%] truncate text-sm text-shade-mute;
+        }
+      }
+    }
+  }
+}

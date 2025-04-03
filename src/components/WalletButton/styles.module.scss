@@ -1,0 +1,93 @@
+.btn {
+  @apply relative;
+  &__content {
+    @apply flex items-center justify-center gap-x-2 transition duration-100 ease-in-out;
+  }
+  &--lg {
+    @apply h-[48px] gap-x-2 rounded-[12px] px-5 py-1.5 text-lg;
+  }
+  &--md {
+    @apply h-[40px] gap-x-2 rounded-[10px] px-3 py-1.5;
+  }
+  &--sm {
+    @apply h-[34px] gap-x-1 rounded-[8px] px-3 py-1.5;
+  }
+  &--xs {
+    @apply h-[24px] gap-x-1 rounded-[8px] px-3 py-0 text-[14px] font-[800];
+  }
+  &--badge {
+    @apply h-[20px] rounded-full px-2 py-0 text-[14px];
+  }
+  &--loading {
+    @apply pointer-events-none cursor-default;
+  }
+  &--disabled {
+    @apply pointer-events-none opacity-50;
+  }
+  &--primary {
+    @apply bg-primary-apollo font-medium text-shade-background;
+    @apply transition duration-200;
+    &::before {
+      background-image: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.4),
+        transparent
+      );
+    }
+    box-shadow:
+      0px 8px 12px rgba(84, 108, 241, 0.2),
+      inset 0px 2px 6px #8495f5;
+    &:hover {
+      @apply transition duration-200;
+      box-shadow:
+        0px 8px 12px rgba(84, 108, 241, 0.25),
+        inset 0px 2px 8px #8495f5;
+    }
+  }
+  &__icon {
+    @apply flex-shrink-0;
+  }
+  &--secondary {
+    @apply bg-shade-cardLight font-medium text-shade-primary transition ease-in;
+    box-shadow: inset 0px -4px 4px rgba(139, 138, 158, 0.12);
+    &::before {
+      background-image: linear-gradient(
+        180deg,
+        rgba(139, 138, 158, 0.4),
+        rgba(139, 138, 158, 0.1)
+      );
+    }
+    &:hover {
+      box-shadow: inset 0px -4px 8px rgba(139, 138, 158, 0.2);
+    }
+  }
+  &--connected {
+    @apply bg-transparent font-medium text-primary-apollo transition ease-in;
+    box-shadow: inset 0px 0px 16px rgba(142, 157, 241, 0.2);
+    &::before {
+      background-image: linear-gradient(
+        180deg,
+        rgba(142, 157, 241, 0.3),
+        rgba(142, 157, 241, 0.6)
+      );
+    }
+    &:hover {
+      box-shadow: inset 0px 0px 24px rgba(142, 157, 241, 0.3);
+    }
+  }
+}
+
+.btn--animated {
+  @apply overflow-hidden;
+  & .btn__animated__icon {
+    @apply absolute -right-6;
+  }
+  &:hover {
+    & .btn__icon {
+      @apply opacity-0 transition-all;
+    }
+    & .btn__content {
+      @apply -translate-x-6 transform transition ease-in-out;
+    }
+  }
+}

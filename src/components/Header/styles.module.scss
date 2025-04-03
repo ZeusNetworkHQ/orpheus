@@ -1,0 +1,80 @@
+.header {
+  @apply h-[60px] min-h-[60px] w-full rounded-2xl px-3;
+  @apply bg-[#FFFFFF] lg:border lg:border-shade-mute lg:border-opacity-15 lg:bg-shade-card;
+  &__container {
+    @apply flex h-full items-center justify-between md:px-4;
+    &__start {
+      @apply flex items-center space-x-10;
+      &__nav {
+        @apply hidden items-center space-x-4 lg:flex;
+        & a {
+          @apply flex items-center space-x-2 px-3 py-1.5 font-medium text-shade-mute transition-all ease-in;
+          &:hover {
+            & span {
+              @apply text-shade-primary transition-all ease-in;
+            }
+          }
+          & span {
+            @apply text-shade-secondary transition-all ease-in-out;
+          }
+        }
+        .activeLink {
+          @apply rounded-[10px] bg-shade-foreground bg-opacity-50 text-primary-apollo;
+          & span {
+            @apply text-shade-primary;
+          }
+        }
+      }
+    }
+    &__end__desktop {
+      @apply hidden items-center space-x-2 lg:flex;
+      &__setting {
+        @apply flex h-10 w-10 cursor-pointer items-center justify-center rounded-[10px]
+          border border-shade-divider bg-white text-shade-secondary;
+        box-shadow:
+          0px 2px 12px 0px rgba(84, 108, 241, 0.04),
+          inset 0px 1.736px 1.736px 0px rgba(84, 108, 241, 0.05);
+        &:hover {
+          border: 1px solid rgba(84, 108, 241, 0.4);
+          color: #0f0f12;
+          box-shadow:
+            inset 0px -4px 8px 0px rgba(84, 108, 241, 0.1),
+            inset 0px -4px 4px 0px rgba(84, 108, 241, 0.05);
+        }
+      }
+    }
+    &__end__mobile {
+      @apply flex items-center space-x-2 lg:hidden;
+    }
+  }
+}
+
+.nav__icon svg * {
+  transform-box: fill-box;
+}
+.nav__icon svg path {
+  @apply transition-all ease-in-out;
+}
+.nav__icon:hover > svg path {
+  @apply transition-all ease-in-out;
+}
+
+.nav__icon:hover > svg path[class^="bridge1"] {
+  @apply -translate-x-0.5 transform;
+}
+
+.nav__icon:hover > svg path[class^="bridge2"] {
+  @apply translate-x-0.5 transform;
+}
+
+.nav__icon:hover > svg path[class^="network1"] {
+  @apply origin-left translate-x-[2px] rotate-[45deg] transform;
+}
+
+.nav__icon:hover > svg path[class^="provide1"] {
+  @apply -translate-x-[1.5px] -translate-y-[-1.5px] transform;
+}
+
+.nav__icon:hover > svg path[class^="borrow1"] {
+  @apply translate-x-[1.5px] translate-y-[-1.5px] transform;
+}
