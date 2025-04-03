@@ -36,13 +36,17 @@ ZeusLayer is a cross-chain layer that enables interoperability between Bitcoin a
 
 ### Lifecycle of Interactions
 
+![Deposit Flow](./public/graphics/interaction.png)
+
+Check the live Interaction data on [ZeusScan](https://zeusscan.io/?network=regtest-devnet)
+
 #### Deposit Flow
 
-![Deposit Flow](./public/graphics/deposit_flow.png)
+![Deposit Flow](./public/graphics/deposit-flow.png)
 
 #### Withdrawal Flow
 
-![Withdrawal Flow](./public/graphics/withdraw_flow.png)
+![Withdrawal Flow](./public/graphics/withdrawal-flow.png)
 
 ### Core Components
 
