@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 import { createContext, useContext } from "react";
+import { useWindowSize } from "usehooks-ts";
 
 import Icon from "@/components/Icons";
 
@@ -75,6 +76,10 @@ const Modal = ({
   animateFrom = "bottom",
   closeOnBackdropClick = true,
 }: ModalProps) => {
+  const { width: windowWidth } = useWindowSize();
+  const computedWidth =
+    windowWidth < 550 ? "100%" : width ? `${width}px` : "auto";
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -132,7 +137,7 @@ const Modal = ({
                 position !== null && "!absolute"
               )}
               style={{
-                width: width ? `${width}px` : "auto",
+                width: computedWidth,
                 top: position?.top && `${position.top}px`,
                 left: position?.left && `${position.left}px`,
                 right: position?.right && `${position.right}px`,

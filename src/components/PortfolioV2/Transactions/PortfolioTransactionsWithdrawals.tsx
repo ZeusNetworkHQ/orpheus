@@ -171,7 +171,6 @@ const PortfolioTransactionsWithdrawals = ({
                       )}
                     >
                       {getInteractionStatusDisplay(item.status)}
-                      span{" "}
                     </span>
                     <Chip
                       size="large"

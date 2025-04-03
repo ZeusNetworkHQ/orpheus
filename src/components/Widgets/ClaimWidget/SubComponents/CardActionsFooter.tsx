@@ -6,26 +6,25 @@ import Button from "@/components/WalletButton/Button";
 import styles from "../styles.module.scss";
 
 export default function CardActionsFooter({
-  claimableAmount,
+  claimableTimes,
   claimedProgress,
   handleClaim,
   isClaiming,
   isAllConnected,
 }: {
-  claimableAmount: number;
+  claimableTimes: number;
   claimedProgress: number;
   handleClaim: () => void;
   isClaiming: boolean;
   isAllConnected: boolean;
 }) {
-  const isFullyClaimed = isAllConnected && claimableAmount === 0;
+  const isFullyClaimed = isAllConnected && claimableTimes === 0;
 
   return (
     <div
       className={`${styles.claimWidget__card__actions} ${styles.claimWidget__card__actions__glow}`}
     >
       <Button
-        key={isFullyClaimed ? "fullyClaimed" : "claim"} // Force re-render by using a unique key
         icon={!isAllConnected && <Icon name="Wallet" />}
         theme="primary"
         size="lg"
@@ -37,11 +36,11 @@ export default function CardActionsFooter({
         disabled={isFullyClaimed}
       />
 
-      {claimableAmount > 0 && (
+      {isAllConnected && claimableTimes > 0 && (
         <div className={styles.claimWidget__card__claimInfo}>
           <div className={styles.claimWidget__card__claimInfo__title}>
             <Icon name="Alert" />
-            You can claim 0.05 tBTC for the day
+            You can claim {claimableTimes} times a day
           </div>
           <div className={styles.claimWidget__card__claimInfo__bar__wrapper}>
             <div className={styles.claimWidget__card__claimInfo__bar}>

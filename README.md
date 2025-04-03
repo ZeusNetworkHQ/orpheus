@@ -1,5 +1,7 @@
 # Orpheus
 
+![cover](./public/graphics/metadata-img.jpg)
+
 Orpheus is a Next.js-based template engineered for Bitcoin-centric applications, architected atop the ZeusLayer infrastructure. This documentation delivers a meticulous and comprehensive manual for developers, elucidating the methodologies for leveraging this frontend template to interface with the Zeus Program Library (ZPL) and implement cross-chain operability between Bitcoin and Solana. The ZPL underpins this integration by providing a robust framework for seamless interoperability, synergizing Bitcoin’s liquidity with Solana’s high-performance programmability. This empowers developers to construct sophisticated applications that optimally exploit the complementary technical attributes of both blockchain.
 
 ## Table of Contents
@@ -34,13 +36,17 @@ ZeusLayer is a cross-chain layer that enables interoperability between Bitcoin a
 
 ### Lifecycle of Interactions
 
+![Deposit Flow](./public/graphics/interaction.png)
+
+Check the live Interaction data on [ZeusScan](https://zeusscan.io/?network=regtest-devnet)
+
 #### Deposit Flow
 
-![Deposit Flow](./public/graphics/deposit_flow.png)
+![Deposit Flow](./public/graphics/deposit-flow.png)
 
 #### Withdrawal Flow
 
-![Withdrawal Flow](./public/graphics/withdraw_flow.png)
+![Withdrawal Flow](./public/graphics/withdrawal-flow.png)
 
 ### Core Components
 
@@ -67,6 +73,8 @@ ZeusLayer is a cross-chain layer that enables interoperability between Bitcoin a
   - Manages key recovery and emergency procedures
 
 ### Reserves
+
+![reserves](./public/graphics/reserves.png)
 
 There are two types of reserves to manage Bitcoin assets:
 
@@ -104,6 +112,8 @@ zBTC vault manages the issuance and redemption of zBTC tokens:
 
 #### Bitcion Taproot
 
+![taproot](./public/graphics/taproot.png)
+
 ZeusLayer leverages Bitcoin's Taproot technology (BIP 341), which provides enhanced privacy and flexibility:
 
 - **Key-path Spend**: Uses the Guardian's internal X-only public key for standard operations
@@ -116,6 +126,8 @@ ZeusLayer leverages Bitcoin's Taproot technology (BIP 341), which provides enhan
   - Allows for time-locked security features
 
 #### Simplified Payment Verification (SPV)
+
+![spv](./public/graphics/spv.png)
 
 We deploy a BitcoinSPV program on Solana that verifies Bitcoin transactions without requiring a full Bitcoin node:
 
@@ -237,17 +249,43 @@ export default function getTransactions({ solanaPubkey, bitcoinWallet }) {
   const { feeRate } = useTwoWayPegConfiguration();
   const config = useNetworkConfig();
 
-  // Fetch cached transactions
-  const {
-    combinedInteractions: combinedTransactions, // your deposits and withdrawals
-  } = useDepositInteractionsWithCache({
-    solanaAddress: solanaPubkey?.toBase58(),
-    bitcoinXOnlyPubkey: bitcoinWallet
-      ? toXOnly(Buffer.from(bitcoinWallet.pubkey, "hex")).toString("hex")
-      : undefined,
-  });
+  // Fetch deposit transactions (combined onchain transaction and transaction in browser indexed db)
+  const { combinedInteractions: depositTransactions } =
+    useDepositInteractionsWithCache({
+      solanaAddress: solanaPubkey?.toBase58(),
+      bitcoinXOnlyPubkey: bitcoinWallet
+        ? toXOnly(Buffer.from(bitcoinWallet.pubkey, "hex")).toString("hex")
+        : undefined,
+    });
 
-  // This is the schema of the combinedInteractions
+  // Fetch withdrawal transactions
+  const {
+    data: withdrawalTransactions,
+    hasNextPage,
+    currentPage,
+    itemsPerPage,
+    handleItemsPerPage,
+    handleNextPage,
+    handlePrevPage,
+  } = useInteractions(
+    {
+      solanaAddress: solanaPubkey?.toBase58(),
+      destinationBitcoinAddress: bitcoinWallet
+        ? convertP2trToTweakedXOnlyPubkey(bitcoinWallet.p2tr).toString("hex")
+        : undefined,
+      types: [InteractionType.Withdrawal],
+      statuses: [
+        InteractionStatus.AddWithdrawalRequest,
+        InteractionStatus.AddUnlockToUserProposal,
+        InteractionStatus.BitcoinUnlockToUser,
+        InteractionStatus.VerifyUnlockToUserTransaction,
+        InteractionStatus.SolanaUnlockToUser,
+      ],
+    },
+    10
+  );
+
+  // This is the schema of a interaction
   // amount: "TXN_SATS_AMOUNT"
   // app_developer: "" // from which app (Orpheus)
   // current_step_at: TIMESTAMP_OF_LATEST_STEP
@@ -270,20 +308,20 @@ export default function getTransactions({ solanaPubkey, bitcoinWallet }) {
   // }]
   // withdrawal_request_pda: "YOUR_WITHDRAWAL_REQUEST_PDA"
 
-  // Or you can specify the interaction id and fetch the interaction detail from our API
-  const targetTx = combinedTransactions[0]; // choose the first transaction as example
+  // Or you can specify the interaction id and fetch the interaction detail from our indexer API
+  const targetTx = depositTransactions[0]; // choose the first transaction as example
   const interactionSteps = await hermesFetcher(
     `/api/v1/raw/layer/interactions/${targetTx.interaction_id}/steps`,
     interactionSchema
   );
   // The returned data is in the same format as the combinedInteractions above
 
-  // Below api returns the Bitcoin transaction detail
-  const interactionDetail = await hermesFetcher(
-    `/api/v1/transaction/${targetTx.interaction_id}/detail`,
-    interactionSchema
+  // Below api returns the Bitcoin transaction detail from Bitcoin RPC
+  const transactionDetail = await aresFetcher(
+    `/api/v1/transaction/${targetTx.steps[0].transaction}/detail`,
+    transactionSchema
   );
-  // This is the schema of the interaction detail
+  // This is the schema of the bitcoin transaction detail
   // blockhash: "TXN_BLOCK_HASH"
   // blocktime: TIMESTAMP_OF_TXN
   // confirmations: CONFIRMATIONS_OF_TXN
