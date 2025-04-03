@@ -237,17 +237,43 @@ export default function getTransactions({ solanaPubkey, bitcoinWallet }) {
   const { feeRate } = useTwoWayPegConfiguration();
   const config = useNetworkConfig();
 
-  // Fetch cached transactions
-  const {
-    combinedInteractions: combinedTransactions, // your deposits and withdrawals
-  } = useDepositInteractionsWithCache({
-    solanaAddress: solanaPubkey?.toBase58(),
-    bitcoinXOnlyPubkey: bitcoinWallet
-      ? toXOnly(Buffer.from(bitcoinWallet.pubkey, "hex")).toString("hex")
-      : undefined,
-  });
+  // Fetch deposit transactions (combined onchain transaction and transaction in browser indexed db)
+  const { combinedInteractions: depositTransactions } =
+    useDepositInteractionsWithCache({
+      solanaAddress: solanaPubkey?.toBase58(),
+      bitcoinXOnlyPubkey: bitcoinWallet
+        ? toXOnly(Buffer.from(bitcoinWallet.pubkey, "hex")).toString("hex")
+        : undefined,
+    });
 
-  // This is the schema of the combinedInteractions
+  // Fetch withdrawal transactions
+  const {
+    data: withdrawalTransactions,
+    hasNextPage,
+    currentPage,
+    itemsPerPage,
+    handleItemsPerPage,
+    handleNextPage,
+    handlePrevPage,
+  } = useInteractions(
+    {
+      solanaAddress: solanaPubkey?.toBase58(),
+      destinationBitcoinAddress: bitcoinWallet
+        ? convertP2trToTweakedXOnlyPubkey(bitcoinWallet.p2tr).toString("hex")
+        : undefined,
+      types: [InteractionType.Withdrawal],
+      statuses: [
+        InteractionStatus.AddWithdrawalRequest,
+        InteractionStatus.AddUnlockToUserProposal,
+        InteractionStatus.BitcoinUnlockToUser,
+        InteractionStatus.VerifyUnlockToUserTransaction,
+        InteractionStatus.SolanaUnlockToUser,
+      ],
+    },
+    10
+  );
+
+  // This is the schema of a interaction
   // amount: "TXN_SATS_AMOUNT"
   // app_developer: "" // from which app (Orpheus)
   // current_step_at: TIMESTAMP_OF_LATEST_STEP
@@ -270,20 +296,20 @@ export default function getTransactions({ solanaPubkey, bitcoinWallet }) {
   // }]
   // withdrawal_request_pda: "YOUR_WITHDRAWAL_REQUEST_PDA"
 
-  // Or you can specify the interaction id and fetch the interaction detail from our API
-  const targetTx = combinedTransactions[0]; // choose the first transaction as example
+  // Or you can specify the interaction id and fetch the interaction detail from our indexer API
+  const targetTx = depositTransactions[0]; // choose the first transaction as example
   const interactionSteps = await hermesFetcher(
     `/api/v1/raw/layer/interactions/${targetTx.interaction_id}/steps`,
     interactionSchema
   );
   // The returned data is in the same format as the combinedInteractions above
 
-  // Below api returns the Bitcoin transaction detail
-  const interactionDetail = await hermesFetcher(
-    `/api/v1/transaction/${targetTx.interaction_id}/detail`,
-    interactionSchema
+  // Below api returns the Bitcoin transaction detail from Bitcoin RPC
+  const transactionDetail = await aresFetcher(
+    `/api/v1/transaction/${targetTx.steps[0].transaction}/detail`,
+    transactionSchema
   );
-  // This is the schema of the interaction detail
+  // This is the schema of the bitcoin transaction detail
   // blockhash: "TXN_BLOCK_HASH"
   // blocktime: TIMESTAMP_OF_TXN
   // confirmations: CONFIRMATIONS_OF_TXN
