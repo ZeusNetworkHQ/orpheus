@@ -74,6 +74,8 @@ Check the live Interaction data on [ZeusScan](https://zeusscan.io/?network=regte
 
 ### Reserves
 
+![reserves](./public/graphics/reserves.png)
+
 There are two types of reserves to manage Bitcoin assets:
 
 #### HotReserve (Bitcoin)
@@ -110,6 +112,8 @@ zBTC vault manages the issuance and redemption of zBTC tokens:
 
 #### Bitcion Taproot
 
+![taproot](./public/graphics/taproot.png)
+
 ZeusLayer leverages Bitcoin's Taproot technology (BIP 341), which provides enhanced privacy and flexibility:
 
 - **Key-path Spend**: Uses the Guardian's internal X-only public key for standard operations
@@ -122,6 +126,8 @@ ZeusLayer leverages Bitcoin's Taproot technology (BIP 341), which provides enhan
   - Allows for time-locked security features
 
 #### Simplified Payment Verification (SPV)
+
+![spv](./public/graphics/spv.png)
 
 We deploy a BitcoinSPV program on Solana that verifies Bitcoin transactions without requiring a full Bitcoin node:
 
