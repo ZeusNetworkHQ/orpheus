@@ -44,7 +44,7 @@ export class InstructionService {
     const instructionData = Buffer.alloc(createHotReserveBucketSchema.span);
     createHotReserveBucketSchema.encode(
       {
-        discriminator: 5,
+        discriminator: 11,
         scriptPathSpendPublicKey: Uint8Array.from(userBitcoinXOnlyPublicKey),
         lockTime: new BN(unlockBlockHeight),
         validityPeriod: HOT_RESERVE_BUCKET_VALIDITY_PERIOD,
@@ -91,7 +91,7 @@ export class InstructionService {
 
     reactivateHotReserveBucketSchema.encode(
       {
-        discriminator: 7,
+        discriminator: 13,
         validityPeriod: HOT_RESERVE_BUCKET_VALIDITY_PERIOD,
       },
       instructionData
@@ -151,7 +151,7 @@ export class InstructionService {
     const instructionData = Buffer.alloc(addWithdrawalRequestSchema.span);
     addWithdrawalRequestSchema.encode(
       {
-        discriminator: 18,
+        discriminator: 131,
         receiverAddress: Uint8Array.from(receiverAddress),
         currentSlot: new BN(Date.now() / 1000),
         withdrawalAmount: amount,
@@ -244,7 +244,7 @@ export class InstructionService {
     const instructionData = Buffer.alloc(retrieveSchema.span);
     retrieveSchema.encode(
       {
-        discriminator: 9,
+        discriminator: 21,
         amount,
       },
       instructionData
@@ -312,7 +312,7 @@ export class InstructionService {
     const instructionData = Buffer.alloc(storeSchema.span);
     storeSchema.encode(
       {
-        discriminator: 10,
+        discriminator: 22,
         amount,
       },
       instructionData
