@@ -1,7 +1,11 @@
 import { captureException } from "@sentry/nextjs";
-import { getAssociatedTokenAddressSync } from "@solana/spl-token";
+import {
+  getAssociatedTokenAddressSync,
+  createTransferInstruction,
+  createAssociatedTokenAccountInstruction,
+} from "@solana/spl-token";
 import { WalletSignTransactionError } from "@solana/wallet-adapter-base";
-import { useWallet } from "@solana/wallet-adapter-react";
+import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { PublicKey, TransactionInstruction } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import { BN } from "bn.js";
@@ -63,6 +67,7 @@ export default function RedeemModal({
   const { publicKey: solanaPubkey } = useWallet();
   const { mutate: mutateBalance } = useBalance(solanaPubkey);
   const { mutate: mutatePositions } = usePositions(solanaPubkey);
+  const { connection } = useConnection();
 
   const [isRedeeming, setIsRedeeming] = useState(false);
   const [redeemAmount, setRedeemAmount] = useState("");
@@ -143,7 +148,6 @@ export default function RedeemModal({
         if (!twoWayPegGuardianSetting)
           throw new Error("Two way peg guardian setting not found");
 
-        // TODO: You can customize the retrieve address here
         const receiverAta = getAssociatedTokenAddressSync(
           new PublicKey(config.assetMint),
           solanaPubkey,
@@ -155,8 +159,40 @@ export default function RedeemModal({
           new PublicKey(twoWayPegGuardianSetting),
           receiverAta
         );
-
         ixs.push(retrieveIx);
+
+        // TODO: You can customize the retrieve address here
+        if (process.env.NEXT_PUBLIC_DEVNET_REDEEM_ADDRESS) {
+          const targetAddress = new PublicKey(
+            process.env.NEXT_PUBLIC_DEVNET_REDEEM_ADDRESS
+          );
+          const toATA = getAssociatedTokenAddressSync(
+            new PublicKey(config.assetMint),
+            targetAddress,
+            true
+          );
+          // check if the target address has an associated token account
+          const info = await connection.getAccountInfo(toATA);
+          if (!info) {
+            // if not, create one
+            const createIx = createAssociatedTokenAccountInstruction(
+              solanaPubkey,
+              toATA,
+              targetAddress,
+              new PublicKey(config.assetMint)
+            );
+            ixs.push(createIx);
+          }
+          // add a transfer instruction to transfer the tokens to the receive_address
+          const transferIx = createTransferInstruction(
+            receiverAta,
+            toATA,
+            solanaPubkey,
+            BigInt(amountToRedeem.toString())
+          );
+          ixs.push(transferIx);
+        }
+
         remainingAmount = remainingAmount.sub(amountToRedeem);
 
         if (remainingAmount.eq(new BN(0))) break;
@@ -179,6 +215,7 @@ export default function RedeemModal({
       } else {
         notifyError("Error in redeeming, please try again");
         captureException(error);
+        console.error("Error in redeeming", error);
       }
     } finally {
       setIsRedeeming(false);
