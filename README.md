@@ -249,15 +249,6 @@ export default function getTransactions({ solanaPubkey, bitcoinWallet }) {
   const { feeRate } = useTwoWayPegConfiguration();
   const config = useNetworkConfig();
 
-  // Fetch deposit transactions (combined onchain transaction and transaction in browser indexed db)
-  const { combinedInteractions: depositTransactions } =
-    useDepositInteractionsWithCache({
-      solanaAddress: solanaPubkey?.toBase58(),
-      bitcoinXOnlyPubkey: bitcoinWallet
-        ? toXOnly(Buffer.from(bitcoinWallet.pubkey, "hex")).toString("hex")
-        : undefined,
-    });
-
   // Fetch withdrawal transactions
   const {
     data: withdrawalTransactions,
@@ -309,6 +300,14 @@ export default function getTransactions({ solanaPubkey, bitcoinWallet }) {
   // withdrawal_request_pda: "YOUR_WITHDRAWAL_REQUEST_PDA"
 
   // Or you can specify the interaction id and fetch the interaction detail from our indexer API
+  const { combinedInteractions: depositTransactions } =
+    useDepositInteractionsWithCache({
+      solanaAddress: solanaPubkey?.toBase58(),
+      bitcoinXOnlyPubkey: bitcoinWallet
+        ? toXOnly(Buffer.from(bitcoinWallet.pubkey, "hex")).toString("hex")
+        : undefined,
+    });
+
   const targetTx = depositTransactions[0]; // choose the first transaction as example
   const interactionSteps = await hermesFetcher(
     `/api/v1/raw/layer/interactions/${targetTx.interaction_id}/steps`,
@@ -343,7 +342,7 @@ The ZPL defines several interaction types and statuses to track the progress of 
 
 1. `BitcoinDepositToHotReserve`: Initial deposit detected on Bitcoin network from user address to our hot reserve address
 2. `VerifyDepositToHotReserveTransaction`: BitcoinSPV program verifying the deposit transaction
-3. `SolanaDepositToHotReserve`: Deposit confirmed on Solana by TwoWayPeg program
+3. `SolanaDepositToHotReserve`: Deposit confirmed and updated status on Solana by TwoWayPeg program
 4. `AddLockToColdReserveProposal`: Zeus node send transaction to move BTC from hot reserve to cold reserve
 5. `BitcoinLockToColdReserve`: Move BTC from hot reserve to cold reserve transaction is observed on Bitcoin network
 6. `VerifyLockToColdReserveTransaction`: BitcoinSPV program verifying cold reserve transaction
@@ -577,7 +576,9 @@ The ZPL provides functionality for users to store zBTC in a custodial vault and 
 
 ![Retrive](./public/graphics/retrieve.png)
 
-Orpheus allows you to modify the retrieval address to designate an alternative Escrow token account managed by your application. By implementing this change, redemption transactions initiated by users of your application will direct funds to the application-controlled escrow rather than the user’s individual wallet. This functionality unlocks a range of decentralized finance (DeFi) use cases, including money markets, neutral trading strategies, liquidity provisioning, or the development of a Bitcoin-backed stablecoin.
+By flexibly cascading sdk in Orpheus, you can set custom retrieval address to designate an alternative Escrow token account managed by your application. By implementinng this operation, redemption transactions initiated by users of your application will go to the application-controlled escrow rather than the user’s individual wallet. This functionality unlocks a range of decentralized finance (DeFi) use cases, including money markets, neutral trading strategies, liquidity provisioning, or the development of a Bitcoin-backed stablecoin.
+
+Below is a sample implementation of creating retrieve instruction:
 
 ```typescript
 constructRetrieveIx(
@@ -622,11 +623,13 @@ For guidance on constructing a Solana escrow, developers may consult reference i
 - https://github.com/ironaddicteddog/anchor-escrow
 - https://github.com/deanmlittle/native-escrow-2024
 
+Then by ingeeniously cascade a transfer instruction, you can redeem the zBTC to a custodial escrow.
+
 #### Implementation
 
 ```typescript
 import { useState } from "react";
-import { useWallet } from "@solana/wallet-adapter-react";
+import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { useZplClient } from "@/contexts/ZplClientProvider";
 import usePositions from "@/hooks/zpl/usePositions";
 import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
@@ -634,6 +637,12 @@ import { PublicKey, TransactionInstruction } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import { BN } from "bn.js";
 import { BTC_DECIMALS } from "@/utils/constant";
+import {
+  getAssociatedTokenAddressSync,
+  createTransferInstruction,
+  createAssociatedTokenAccountInstruction,
+} from "@solana/spl-token";
+
 export default function Home() {
   const [redeemAmount, setRedeemAmount] = useState(0);
 
@@ -641,6 +650,7 @@ export default function Home() {
   const zplClient = useZplClient();
   const { publicKey: solanaPubkey } = useWallet();
   const { data: positions } = usePositions(solanaPubkey);
+  const { connection } = useConnection();
 
   const handleRedeem = async () => {
       if (!redeemAmount || !zplClient) return;
@@ -680,6 +690,37 @@ export default function Home() {
           );
 
           ixs.push(retrieveIx);
+
+          const escrow_address = process.env.NEXT_PUBLIC_ESCROW_ADDRESS; // set your escrow address here or other method you like
+          if(escrow_address) {
+            const targetAddress = new PublicKey(escrow_address);
+            const toATA = getAssociatedTokenAddressSync(
+              new PublicKey(config.assetMint),
+              targetAddress,
+              true // allow off curve to approve PDA
+            );
+            // check if the associated token account of target address initialized
+            const info = await connection.getAccountInfo(toATA);
+            if (!info) {
+              // if not, create one
+              const createIx = createAssociatedTokenAccountInstruction(
+                solanaPubkey,
+                toATA,
+                targetAddress,
+                new PublicKey(config.assetMint)
+              );
+              ixs.push(createIx);
+            }
+            // add a transfer instruction to transfer the tokens to the receive_address
+            const transferIx = createTransferInstruction(
+              receiverAta,
+              toATA,
+              solanaPubkey,
+              BigInt(amountToRedeem.toString())
+            );
+            ixs.push(transferIx);
+          }
+
           remainingAmount = remainingAmount.sub(amountToRedeem);
 
           if (remainingAmount.eq(new BN(0))) break;
