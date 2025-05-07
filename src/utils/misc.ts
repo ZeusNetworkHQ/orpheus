@@ -16,9 +16,9 @@ export const getSolanaExplorerUrl = (
 
   switch (solanaNetwork) {
     case SolanaNetwork.Devnet:
-      return `https://solana.fm/${type}/${target}?cluster=devnet-alpha`;
+      return `https://explorer.solana.com/${type}/${target}?cluster=devnet`;
     default:
-      return `https://solana.fm/${type}/${target}?cluster=devnet-alpha`;
+      return `https://explorer.solana.com/${type}/${target}`;
   }
 };
 

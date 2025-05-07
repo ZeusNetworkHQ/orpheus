@@ -25,7 +25,7 @@ const TxSuccessMsg = ({
       </div>
       {txId && solanaNetwork ? (
         <div className="toast-message">
-          Transaction has been processed. View the details on SolanaFM.
+          Transaction has been processed. View the details on Solana Explorer.
           <br />
           <Link
             href={getSolanaExplorerUrl(solanaNetwork, "tx", txId)}
