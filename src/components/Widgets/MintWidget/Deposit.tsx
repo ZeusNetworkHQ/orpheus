@@ -1,9 +1,9 @@
 import { PublicKey } from "@solana/web3.js";
 import { Psbt } from "bitcoinjs-lib";
 import { useState } from "react";
+import { estimateMaxSpendableAmount } from "zpl-sdk-js/bitcoin";
 
-import { btcToSatoshi, satoshiToBtc } from "@/bitcoin";
-import { estimateMaxSpendableAmount } from "@/bitcoin";
+import { satoshiToBtc } from "@/bitcoin";
 import Icon from "@/components/Icons";
 import { DepositTooltip } from "@/components/Mint/DepositTooltip/DepositTooltip";
 import AccountProcess from "@/components/Mint/Modals/AccountProcess";
@@ -270,7 +270,6 @@ export default function Deposit({
           name: "zBTC",
           isLocked: true,
         }}
-        isDepositAll={btcToSatoshi(provideAmount) === maxSpendableSatoshis}
         signPsbt={signPsbt}
         updateTransactions={updateDepositTransactions}
         resetProvideAmountValue={resetProvideAmountValue}

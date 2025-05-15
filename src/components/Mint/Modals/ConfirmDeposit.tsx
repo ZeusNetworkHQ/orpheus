@@ -8,9 +8,9 @@ import { toXOnly } from "bitcoinjs-lib/src/psbt/bip371";
 import { BN } from "bn.js";
 import classNames from "classnames";
 import { useState } from "react";
+import { buildDepositToHotReserveTx } from "zpl-sdk-js/bitcoin";
 
 import { btcToSatoshi, convertBitcoinNetwork } from "@/bitcoin";
-import { constructDepositToHotReserveTx } from "@/bitcoin";
 import { sendTransaction } from "@/bitcoin/rpcClient";
 import { getInternalXOnlyPubkeyFromUserWallet } from "@/bitcoin/wallet";
 import Button from "@/components/Button/Button";
@@ -59,7 +59,6 @@ export interface ConfirmDepositModalProps {
     amount: string;
     isLocked: boolean;
   };
-  isDepositAll: boolean;
   signPsbt: (psbt: Psbt, tweaked?: boolean) => Promise<string>;
   updateTransactions: () => Promise<void>;
   resetProvideAmountValue: () => void;
@@ -75,7 +74,6 @@ export default function ConfirmDepositModal({
   minerFee,
   assetFrom,
   assetTo,
-  isDepositAll,
   signPsbt,
   updateTransactions,
   resetProvideAmountValue,
@@ -139,14 +137,13 @@ export default function ConfirmDepositModal({
     let depositPsbt;
     let usedBitcoinUTXOs;
     try {
-      const { psbt, usedUTXOs } = constructDepositToHotReserveTx(
+      const { psbt, usedUTXOs } = buildDepositToHotReserveTx(
         bitcoinUTXOs,
         targetHotReserveAddress,
         btcToSatoshi(depositAmount),
         userXOnlyPublicKey,
         feeRate,
-        convertBitcoinNetwork(bitcoinNetwork),
-        isDepositAll
+        convertBitcoinNetwork(bitcoinNetwork)
       );
       depositPsbt = psbt;
       usedBitcoinUTXOs = usedUTXOs;

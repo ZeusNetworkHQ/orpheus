@@ -1,10 +1,10 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { useCallback } from "react";
+import { deriveHotReserveAddress } from "zpl-sdk-js/bitcoin";
 import { HotReserveBucketStatus } from "zpl-sdk-js/two-way-peg/types";
 
 import { convertBitcoinNetwork, UNLOCK_BLOCK_HEIGHT } from "@/bitcoin";
-import { deriveHotReserveAddress } from "@/bitcoin";
 import { getInternalXOnlyPubkeyFromUserWallet } from "@/bitcoin/wallet";
 import { useZplClient } from "@/contexts/ZplClientProvider";
 import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
