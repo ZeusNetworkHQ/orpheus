@@ -10,7 +10,6 @@ import { BitcoinXOnlyPublicKey } from "@/types/wallet";
 export const UNLOCK_BLOCK_HEIGHT = 4320; // 144 blocks (1 day) * 30
 
 const SATOSHIS_PER_BTC = new BN(1e8);
-
 const TX_INPUT_VBYTE: number = 58;
 const TX_BASIC_VBYTE: number = 10;
 const TX_OUTPUT_VBYTE: number = 44;

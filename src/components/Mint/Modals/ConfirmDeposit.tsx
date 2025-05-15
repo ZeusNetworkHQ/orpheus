@@ -110,7 +110,7 @@ export default function ConfirmDepositModal({
 
     // although we have a array of hotReserveBuckets, but the user could only bind one bitcoin address with the protocol, so we only need to get the first one
     const hotReserveBuckets =
-      await zplClient.getHotReserveBucketsByBitcoinXOnlyPubkey(
+      await zplClient.twoWayPeg.accounts.getHotReserveBucketsByBitcoinXOnlyPubkey(
         userXOnlyPublicKey
       );
 
@@ -122,7 +122,7 @@ export default function ConfirmDepositModal({
     // NOTE: Regtest and Testnet use the same ZPL with different guardian settings, so we need to set guardian setting in env
     const targetHotReserveBucket = hotReserveBuckets.find(
       (bucket) =>
-        bucket.guardianSetting.toBase58() === networkConfig.guardianSetting
+        bucket.reserveSetting.toBase58() === networkConfig.guardianSetting
     );
     if (!targetHotReserveBucket) throw new Error("Wrong guardian setting");
 
@@ -172,7 +172,7 @@ export default function ConfirmDepositModal({
 
       const transaction: Interaction = {
         status: InteractionStatus.BitcoinDepositToHotReserve,
-        interaction_id: zplClient
+        interaction_id: zplClient.twoWayPeg.pdas
           .deriveInteraction(Buffer.from(txId, "hex"), new BN(0))
           .toBase58(),
         interaction_type: InteractionType.Deposit,

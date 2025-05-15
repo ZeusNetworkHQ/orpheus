@@ -8,6 +8,7 @@ import { BN } from "bn.js";
 import classNames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { Position } from "zpl-sdk-js/liquidity-management/types";
 
 import { convertP2trToTweakedXOnlyPubkey } from "@/bitcoin";
 import Button from "@/components/Button/Button";
@@ -25,7 +26,6 @@ import { useZplClient } from "@/contexts/ZplClientProvider";
 import useTwoWayPegGuardianSettings from "@/hooks/hermes/useTwoWayPegGuardianSettings";
 import { InteractionType } from "@/types/api";
 import { Chain } from "@/types/network";
-import { Position } from "@/types/zplClient";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { shortenString } from "@/utils/format";
 import { notifyError, notifyTx } from "@/utils/notification";
@@ -94,7 +94,7 @@ export default function ConfirmWithdraw({
       );
 
       const twoWayPegConfiguration =
-        await zplClient.getTwoWayPegConfiguration();
+        await zplClient.twoWayPeg.accounts.getConfiguration();
 
       const ixs: TransactionInstruction[] = [];
 
@@ -119,22 +119,36 @@ export default function ConfirmWithdraw({
 
           const twoWayPegGuardianSetting = twoWayPegGuardianSettings.find(
             (setting) =>
-              zplClient
-                .deriveLiquidityManagementGuardianSettingAddress(
-                  new PublicKey(setting.address)
-                )
-                .toBase58() === position.guardianSetting.toBase58()
+              zplClient.liquidityManagement.pdas
+                .deriveVaultSettingAddress(new PublicKey(setting.address))
+                .toBase58() === position.vaultSetting.toBase58()
           );
 
           if (!twoWayPegGuardianSetting) return;
 
-          const withdrawalRequestIx = zplClient.constructAddWithdrawalRequestIx(
-            solanaPubkey,
-            amountToWithdraw,
-            convertP2trToTweakedXOnlyPubkey(selectedWallet),
-            new PublicKey(twoWayPegGuardianSetting.address),
-            twoWayPegConfiguration.layerFeeCollector
-          );
+          const vaultSettingPda =
+            zplClient.liquidityManagement.pdas.deriveVaultSettingAddress(
+              new PublicKey(twoWayPegGuardianSetting.address)
+            );
+
+          const currentTimestamp = new BN(Date.now() / 1000);
+
+          const withdrawalRequestIx =
+            zplClient.twoWayPeg.instructions.buildAddWithdrawalRequestIx(
+              amountToWithdraw,
+              currentTimestamp,
+              convertP2trToTweakedXOnlyPubkey(selectedWallet),
+              solanaPubkey,
+              twoWayPegConfiguration.layerFeeCollector,
+              new PublicKey(twoWayPegGuardianSetting.address),
+              zplClient.liquidityManagementProgramId,
+              zplClient.liquidityManagement.pdas.deriveConfigurationAddress(),
+              vaultSettingPda,
+              zplClient.liquidityManagement.pdas.derivePositionAddress(
+                vaultSettingPda,
+                solanaPubkey
+              )
+            );
 
           ixs.push(withdrawalRequestIx);
           remainingAmount = remainingAmount.sub(amountToWithdraw);
@@ -150,7 +164,7 @@ export default function ConfirmWithdraw({
             );
 
             const splTokenVaultAuthority =
-              zplClient.deriveSplTokenVaultAuthorityAddress(
+              zplClient.liquidityManagement.pdas.deriveSplTokenVaultAuthorityAddress(
                 new PublicKey(twoWayPegGuardianSetting.address)
               );
 
@@ -175,7 +189,7 @@ export default function ConfirmWithdraw({
               address: twoWayPegGuardianSetting.address,
               remainingStoreQuota,
               liquidityManagementGuardianSetting:
-                zplClient.deriveLiquidityManagementGuardianSettingAddress(
+                zplClient.liquidityManagement.pdas.deriveVaultSettingAddress(
                   new PublicKey(twoWayPegGuardianSetting.address)
                 ),
             };
@@ -194,18 +208,37 @@ export default function ConfirmWithdraw({
             remainingAmount
           );
 
-          const storeIx = zplClient.constructStoreIx(
-            withdrawAmountBN,
-            new PublicKey(twoWayPegGuardian.address)
-          );
+          const storeIx =
+            zplClient.liquidityManagement.instructions.buildStoreIx(
+              withdrawAmountBN,
+              solanaPubkey,
+              zplClient.assetMint,
+              new PublicKey(twoWayPegGuardian.address)
+            );
 
-          const withdrawalRequestIx = zplClient.constructAddWithdrawalRequestIx(
-            solanaPubkey,
-            amountToWithdraw,
-            convertP2trToTweakedXOnlyPubkey(selectedWallet),
-            new PublicKey(twoWayPegGuardian.address),
-            twoWayPegConfiguration.layerFeeCollector
-          );
+          const vaultSettingPda =
+            zplClient.liquidityManagement.pdas.deriveVaultSettingAddress(
+              new PublicKey(twoWayPegGuardian.address)
+            );
+
+          const currentTimestamp = new BN(Date.now() / 1000);
+
+          const withdrawalRequestIx =
+            zplClient.twoWayPeg.instructions.buildAddWithdrawalRequestIx(
+              amountToWithdraw,
+              currentTimestamp,
+              convertP2trToTweakedXOnlyPubkey(selectedWallet),
+              solanaPubkey,
+              twoWayPegConfiguration.layerFeeCollector,
+              new PublicKey(twoWayPegGuardian.address),
+              zplClient.liquidityManagementProgramId,
+              zplClient.liquidityManagement.pdas.deriveConfigurationAddress(),
+              vaultSettingPda,
+              zplClient.liquidityManagement.pdas.derivePositionAddress(
+                vaultSettingPda,
+                solanaPubkey
+              )
+            );
 
           ixs.push(storeIx);
           ixs.push(withdrawalRequestIx);
@@ -221,7 +254,6 @@ export default function ConfirmWithdraw({
       return sig;
     };
 
-    setIsWithdrawing(true);
     action()
       .catch((e) => {
         if (e instanceof WalletSignTransactionError) {

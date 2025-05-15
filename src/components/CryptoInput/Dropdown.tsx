@@ -36,7 +36,6 @@ export default function InputDropdown({
     >
       <div className={styles.input__group__crypto__dropdown}>
         {dropdownOptions.map((option) => {
-          console.log(option);
           return (
             <div
               key={option.label + option.type}

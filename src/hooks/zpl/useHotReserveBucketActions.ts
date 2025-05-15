@@ -1,6 +1,7 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { useCallback } from "react";
+import { HotReserveBucketStatus } from "zpl-sdk-js/two-way-peg/types";
 
 import { convertBitcoinNetwork, UNLOCK_BLOCK_HEIGHT } from "@/bitcoin";
 import { deriveHotReserveAddress } from "@/bitcoin";
@@ -11,8 +12,8 @@ import usePersistentStore from "@/stores/persistentStore";
 import { CheckBucketResult } from "@/types/misc";
 import { Chain } from "@/types/network";
 import { BitcoinWallet } from "@/types/wallet";
-import { HotReserveBucketStatus } from "@/types/zplClient";
 import { createAxiosInstances } from "@/utils/axios";
+import { HOT_RESERVE_BUCKET_VALIDITY_PERIOD } from "@/utils/constant";
 import { notifyTx } from "@/utils/notification";
 
 import useTwoWayPegGuardianSettings from "../hermes/useTwoWayPegGuardianSettings";
@@ -35,7 +36,7 @@ const useHotReserveBucketActions = (bitcoinWallet: BitcoinWallet | null) => {
     const selectedGuardian = twoWayPegGuardianSettings[0];
 
     const coldReserveBucket = coldReserveBuckets.find(
-      (bucket) => bucket.guardianSetting.toBase58() === selectedGuardian.address
+      (bucket) => bucket.reserveSetting.toBase58() === selectedGuardian.address
     );
 
     if (!coldReserveBucket)
@@ -61,18 +62,21 @@ const useHotReserveBucketActions = (bitcoinWallet: BitcoinWallet | null) => {
     if (!hotReserveBitcoinXOnlyPublicKey)
       throw new Error("Can't get hot reserve x-only publickey");
 
-    const twoWayPegConfiguration = await zplClient.getTwoWayPegConfiguration();
+    const twoWayPegConfiguration =
+      await zplClient.twoWayPeg.accounts.getConfiguration();
 
-    const ix = zplClient.constructCreateHotReserveBucketIx(
-      solanaPubkey,
-      hotReserveBitcoinXOnlyPublicKey,
-      userBitcoinXOnlyPublicKey,
+    const ix = zplClient.twoWayPeg.instructions.buildCreateHotReserveBucketIx(
       UNLOCK_BLOCK_HEIGHT,
+      HOT_RESERVE_BUCKET_VALIDITY_PERIOD,
+      solanaPubkey,
+      userBitcoinXOnlyPublicKey,
+      hotReserveBitcoinXOnlyPublicKey,
       new PublicKey(selectedGuardian.address),
       new PublicKey(selectedGuardian.guardian_certificate),
       coldReserveBucket.publicKey,
       twoWayPegConfiguration.layerFeeCollector
     );
+
     const sig = await zplClient.signAndSendTransactionWithInstructions([ix]);
 
     notifyTx(true, {
@@ -88,7 +92,7 @@ const useHotReserveBucketActions = (bitcoinWallet: BitcoinWallet | null) => {
         `/api/v1/cobo-address`,
         {
           type: "hotReserveBucket",
-          hotReserveBucketPda: zplClient
+          hotReserveBucketPda: zplClient.twoWayPeg.pdas
             .deriveHotReserveBucketAddress(hotReserveBitcoinXOnlyPublicKey)
             .toBase58(),
           coldReserveBucketPda: coldReserveBucket.publicKey.toBase58(),
@@ -111,7 +115,7 @@ const useHotReserveBucketActions = (bitcoinWallet: BitcoinWallet | null) => {
   ]);
 
   const reactivateHotReserveBucket = useCallback(async () => {
-    if (!zplClient) return;
+    if (!zplClient || !solanaPubkey) return;
 
     const userBitcoinXOnlyPublicKey =
       getInternalXOnlyPubkeyFromUserWallet(bitcoinWallet);
@@ -119,7 +123,7 @@ const useHotReserveBucketActions = (bitcoinWallet: BitcoinWallet | null) => {
     if (!userBitcoinXOnlyPublicKey) return;
 
     const hotReserveBuckets =
-      await zplClient.getHotReserveBucketsByBitcoinXOnlyPubkey(
+      await zplClient.twoWayPeg.accounts.getHotReserveBucketsByBitcoinXOnlyPubkey(
         userBitcoinXOnlyPublicKey
       );
 
@@ -127,16 +131,20 @@ const useHotReserveBucketActions = (bitcoinWallet: BitcoinWallet | null) => {
 
     const targetHotReserveBucket = hotReserveBuckets.find(
       (bucket) =>
-        bucket.guardianSetting.toBase58() === networkConfig.guardianSetting
+        bucket.reserveSetting.toBase58() === networkConfig.guardianSetting
     );
     if (!targetHotReserveBucket) throw new Error("Wrong guardian setting");
 
-    const twoWayPegConfiguration = await zplClient.getTwoWayPegConfiguration();
+    const twoWayPegConfiguration =
+      await zplClient.twoWayPeg.accounts.getConfiguration();
 
-    const ix = zplClient.constructReactivateHotReserveBucketIx(
-      targetHotReserveBucket.publicKey,
-      twoWayPegConfiguration.layerFeeCollector
-    );
+    const ix =
+      zplClient.twoWayPeg.instructions.buildReactivateHotReserveBucketIx(
+        HOT_RESERVE_BUCKET_VALIDITY_PERIOD,
+        solanaPubkey,
+        targetHotReserveBucket.publicKey,
+        twoWayPegConfiguration.layerFeeCollector
+      );
 
     const sig = await zplClient.signAndSendTransactionWithInstructions([ix]);
     notifyTx(true, {
@@ -144,7 +152,13 @@ const useHotReserveBucketActions = (bitcoinWallet: BitcoinWallet | null) => {
       txId: sig,
       solanaNetwork: solanaNetwork,
     });
-  }, [zplClient, bitcoinWallet, solanaNetwork, networkConfig.guardianSetting]);
+  }, [
+    zplClient,
+    solanaPubkey,
+    bitcoinWallet,
+    solanaNetwork,
+    networkConfig.guardianSetting,
+  ]);
 
   const checkHotReserveBucketStatus = useCallback(async () => {
     if (!zplClient || !solanaPubkey) return;
@@ -155,7 +169,7 @@ const useHotReserveBucketActions = (bitcoinWallet: BitcoinWallet | null) => {
     if (!userBitcoinXOnlyPublicKey) return;
 
     const hotReserveBuckets =
-      await zplClient.getHotReserveBucketsByBitcoinXOnlyPubkey(
+      await zplClient.twoWayPeg.accounts.getHotReserveBucketsByBitcoinXOnlyPubkey(
         userBitcoinXOnlyPublicKey
       );
 
@@ -165,7 +179,7 @@ const useHotReserveBucketActions = (bitcoinWallet: BitcoinWallet | null) => {
     // NOTE: Regtest and Testnet use the same ZPL with different guardian settings, so we need to set guardian setting in env, and our mechanism only create 1 hot reserve bucket for each bitcoin public key in mainnet.
     const targetHotReserveBucket = hotReserveBuckets.find(
       (bucket) =>
-        bucket.guardianSetting.toBase58() === networkConfig.guardianSetting
+        bucket.reserveSetting.toBase58() === networkConfig.guardianSetting
     );
     if (!targetHotReserveBucket) throw new Error("Wrong guardian setting");
 

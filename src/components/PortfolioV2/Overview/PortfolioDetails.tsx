@@ -1,9 +1,9 @@
 import BigNumber from "bignumber.js";
 import { useRef, useState } from "react";
+import { Position } from "zpl-sdk-js/liquidity-management/types";
 
 import Button from "@/components/Button/Button";
 import Icon from "@/components/Icons";
-import { Position } from "@/types/zplClient";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatValue } from "@/utils/format";
 

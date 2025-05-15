@@ -1,6 +1,7 @@
 import { PublicKey } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import { useState } from "react";
+import { Position } from "zpl-sdk-js/liquidity-management/types";
 
 import { xOnlyPubkeyHexToP2tr } from "@/bitcoin";
 import Icon from "@/components/Icons";
@@ -12,7 +13,6 @@ import useTwoWayPegConfiguration from "@/hooks/zpl/useTwoWayPegConfiguration";
 import usePersistentStore from "@/stores/persistentStore";
 import useStore from "@/stores/store";
 import { CryptoInputOption } from "@/types/misc";
-import { Position } from "@/types/zplClient";
 import {
   DEFAULT_SERVICE_FEE_BASIS_POINT_PERCENT,
   BTC_DECIMALS,

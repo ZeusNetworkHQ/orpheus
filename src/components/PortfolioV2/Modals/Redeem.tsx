@@ -10,6 +10,7 @@ import { PublicKey, TransactionInstruction } from "@solana/web3.js";
 import BigNumber from "bignumber.js";
 import { BN } from "bn.js";
 import { useState } from "react";
+import { Position } from "zpl-sdk-js/liquidity-management/types";
 
 import Button from "@/components/Button/Button";
 import Icon from "@/components/Icons";
@@ -22,7 +23,6 @@ import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
 import usePositions from "@/hooks/zpl/usePositions";
 import usePersistentStore from "@/stores/persistentStore";
 import { Chain } from "@/types/network";
-import { Position } from "@/types/zplClient";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatValue } from "@/utils/format";
 import { notifyError, notifyTx } from "@/utils/notification";
@@ -149,16 +149,19 @@ export default function RedeemModal({
           throw new Error("Two way peg guardian setting not found");
 
         const receiverAta = getAssociatedTokenAddressSync(
-          new PublicKey(config.assetMint),
+          zplClient.assetMint,
           solanaPubkey,
           true
         );
 
-        const retrieveIx = zplClient.constructRetrieveIx(
-          amountToRedeem,
-          new PublicKey(twoWayPegGuardianSetting),
-          receiverAta
-        );
+        const retrieveIx =
+          zplClient.liquidityManagement.instructions.buildRetrieveIx(
+            amountToRedeem,
+            solanaPubkey,
+            zplClient.assetMint,
+            new PublicKey(twoWayPegGuardianSetting),
+            receiverAta
+          );
         ixs.push(retrieveIx);
 
         // TODO: You can customize the retrieve address here
