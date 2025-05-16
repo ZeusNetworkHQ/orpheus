@@ -6,7 +6,7 @@ function useColdReserveBuckets() {
   const client = useZplClient();
   const { data, mutate, isLoading } = useSWR(
     client ? [client, "getColdReserveBuckets"] : null,
-    ([client]) => client.getColdReserveBuckets(),
+    ([client]) => client.twoWayPeg.accounts.getColdReserveBuckets(),
     {
       dedupingInterval: 3600000,
     }

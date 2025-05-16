@@ -1,5 +1,6 @@
 import { captureException } from "@sentry/nextjs";
 import { PublicKey } from "@solana/web3.js";
+import { buildDepositToHotReserveTx } from "@zeus-network/zpl-sdk/bitcoin";
 import { AxiosError } from "axios";
 import BigNumber from "bignumber.js";
 import * as bitcoin from "bitcoinjs-lib";
@@ -10,7 +11,6 @@ import classNames from "classnames";
 import { useState } from "react";
 
 import { btcToSatoshi, convertBitcoinNetwork } from "@/bitcoin";
-import { constructDepositToHotReserveTx } from "@/bitcoin";
 import { sendTransaction } from "@/bitcoin/rpcClient";
 import { getInternalXOnlyPubkeyFromUserWallet } from "@/bitcoin/wallet";
 import Button from "@/components/Button/Button";
@@ -59,7 +59,6 @@ export interface ConfirmDepositModalProps {
     amount: string;
     isLocked: boolean;
   };
-  isDepositAll: boolean;
   signPsbt: (psbt: Psbt, tweaked?: boolean) => Promise<string>;
   updateTransactions: () => Promise<void>;
   resetProvideAmountValue: () => void;
@@ -75,7 +74,6 @@ export default function ConfirmDepositModal({
   minerFee,
   assetFrom,
   assetTo,
-  isDepositAll,
   signPsbt,
   updateTransactions,
   resetProvideAmountValue,
@@ -110,7 +108,7 @@ export default function ConfirmDepositModal({
 
     // although we have a array of hotReserveBuckets, but the user could only bind one bitcoin address with the protocol, so we only need to get the first one
     const hotReserveBuckets =
-      await zplClient.getHotReserveBucketsByBitcoinXOnlyPubkey(
+      await zplClient.twoWayPeg.accounts.getHotReserveBucketsByBitcoinXOnlyPubkey(
         userXOnlyPublicKey
       );
 
@@ -122,7 +120,7 @@ export default function ConfirmDepositModal({
     // NOTE: Regtest and Testnet use the same ZPL with different guardian settings, so we need to set guardian setting in env
     const targetHotReserveBucket = hotReserveBuckets.find(
       (bucket) =>
-        bucket.guardianSetting.toBase58() === networkConfig.guardianSetting
+        bucket.reserveSetting.toBase58() === networkConfig.guardianSetting
     );
     if (!targetHotReserveBucket) throw new Error("Wrong guardian setting");
 
@@ -139,14 +137,13 @@ export default function ConfirmDepositModal({
     let depositPsbt;
     let usedBitcoinUTXOs;
     try {
-      const { psbt, usedUTXOs } = constructDepositToHotReserveTx(
+      const { psbt, usedUTXOs } = buildDepositToHotReserveTx(
         bitcoinUTXOs,
         targetHotReserveAddress,
         btcToSatoshi(depositAmount),
         userXOnlyPublicKey,
         feeRate,
-        convertBitcoinNetwork(bitcoinNetwork),
-        isDepositAll
+        convertBitcoinNetwork(bitcoinNetwork)
       );
       depositPsbt = psbt;
       usedBitcoinUTXOs = usedUTXOs;
@@ -172,7 +169,7 @@ export default function ConfirmDepositModal({
 
       const transaction: Interaction = {
         status: InteractionStatus.BitcoinDepositToHotReserve,
-        interaction_id: zplClient
+        interaction_id: zplClient.twoWayPeg.pdas
           .deriveInteraction(Buffer.from(txId, "hex"), new BN(0))
           .toBase58(),
         interaction_type: InteractionType.Deposit,

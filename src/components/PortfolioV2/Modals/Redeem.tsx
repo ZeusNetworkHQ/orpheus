@@ -7,6 +7,7 @@ import {
 import { WalletSignTransactionError } from "@solana/wallet-adapter-base";
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { PublicKey, TransactionInstruction } from "@solana/web3.js";
+import { Position } from "@zeus-network/zpl-sdk/liquidity-management/types";
 import BigNumber from "bignumber.js";
 import { BN } from "bn.js";
 import { useState } from "react";
@@ -22,7 +23,6 @@ import { useNetworkConfig } from "@/hooks/misc/useNetworkConfig";
 import usePositions from "@/hooks/zpl/usePositions";
 import usePersistentStore from "@/stores/persistentStore";
 import { Chain } from "@/types/network";
-import { Position } from "@/types/zplClient";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatValue } from "@/utils/format";
 import { notifyError, notifyTx } from "@/utils/notification";
@@ -134,6 +134,12 @@ export default function RedeemModal({
           .toString()
       );
 
+      const receiverAta = getAssociatedTokenAddressSync(
+        zplClient.assetMint,
+        solanaPubkey,
+        true
+      );
+
       const ixs: TransactionInstruction[] = [];
 
       let remainingAmount = redeemAmountBN.clone();
@@ -148,54 +154,51 @@ export default function RedeemModal({
         if (!twoWayPegGuardianSetting)
           throw new Error("Two way peg guardian setting not found");
 
-        const receiverAta = getAssociatedTokenAddressSync(
-          new PublicKey(config.assetMint),
-          solanaPubkey,
-          true
-        );
-
-        const retrieveIx = zplClient.constructRetrieveIx(
-          amountToRedeem,
-          new PublicKey(twoWayPegGuardianSetting),
-          receiverAta
-        );
-        ixs.push(retrieveIx);
-
-        // TODO: You can customize the retrieve address here
-        if (process.env.NEXT_PUBLIC_DEVNET_REDEEM_ADDRESS) {
-          const targetAddress = new PublicKey(
-            process.env.NEXT_PUBLIC_DEVNET_REDEEM_ADDRESS
-          );
-          const toATA = getAssociatedTokenAddressSync(
-            new PublicKey(config.assetMint),
-            targetAddress,
-            true
-          );
-          // check if the target address has an associated token account
-          const info = await connection.getAccountInfo(toATA);
-          if (!info) {
-            // if not, create one
-            const createIx = createAssociatedTokenAccountInstruction(
-              solanaPubkey,
-              toATA,
-              targetAddress,
-              new PublicKey(config.assetMint)
-            );
-            ixs.push(createIx);
-          }
-          // add a transfer instruction to transfer the tokens to the receive_address
-          const transferIx = createTransferInstruction(
-            receiverAta,
-            toATA,
+        const retrieveIx =
+          zplClient.liquidityManagement.instructions.buildRetrieveIx(
+            amountToRedeem,
             solanaPubkey,
-            BigInt(amountToRedeem.toString())
+            zplClient.assetMint,
+            new PublicKey(twoWayPegGuardianSetting),
+            receiverAta
           );
-          ixs.push(transferIx);
-        }
+        ixs.push(retrieveIx);
 
         remainingAmount = remainingAmount.sub(amountToRedeem);
 
         if (remainingAmount.eq(new BN(0))) break;
+      }
+
+      // TODO: You can customize the retrieve address here
+      if (process.env.NEXT_PUBLIC_DEVNET_REDEEM_ADDRESS) {
+        const targetAddress = new PublicKey(
+          process.env.NEXT_PUBLIC_DEVNET_REDEEM_ADDRESS
+        );
+        const toATA = getAssociatedTokenAddressSync(
+          new PublicKey(config.assetMint),
+          targetAddress,
+          true
+        );
+        // check if the target address has an associated token account
+        const info = await connection.getAccountInfo(toATA);
+        if (!info) {
+          // if not, create one
+          const createIx = createAssociatedTokenAccountInstruction(
+            solanaPubkey,
+            toATA,
+            targetAddress,
+            new PublicKey(config.assetMint)
+          );
+          ixs.push(createIx);
+        }
+        // add a transfer instruction to transfer the tokens to the receive_address
+        const transferIx = createTransferInstruction(
+          receiverAta,
+          toATA,
+          solanaPubkey,
+          BigInt(redeemAmountBN.toString())
+        );
+        ixs.push(transferIx);
       }
 
       const sig = await zplClient.signAndSendTransactionWithInstructions(ixs);

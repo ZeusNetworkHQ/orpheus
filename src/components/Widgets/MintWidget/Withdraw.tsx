@@ -1,4 +1,5 @@
 import { PublicKey } from "@solana/web3.js";
+import { Position } from "@zeus-network/zpl-sdk/liquidity-management/types";
 import BigNumber from "bignumber.js";
 import { useState } from "react";
 
@@ -12,7 +13,6 @@ import useTwoWayPegConfiguration from "@/hooks/zpl/useTwoWayPegConfiguration";
 import usePersistentStore from "@/stores/persistentStore";
 import useStore from "@/stores/store";
 import { CryptoInputOption } from "@/types/misc";
-import { Position } from "@/types/zplClient";
 import {
   DEFAULT_SERVICE_FEE_BASIS_POINT_PERCENT,
   BTC_DECIMALS,

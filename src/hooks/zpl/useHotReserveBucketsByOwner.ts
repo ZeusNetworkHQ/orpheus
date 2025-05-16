@@ -10,7 +10,9 @@ function useHotReserveBucketsByOwner(solanaPubkey: PublicKey | null) {
       ? [client, solanaPubkey, "getHotReserveBucketsByOwner"]
       : null,
     ([client, solanaPubkey]) =>
-      client.getHotReserveBucketsBySolanaPubkey(solanaPubkey),
+      client.twoWayPeg.accounts.getHotReserveBucketsBySolanaPubkey(
+        solanaPubkey
+      ),
     {
       refreshInterval: 60000,
       dedupingInterval: 60000,

@@ -481,9 +481,9 @@ export default function Home() {
 
       // although we have a array of hotReserveBuckets, but the user could only bind one bitcoin address with the protocol, so we only need to get the first one
       const hotReserveBuckets =
-        await zplClient.getHotReserveBucketsByBitcoinXOnlyPubkey(
-          userXOnlyPublicKey
-        );
+        await zplClient.twoWayPeg.accounts.getHotReserveBucketsByBitcoinXOnlyPubkey(
+        userXOnlyPublicKey
+      );
 
       if (!hotReserveBuckets || hotReserveBuckets.length === 0) {
         console.log("No hot reserve address found");
@@ -670,6 +670,12 @@ export default function Home() {
             .toString()
         );
 
+        const receiverAta = getAssociatedTokenAddressSync(
+          zplClient.assetMint,
+          solanaPubkey,
+          true
+        );
+
         const ixs: TransactionInstruction[] = [];
 
         let remainingAmount = redeemAmountBN.clone();
@@ -684,46 +690,51 @@ export default function Home() {
           if (!twoWayPegGuardianSetting)
             throw new Error("Two way peg guardian setting not found");
 
-          const retrieveIx = zplClient.constructRetrieveIx(
-            amountToRedeem,
-            new PublicKey(twoWayPegGuardianSetting)
-          );
-
-          ixs.push(retrieveIx);
-
-          const escrow_address = process.env.NEXT_PUBLIC_ESCROW_ADDRESS; // set your escrow address here or other method you like
-          if(escrow_address) {
-            const targetAddress = new PublicKey(escrow_address);
-            const toATA = getAssociatedTokenAddressSync(
-              new PublicKey(config.assetMint),
-              targetAddress,
-              true // allow off curve to approve PDA
-            );
-            // check if the associated token account of target address initialized
-            const info = await connection.getAccountInfo(toATA);
-            if (!info) {
-              // if not, create one
-              const createIx = createAssociatedTokenAccountInstruction(
-                solanaPubkey,
-                toATA,
-                targetAddress,
-                new PublicKey(config.assetMint)
-              );
-              ixs.push(createIx);
-            }
-            // add a transfer instruction to transfer the tokens to the receive_address
-            const transferIx = createTransferInstruction(
-              receiverAta,
-              toATA,
+          const retrieveIx =
+            zplClient.liquidityManagement.instructions.buildRetrieveIx(
+              amountToRedeem,
               solanaPubkey,
-              BigInt(amountToRedeem.toString())
+              zplClient.assetMint,
+              new PublicKey(twoWayPegGuardianSetting),
+              receiverAta
             );
-            ixs.push(transferIx);
-          }
+          ixs.push(retrieveIx);
 
           remainingAmount = remainingAmount.sub(amountToRedeem);
 
           if (remainingAmount.eq(new BN(0))) break;
+        }
+
+        // TODO: You can customize the retrieve address here
+        if (process.env.NEXT_PUBLIC_DEVNET_REDEEM_ADDRESS) {
+          const targetAddress = new PublicKey(
+            process.env.NEXT_PUBLIC_DEVNET_REDEEM_ADDRESS
+          );
+          const toATA = getAssociatedTokenAddressSync(
+            new PublicKey(config.assetMint),
+            targetAddress,
+            true
+          );
+          // check if the target address has an associated token account
+          const info = await connection.getAccountInfo(toATA);
+          if (!info) {
+            // if not, create one
+            const createIx = createAssociatedTokenAccountInstruction(
+              solanaPubkey,
+              toATA,
+              targetAddress,
+              new PublicKey(config.assetMint)
+            );
+            ixs.push(createIx);
+          }
+          // add a transfer instruction to transfer the tokens to the receive_address
+          const transferIx = createTransferInstruction(
+            receiverAta,
+            toATA,
+            solanaPubkey,
+            BigInt(redeemAmountBN.toString())
+          );
+          ixs.push(transferIx);
         }
 
         const sig = await zplClient.signAndSendTransactionWithInstructions(ixs);
@@ -824,13 +835,13 @@ export default function Home() {
       );
 
       const twoWayPegConfiguration =
-        await zplClient.getTwoWayPegConfiguration();
+        await zplClient.twoWayPeg.accounts.getConfiguration();
 
       const ixs: TransactionInstruction[] = [];
 
       // NOTE: asset is in vault, so use the biggest position guardian first
       if (assetFrom.isLocked) {
-        if (!positions) {
+       if (!positions) {
           return;
         }
 
@@ -849,22 +860,36 @@ export default function Home() {
 
           const twoWayPegGuardianSetting = twoWayPegGuardianSettings.find(
             (setting) =>
-              zplClient
-                .deriveLiquidityManagementGuardianSettingAddress(
-                  new PublicKey(setting.address)
-                )
-                .toBase58() === position.guardianSetting.toBase58()
+              zplClient.liquidityManagement.pdas
+                .deriveVaultSettingAddress(new PublicKey(setting.address))
+                .toBase58() === position.vaultSetting.toBase58()
           );
 
           if (!twoWayPegGuardianSetting) return;
 
-          const withdrawalRequestIx = zplClient.constructAddWithdrawalRequestIx(
-            solanaPubkey,
-            amountToWithdraw,
-            convertP2trToTweakedXOnlyPubkey(selectedWallet),
-            new PublicKey(twoWayPegGuardianSetting.address),
-            twoWayPegConfiguration.layerFeeCollector
-          );
+          const vaultSettingPda =
+            zplClient.liquidityManagement.pdas.deriveVaultSettingAddress(
+              new PublicKey(twoWayPegGuardianSetting.address)
+            );
+
+          const currentTimestamp = new BN(Date.now() / 1000);
+
+          const withdrawalRequestIx =
+            zplClient.twoWayPeg.instructions.buildAddWithdrawalRequestIx(
+              amountToWithdraw,
+              currentTimestamp,
+              convertP2trToTweakedXOnlyPubkey(selectedWallet),
+              solanaPubkey,
+              twoWayPegConfiguration.layerFeeCollector,
+              new PublicKey(twoWayPegGuardianSetting.address),
+              zplClient.liquidityManagementProgramId,
+              zplClient.liquidityManagement.pdas.deriveConfigurationAddress(),
+              vaultSettingPda,
+              zplClient.liquidityManagement.pdas.derivePositionAddress(
+                vaultSettingPda,
+                solanaPubkey
+              )
+            );
 
           ixs.push(withdrawalRequestIx);
           remainingAmount = remainingAmount.sub(amountToWithdraw);
@@ -873,14 +898,14 @@ export default function Home() {
         }
         // NOTE: asset is in wallet, so need to check all guardians store quota and store to the biggest quota guardian first
       } else {
-        const twoWayPegGuardiansWithQuota = await Promise.all(
+         const twoWayPegGuardiansWithQuota = await Promise.all(
           twoWayPegGuardianSettings.map(async (twoWayPegGuardianSetting) => {
             const totalSplTokenMinted = new BN(
               twoWayPegGuardianSetting.total_amount_pegged
             );
 
             const splTokenVaultAuthority =
-              zplClient.deriveSplTokenVaultAuthorityAddress(
+              zplClient.liquidityManagement.pdas.deriveSplTokenVaultAuthorityAddress(
                 new PublicKey(twoWayPegGuardianSetting.address)
               );
 
@@ -905,7 +930,7 @@ export default function Home() {
               address: twoWayPegGuardianSetting.address,
               remainingStoreQuota,
               liquidityManagementGuardianSetting:
-                zplClient.deriveLiquidityManagementGuardianSettingAddress(
+                zplClient.liquidityManagement.pdas.deriveVaultSettingAddress(
                   new PublicKey(twoWayPegGuardianSetting.address)
                 ),
             };
@@ -924,18 +949,37 @@ export default function Home() {
             remainingAmount
           );
 
-          const storeIx = zplClient.constructStoreIx(
-            withdrawAmountBN,
-            new PublicKey(twoWayPegGuardian.address)
-          );
+          const storeIx =
+            zplClient.liquidityManagement.instructions.buildStoreIx(
+              withdrawAmountBN,
+              solanaPubkey,
+              zplClient.assetMint,
+              new PublicKey(twoWayPegGuardian.address)
+            );
 
-          const withdrawalRequestIx = zplClient.constructAddWithdrawalRequestIx(
-            solanaPubkey,
-            amountToWithdraw,
-            convertP2trToTweakedXOnlyPubkey(selectedWallet),
-            new PublicKey(twoWayPegGuardian.address),
-            twoWayPegConfiguration.layerFeeCollector
-          );
+          const vaultSettingPda =
+            zplClient.liquidityManagement.pdas.deriveVaultSettingAddress(
+              new PublicKey(twoWayPegGuardian.address)
+            );
+
+          const currentTimestamp = new BN(Date.now() / 1000);
+
+          const withdrawalRequestIx =
+            zplClient.twoWayPeg.instructions.buildAddWithdrawalRequestIx(
+              amountToWithdraw,
+              currentTimestamp,
+              convertP2trToTweakedXOnlyPubkey(selectedWallet),
+              solanaPubkey,
+              twoWayPegConfiguration.layerFeeCollector,
+              new PublicKey(twoWayPegGuardian.address),
+              zplClient.liquidityManagementProgramId,
+              zplClient.liquidityManagement.pdas.deriveConfigurationAddress(),
+              vaultSettingPda,
+              zplClient.liquidityManagement.pdas.derivePositionAddress(
+                vaultSettingPda,
+                solanaPubkey
+              )
+            );
 
           ixs.push(storeIx);
           ixs.push(withdrawalRequestIx);

@@ -12,15 +12,16 @@ function usePositions(solanaPubkey: PublicKey | null) {
       ? [client, solanaPubkey, "getPositionsByWallet"]
       : null,
     async ([client, solanaPubkey]) => {
-      const positions = await client?.getPositionsByWallet(solanaPubkey);
+      const positions =
+        await client?.liquidityManagement.accounts.getPositionsByWallet(
+          solanaPubkey
+        );
 
       const targetPositions = positions.filter(
         (position) =>
-          position.guardianSetting.toBase58() ===
-          client
-            .deriveLiquidityManagementGuardianSettingAddress(
-              new PublicKey(config.guardianSetting)
-            )
+          position.vaultSetting.toBase58() ===
+          client.liquidityManagement.pdas
+            .deriveVaultSettingAddress(new PublicKey(config.guardianSetting))
             .toBase58()
       );
 

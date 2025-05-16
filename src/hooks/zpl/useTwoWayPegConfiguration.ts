@@ -6,7 +6,7 @@ function useTwoWayPegConfiguration() {
   const client = useZplClient();
   const { data, mutate } = useSWR(
     client ? [client, "getTwoWayPegConfiguration"] : null,
-    () => client?.getTwoWayPegConfiguration(),
+    () => client?.twoWayPeg.accounts.getConfiguration(),
     {
       dedupingInterval: 600000,
     }
