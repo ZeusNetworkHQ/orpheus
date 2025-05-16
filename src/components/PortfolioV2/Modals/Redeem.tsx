@@ -134,6 +134,12 @@ export default function RedeemModal({
           .toString()
       );
 
+      const receiverAta = getAssociatedTokenAddressSync(
+        zplClient.assetMint,
+        solanaPubkey,
+        true
+      );
+
       const ixs: TransactionInstruction[] = [];
 
       let remainingAmount = redeemAmountBN.clone();
@@ -148,12 +154,6 @@ export default function RedeemModal({
         if (!twoWayPegGuardianSetting)
           throw new Error("Two way peg guardian setting not found");
 
-        const receiverAta = getAssociatedTokenAddressSync(
-          zplClient.assetMint,
-          solanaPubkey,
-          true
-        );
-
         const retrieveIx =
           zplClient.liquidityManagement.instructions.buildRetrieveIx(
             amountToRedeem,
@@ -164,41 +164,41 @@ export default function RedeemModal({
           );
         ixs.push(retrieveIx);
 
-        // TODO: You can customize the retrieve address here
-        if (process.env.NEXT_PUBLIC_DEVNET_REDEEM_ADDRESS) {
-          const targetAddress = new PublicKey(
-            process.env.NEXT_PUBLIC_DEVNET_REDEEM_ADDRESS
-          );
-          const toATA = getAssociatedTokenAddressSync(
-            new PublicKey(config.assetMint),
-            targetAddress,
-            true
-          );
-          // check if the target address has an associated token account
-          const info = await connection.getAccountInfo(toATA);
-          if (!info) {
-            // if not, create one
-            const createIx = createAssociatedTokenAccountInstruction(
-              solanaPubkey,
-              toATA,
-              targetAddress,
-              new PublicKey(config.assetMint)
-            );
-            ixs.push(createIx);
-          }
-          // add a transfer instruction to transfer the tokens to the receive_address
-          const transferIx = createTransferInstruction(
-            receiverAta,
-            toATA,
-            solanaPubkey,
-            BigInt(amountToRedeem.toString())
-          );
-          ixs.push(transferIx);
-        }
-
         remainingAmount = remainingAmount.sub(amountToRedeem);
 
         if (remainingAmount.eq(new BN(0))) break;
+      }
+
+      // TODO: You can customize the retrieve address here
+      if (process.env.NEXT_PUBLIC_DEVNET_REDEEM_ADDRESS) {
+        const targetAddress = new PublicKey(
+          process.env.NEXT_PUBLIC_DEVNET_REDEEM_ADDRESS
+        );
+        const toATA = getAssociatedTokenAddressSync(
+          new PublicKey(config.assetMint),
+          targetAddress,
+          true
+        );
+        // check if the target address has an associated token account
+        const info = await connection.getAccountInfo(toATA);
+        if (!info) {
+          // if not, create one
+          const createIx = createAssociatedTokenAccountInstruction(
+            solanaPubkey,
+            toATA,
+            targetAddress,
+            new PublicKey(config.assetMint)
+          );
+          ixs.push(createIx);
+        }
+        // add a transfer instruction to transfer the tokens to the receive_address
+        const transferIx = createTransferInstruction(
+          receiverAta,
+          toATA,
+          solanaPubkey,
+          BigInt(redeemAmountBN.toString())
+        );
+        ixs.push(transferIx);
       }
 
       const sig = await zplClient.signAndSendTransactionWithInstructions(ixs);
