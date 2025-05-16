@@ -13,7 +13,6 @@ export default function MobileMenuButton() {
     <div className="flex items-center space-x-2">
       <div
         onClick={() => {
-          console.log(currentModal);
           if (currentModal === MODAL_NAMES.MOBILE_MENU) {
             closeModal();
           } else {

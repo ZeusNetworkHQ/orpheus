@@ -1,9 +1,9 @@
+import { Position } from "@zeus-network/zpl-sdk/liquidity-management/types";
 import BigNumber from "bignumber.js";
 import { useRef, useState } from "react";
 
 import Button from "@/components/Button/Button";
 import Icon from "@/components/Icons";
-import { Position } from "@/types/zplClient";
 import { BTC_DECIMALS } from "@/utils/constant";
 import { formatValue } from "@/utils/format";
 
