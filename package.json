@@ -44,6 +44,7 @@
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/wallet-adapter-wallets": "^0.19.32",
     "@solana/web3.js": "^1.98.2",
+    "@zeus-network/zpl-sdk": "^0.11.1",
     "axios": "^1.7.2",
     "bech32": "^2.0.0",
     "bignumber.js": "^9.1.2",
@@ -78,7 +79,6 @@
     "tailwindcss-animate": "^1.0.7",
     "usehooks-ts": "^3.1.0",
     "zod": "^3.23.8",
-    "zpl-sdk-js": "file:../zpl-sdk-js",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

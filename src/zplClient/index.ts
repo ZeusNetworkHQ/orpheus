@@ -7,7 +7,10 @@ import {
   TransactionMessage,
   VersionedTransaction,
 } from "@solana/web3.js";
-import { LiquidityManagementClient, TwoWayPegClient } from "zpl-sdk-js";
+import {
+  LiquidityManagementClient,
+  TwoWayPegClient,
+} from "@zeus-network/zpl-sdk";
 
 export class ZplClient {
   public twoWayPegProgramId: PublicKey;

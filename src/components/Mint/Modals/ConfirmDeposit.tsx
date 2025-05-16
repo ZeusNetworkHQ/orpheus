@@ -1,5 +1,6 @@
 import { captureException } from "@sentry/nextjs";
 import { PublicKey } from "@solana/web3.js";
+import { buildDepositToHotReserveTx } from "@zeus-network/zpl-sdk/bitcoin";
 import { AxiosError } from "axios";
 import BigNumber from "bignumber.js";
 import * as bitcoin from "bitcoinjs-lib";
@@ -8,7 +9,6 @@ import { toXOnly } from "bitcoinjs-lib/src/psbt/bip371";
 import { BN } from "bn.js";
 import classNames from "classnames";
 import { useState } from "react";
-import { buildDepositToHotReserveTx } from "zpl-sdk-js/bitcoin";
 
 import { btcToSatoshi, convertBitcoinNetwork } from "@/bitcoin";
 import { sendTransaction } from "@/bitcoin/rpcClient";

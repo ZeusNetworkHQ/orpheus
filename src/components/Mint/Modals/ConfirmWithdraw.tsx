@@ -3,12 +3,12 @@ import { getAccount, getAssociatedTokenAddressSync } from "@solana/spl-token";
 import { WalletSignTransactionError } from "@solana/wallet-adapter-base";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { PublicKey, TransactionInstruction } from "@solana/web3.js";
+import { Position } from "@zeus-network/zpl-sdk/liquidity-management/types";
 import BigNumber from "bignumber.js";
 import { BN } from "bn.js";
 import classNames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import { Position } from "zpl-sdk-js/liquidity-management/types";
 
 import { convertP2trToTweakedXOnlyPubkey } from "@/bitcoin";
 import Button from "@/components/Button/Button";

@@ -1,7 +1,7 @@
 import { PublicKey } from "@solana/web3.js";
+import { estimateMaxSpendableAmount } from "@zeus-network/zpl-sdk/bitcoin";
 import { Psbt } from "bitcoinjs-lib";
 import { useState } from "react";
-import { estimateMaxSpendableAmount } from "zpl-sdk-js/bitcoin";
 
 import { satoshiToBtc } from "@/bitcoin";
 import Icon from "@/components/Icons";

@@ -1,7 +1,7 @@
 import { PublicKey } from "@solana/web3.js";
+import { Position } from "@zeus-network/zpl-sdk/liquidity-management/types";
 import BigNumber from "bignumber.js";
 import { useState } from "react";
-import { Position } from "zpl-sdk-js/liquidity-management/types";
 
 import { xOnlyPubkeyHexToP2tr } from "@/bitcoin";
 import Icon from "@/components/Icons";
